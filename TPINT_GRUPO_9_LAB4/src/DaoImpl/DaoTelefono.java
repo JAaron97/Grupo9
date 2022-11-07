@@ -1,28 +1,76 @@
 package DaoImpl;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+
+import com.sun.org.apache.bcel.internal.generic.GETFIELD;
 
 import Dao.IDaoTelefono;
 import Entidad.Telefono;
 
 public class DaoTelefono implements IDaoTelefono{
 	
-	private static final String insert = "";
-	private static final String delete = "";
+	private static final String insert = "INSERT INTO telefonos (ID, Telefono_1,Telefono_2,Telefono_3,telfono4) VALUES ('?','?','?','?','?')";
+	private static final String delete = "DELETE FROM telfonos WHERE ID = ?";
 	private static final String readTelefonos = "SELECT * FROM telefonos WHERE ID = ?";
 
 	@Override
 	public boolean insert(Telefono telefono) {
 		// TODO Auto-generated method stub
-		return false;
+		PreparedStatement statement;
+		Connection conexion = Conexion.getConexion().getSQLConexion();
+		boolean isInsertExitoso = false;
+		try
+		{
+			statement = conexion.prepareStatement(insert);
+			statement.setInt(1, telefono.getID_Telefono());
+			statement.setString(2, telefono.getTelefono_1());
+			statement.setString(3, telefono.getTelefono_2());
+			statement.setString(4, telefono.getTelefono_3());
+			statement.setString(5, telefono.getTelefono_4());
+		
+			if(statement.executeUpdate() > 0)
+			{
+				conexion.commit();
+				isInsertExitoso = true;
+			}
+		}
+		catch (SQLException e) 
+		{
+			e.printStackTrace();
+			try {
+				conexion.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+		}
+			
+		return isInsertExitoso;
+		
 	}
 
 	@Override
 	public boolean delete(Telefono telefono_a_eliminar) {
-		// TODO Auto-generated method stub
-		return false;
+		PreparedStatement statement;
+		Connection conexion = Conexion.getConexion().getSQLConexion();
+		boolean isdeleteExitoso = false;
+		try 
+		{
+			statement = conexion.prepareStatement(delete);
+			statement.setInt(1, telefono_a_eliminar.getID_Telefono());
+			if(statement.executeUpdate() > 0)
+			{
+				conexion.commit();
+				isdeleteExitoso = true;
+			}
+		} 
+		catch (SQLException e) 
+		{
+			e.printStackTrace();
+		}
+		return isdeleteExitoso;
 	}
 
 	@Override
