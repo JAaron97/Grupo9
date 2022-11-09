@@ -27,6 +27,12 @@ public class DaoUsuario implements IDaoUsuario{
 
 	@Override
 	public boolean insert(Usuario usuario, Nacionalidad nacionalidad, Telefono telefono, Localidad localidad) {
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+		} catch(ClassNotFoundException e) {
+			e.printStackTrace(); 
+		}
+		
 		PreparedStatement statement;
 		Connection conexion = Conexion.getConexion().getSQLConexion();
 		boolean isInsertExitoso = false;
@@ -36,16 +42,16 @@ public class DaoUsuario implements IDaoUsuario{
 			statement.setString(1, usuario.getDNI());
 			statement.setString(2, usuario.getNombre());
 			statement.setString(3, usuario.getApellido());
-			statement.setInt(4, nacionalidad.getID_Nacionalidad());
-			statement.setInt(5, localidad.getID_Localidad());
+			statement.setInt(4, nacionalidad.getID());
+			statement.setInt(5, localidad.getIDLocalidad());
 			statement.setString(6, usuario.getCUIL());
-			statement.setInt(7, usuario.getSexo());
+			statement.setString(7, usuario.getSexo());
 			statement.setDate(8, usuario.getNacimiento());
 			statement.setString(9, usuario.getDireccion());
 			statement.setString(10, usuario.getMail());
 			statement.setInt(11, telefono.getID_Telefono());
 			statement.setString(12, usuario.getPassword());
-			statement.setInt(13, usuario.getTipo_Usuario());
+			statement.setInt(13, usuario.getTipoUsuario());
 			if(statement.executeUpdate() > 0)
 			{
 				conexion.commit();
@@ -67,6 +73,13 @@ public class DaoUsuario implements IDaoUsuario{
 
 	@Override
 	public boolean delete(Usuario usuario_a_eliminar) {
+		
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+		} catch(ClassNotFoundException e) {
+			e.printStackTrace(); 
+		}
+		
 		PreparedStatement statement;
 		Connection conexion = Conexion.getConexion().getSQLConexion();
 		boolean isdeleteExitoso = false;
@@ -89,9 +102,16 @@ public class DaoUsuario implements IDaoUsuario{
 
 	@Override
 	public List<Usuario> readAll() {
+		
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+		} catch(ClassNotFoundException e) {
+			e.printStackTrace(); 
+		}
+		
 		PreparedStatement statement;
 		ResultSet resultSet; 
-		ArrayList<Usuario> personas = new ArrayList<Usuario>();
+		ArrayList<Usuario> usuarios = new ArrayList<Usuario>();
 		Conexion conexion = Conexion.getConexion();
 		try 
 		{
@@ -99,14 +119,14 @@ public class DaoUsuario implements IDaoUsuario{
 			resultSet = statement.executeQuery();
 			while(resultSet.next())
 			{
-				personas.add(getUsuario(resultSet));
+				usuarios.add(getUsuario(resultSet));
 			}
 		} 
 		catch (SQLException e) 
 		{
 			e.printStackTrace();
 		}
-		return personas;
+		return usuarios;
 	}
 	
 	@Override
@@ -127,7 +147,7 @@ public class DaoUsuario implements IDaoUsuario{
 		 Nacionalidad Nacionalidad = dN.readAll(resultSet.getInt("ID_Nacionalidad"));
 		 Localidad Localidad = dL.readAll(resultSet.getInt("ID_Localidad"));
 		 String CUIL = resultSet.getString("CUIL");
-		 int Sexo = resultSet.getInt("Sexo"); 
+		 String Sexo = resultSet.getString("Sexo"); 
 		 Date Nacimiento = resultSet.getDate("Fecha_Nacimiento");
 		 String Direccion = resultSet.getString("Direccion");
 		 String Mail = resultSet.getString("Mail");

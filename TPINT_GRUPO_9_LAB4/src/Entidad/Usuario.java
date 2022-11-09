@@ -1,5 +1,6 @@
 package Entidad;
 
+
 import java.sql.Date;
 
 public class Usuario {
@@ -10,19 +11,19 @@ public class Usuario {
 		private Nacionalidad Nacionalidad;
 		private Localidad Localidad;
 		private String CUIL;
-		private int Sexo;
+		private String Sexo;
 		private Date Nacimiento;
 		private String Direccion;
 		private String Mail;
 		private Telefono Telefono;
 		private String Password;
-		private int Tipo_Usuario;
+		private int TipoUsuario;
 		
 		
 		
 	public Usuario(String dni, String nombre, String apellido,
 			Nacionalidad nacionalidad, Localidad localidad, String cuil,
-			int sexo, Date nacimiento, String direccion, String mail,
+			String sexo, Date nacimiento, String direccion, String mail,
 			Telefono telefono,String password,int tipo_usuario) {
 			
 		
@@ -38,7 +39,7 @@ public class Usuario {
 		this.Mail = mail;
 		this.Telefono = telefono;
 		this.Password = password;
-		this.Tipo_Usuario = tipo_usuario;
+		this.TipoUsuario = tipo_usuario;
 			
 	}
 	
@@ -116,13 +117,13 @@ public class Usuario {
 	
 	
 	
-	public int getSexo() {
+	public String getSexo() {
 		return Sexo;
 	}
 	
 	
 	
-	public void setSexo(int sexo) {
+	public void setSexo(String sexo) {
 		Sexo = sexo;
 	}
 	
@@ -188,14 +189,14 @@ public class Usuario {
 	
 	
 	
-	public int getTipo_Usuario() {
-		return Tipo_Usuario;
+	public int getTipoUsuario() {
+		return TipoUsuario;
 	}
 	
 	
 	
-	public void setTipo_Usuario(int tipo_Usuario) {
-		Tipo_Usuario = tipo_Usuario;
+	public void setTipoUsuario(int tipo_Usuario) {
+		TipoUsuario = tipo_Usuario;
 	}
 	
 	
@@ -214,14 +215,14 @@ public class Usuario {
 		result = prime * result + ((Nacionalidad == null) ? 0 : Nacionalidad.hashCode());
 		result = prime * result + ((Nombre == null) ? 0 : Nombre.hashCode());
 		result = prime * result + ((Password == null) ? 0 : Password.hashCode());
-		result = prime * result + Sexo;
+		result = prime * result + ((Sexo == null) ? 0 : Sexo.hashCode());
 		result = prime * result + ((Telefono == null) ? 0 : Telefono.hashCode());
-		result = prime * result + Tipo_Usuario;
+		result = prime * result + TipoUsuario;
 		return result;
 	}
-	
-	
-	
+
+
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -281,23 +282,26 @@ public class Usuario {
 				return false;
 		} else if (!Password.equals(other.Password))
 			return false;
-		if (Sexo != other.Sexo)
+		if (Sexo == null) {
+			if (other.Sexo != null)
+				return false;
+		} else if (!Sexo.equals(other.Sexo))
 			return false;
 		if (Telefono == null) {
 			if (other.Telefono != null)
 				return false;
 		} else if (!Telefono.equals(other.Telefono))
 			return false;
-		if (Tipo_Usuario != other.Tipo_Usuario)
+		if (TipoUsuario != other.TipoUsuario)
 			return false;
 		return true;
 	}
-	
-	
-	
+
+
+
 	@Override
 	public String toString() {
-		return DNI + "-" + Nombre + "-" + Apellido + "-" + Nacionalidad + "-" + Localidad + "-" + CUIL + "-" + Sexo + "-" + Nacimiento + "-" + Direccion + "-" + Mail + "-" + Telefono + "-" + Password + "-" + Tipo_Usuario;
+		return DNI + "-" + Nombre + "-" + Apellido + "-" + Nacionalidad + "-" + Localidad + "-" + CUIL + "-" + Sexo + "-" + Nacimiento + "-" + Direccion + "-" + Mail + "-" + Telefono + "-" + Password + "-" + TipoUsuario;
 	}
 
 

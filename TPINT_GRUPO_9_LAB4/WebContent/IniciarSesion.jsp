@@ -20,47 +20,18 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-        	<% 
-			session.setAttribute("Usuario", session.getAttribute("usuario"));
-			if(session.getAttribute("Usuario") == null){
-			%>
-	          <a class="nav-link active" aria-current="page" href="IniciarSesion.jsp">Iniciar Sesión</a>
-			<%
-				}
-				else{
-			%>
-			<a class="nav-link disabled"><%= session.getAttribute("Usuario").toString() %></a>
-			<a class="nav-link" href="IniciarSesion.jsp">Cerrar Sesión</a>
-			<%
-				}
-			%>
+	    	<a class="nav-link active" aria-current="page" href="IniciarSesion.jsp">Iniciar Sesión</a>
         </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             Más
           </a>
           <ul class="dropdown-menu">
-          	<%
-			session.setAttribute("Usuario", session.getAttribute("usuario"));
-			if(session.getAttribute("Usuario") == null){
-			%>
             <li><a class="dropdown-item" href="IniciarSesion.jsp">Movimientos y Transferencias</a></li>
             <li><a class="dropdown-item" href="IniciarSesion.jsp">Prestamos</a></li>
             <li><hr class="dropdown-divider"></li>
             <li><a class="dropdown-item" href="IniciarSesion.jsp">Pedir cuenta bancaria</a></li>
             <li><a class="dropdown-item" href="IniciarSesion.jsp">Informacion de Usuario</a></li>
-            <%
-				}
-				else{
-			%>
-			<li><a class="dropdown-item" href="Movimientos.jsp">Movimientos y Transferencias</a></li>
-            <li><a class="dropdown-item" href="Prestamos.jsp">Prestamos</a></li>
-            <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="#">Pedir cuenta bancaria</a></li>
-            <li><a class="dropdown-item" href="#">Informacion de Usuario</a></li>
-			<%
-				}
-			%>
           </ul>
         </li>
       </ul>
@@ -73,7 +44,7 @@
 		<div class="col">	
 			<br>
 			<form action="servletBanco" method="get">
-			<p class="text-center">DNI: <input type="text" name="txtNombre" required> </p>
+			<p class="text-center">DNI: <input type="text" name="txtDNI" required> </p>
 			<p class="text-center">Contraseña: <input type="text" name="txtPasswd" required></p>
 			<p class="text-center"> <input type="submit" name="btnIngresar" value="Ingresar"> </p> 
 			</form>

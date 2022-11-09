@@ -1,6 +1,6 @@
  	<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
@@ -20,21 +20,11 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-		<% 
-			session.setAttribute("Usuario", session.getAttribute("usuario"));
-			if(session.getAttribute("Usuario") == null){
-		%>
-          <a class="nav-link active" aria-current="page" href="IniciarSesion.jsp">Iniciar Sesión</a>
-		<%
-			}
-			else{
-		%>
-		<a class="nav-link disabled"><%= session.getAttribute("Usuario").toString() %></a>
-		<a class="nav-link" href="IniciarSesion.jsp">Cerrar Sesión</a>
-		<%
-			}
-		%>
+			<a class="nav-link disabled"><%= session.getAttribute("Usuario").toString() %></a>
         </li>
+        <li>
+			<a class="nav-link" href="IniciarSesion.jsp">Cerrar Sesión</a>
+		</li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             Más

@@ -20,7 +20,6 @@
 	    <div class="collapse navbar-collapse" id="navbarSupportedContent">
 	      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
 			<% 
-				session.setAttribute("Usuario", session.getAttribute("usuario"));
 				if(session.getAttribute("Usuario") == null){
 			%>
 			<li class="nav-item">
@@ -46,7 +45,6 @@
 	          </a>
 	          <ul class="dropdown-menu">
 	            <%
-					session.setAttribute("Usuario", session.getAttribute("usuario"));
 					if(session.getAttribute("Usuario") == null){
 				%>
 	            <li><a class="dropdown-item" href="IniciarSesion.jsp">Movimientos y Transferencias</a></li>
@@ -88,7 +86,6 @@
 						<h5 class="card-title">Movimientos y Tranferencias</h5>
 						<p class="card-text">Revise los ultimos movimientos de su/s cuentas, y reciba o envie transferencias de dinero.</p>
 						<%
-						session.setAttribute("Usuario", session.getAttribute("usuario"));
 						if(session.getAttribute("Usuario") == null){
 						%>
 						<a href="IniciarSesion.jsp" class="btn btn-primary">Es necesario iniciar sesión</a>
@@ -110,7 +107,6 @@
 						<h5 class="card-title">Prestamos</h5>
 						<p class="card-text">Solicite nuevos prestamos, o mire sus prestamos actuales .</p>
 						<%
-						session.setAttribute("Usuario", session.getAttribute("usuario"));
 						if(session.getAttribute("Usuario") == null){
 						%>
 						<a href="IniciarSesion.jsp" class="btn btn-primary">Es necesario iniciar sesión</a>
@@ -132,7 +128,6 @@
 						<h5 class="card-title">Mis Cuentas</h5>
 						<p class="card-text">Consulte la informacion de sus cuentas.</p>
 						<%
-						session.setAttribute("Usuario", session.getAttribute("usuario"));
 						if(session.getAttribute("Usuario") == null){
 						%>
 						<a href="IniciarSesion.jsp" class="btn btn-primary">Es necesario iniciar sesión</a>

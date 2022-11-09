@@ -2,62 +2,74 @@ package Entidad;
 
 public class Nacionalidad {
 	
-	private int ID_Nacionalidad;
-	private String pais;
+	private int ID;
+	private String Pais;
 	private String gentilicio;
 	private String iso;
 	
+	
 	public Nacionalidad() {}
 
-	public Nacionalidad(int iD_Nacionalidad, String pais, String gentilicio, String iso) {
-		ID_Nacionalidad = iD_Nacionalidad;
-		this.pais = pais;
+
+	public Nacionalidad(int iD, String pais, String gentilicio, String iso) {
+		ID = iD;
+		Pais = pais;
 		this.gentilicio = gentilicio;
 		this.iso = iso;
 	}
 
-	public int getID_Nacionalidad() {
-		return ID_Nacionalidad;
+
+	public int getID() {
+		return ID;
 	}
 
-	public void setID_Nacionalidad(int iD_Nacionalidad) {
-		ID_Nacionalidad = iD_Nacionalidad;
+
+	public void setID(int iD) {
+		ID = iD;
 	}
+
 
 	public String getPais() {
-		return pais;
+		return Pais;
 	}
 
+
 	public void setPais(String pais) {
-		this.pais = pais;
+		Pais = pais;
 	}
+
 
 	public String getGentilicio() {
 		return gentilicio;
 	}
 
+
 	public void setGentilicio(String gentilicio) {
 		this.gentilicio = gentilicio;
 	}
+
 
 	public String getIso() {
 		return iso;
 	}
 
+
 	public void setIso(String iso) {
 		this.iso = iso;
 	}
+
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ID_Nacionalidad;
+		result = prime * result + ID;
+		result = prime * result + ((Pais == null) ? 0 : Pais.hashCode());
 		result = prime * result + ((gentilicio == null) ? 0 : gentilicio.hashCode());
 		result = prime * result + ((iso == null) ? 0 : iso.hashCode());
-		result = prime * result + ((pais == null) ? 0 : pais.hashCode());
 		return result;
 	}
+
 
 	@Override
 	public boolean equals(Object obj) {
@@ -68,7 +80,12 @@ public class Nacionalidad {
 		if (getClass() != obj.getClass())
 			return false;
 		Nacionalidad other = (Nacionalidad) obj;
-		if (ID_Nacionalidad != other.ID_Nacionalidad)
+		if (ID != other.ID)
+			return false;
+		if (Pais == null) {
+			if (other.Pais != null)
+				return false;
+		} else if (!Pais.equals(other.Pais))
 			return false;
 		if (gentilicio == null) {
 			if (other.gentilicio != null)
@@ -80,19 +97,8 @@ public class Nacionalidad {
 				return false;
 		} else if (!iso.equals(other.iso))
 			return false;
-		if (pais == null) {
-			if (other.pais != null)
-				return false;
-		} else if (!pais.equals(other.pais))
-			return false;
 		return true;
 	}
 
-	@Override
-	public String toString() {
-		return "Nacionalidad [ID_Nacionalidad=" + ID_Nacionalidad + ", pais=" + pais + ", gentilicio=" + gentilicio
-				+ ", iso=" + iso + "]";
-	}
-	
 	
 }

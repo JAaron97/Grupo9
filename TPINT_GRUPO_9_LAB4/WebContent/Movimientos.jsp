@@ -29,11 +29,8 @@
 	    </button>
 	    <div class="collapse navbar-collapse" id="navbarSupportedContent">
 	      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-			<% 
-				session.setAttribute("Usuario", session.getAttribute("usuario"));
-			%>
 			<li class="nav-item">
-			<a class="nav-link disabled">Jose</a>
+			<a class="nav-link disabled"><%= session.getAttribute("Usuario") %></a>
 			</li>
 			<li class="nav-item">
 			<a class="nav-link" href="IniciarSesion.jsp">Cerrar Sesión</a>

@@ -20,12 +20,9 @@
 	    </button>
 	    <div class="collapse navbar-collapse" id="navbarSupportedContent">
 	      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-			<% 
-				session.setAttribute("Usuario", session.getAttribute("usuario"));
-			%>
 			<li class="nav-item">
 			<!-- usar scriplet para mostrar el nombre con la session -->
-			<a class="nav-link disabled">Jose</a>
+			<a class="nav-link disabled"><%= session.getAttribute("Usuario")%></a>
 			</li>
 			<li class="nav-item">
 			<a class="nav-link" href="IniciarSesion.jsp">Cerrar Sesión</a>
@@ -48,7 +45,7 @@
 	  </div>
 	</nav>
 <!-- usar scriplet para mostrar el nombre (cuando este el scriplet obvio) -->
-<h1 class="text-left">&nbsp; Hola, Jose</h1>
+<h1 class="text-left">&nbsp; Hola, <%= session.getAttribute("Usuario")%></h1>
 <div class="container">
 	<div class="row">
 		<div class="col justify-content-start">

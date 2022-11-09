@@ -12,7 +12,7 @@ import Entidad.Telefono;
 
 public class DaoTelefono implements IDaoTelefono{
 	
-	private static final String insert = "INSERT INTO telefonos (ID, Telefono_1,Telefono_2,Telefono_3,telfono4) VALUES ('?','?','?','?','?')";
+	private static final String insert = "INSERT INTO telefonos (ID, Telefono_1,Telefono_2,Telefono_3,Telefono_4) VALUES ('?','?','?','?','?')";
 	private static final String delete = "DELETE FROM telfonos WHERE ID = ?";
 	private static final String readTelefonos = "SELECT * FROM telefonos WHERE ID = ?";
 

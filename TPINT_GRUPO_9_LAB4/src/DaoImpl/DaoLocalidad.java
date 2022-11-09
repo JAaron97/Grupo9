@@ -26,7 +26,7 @@ public class DaoLocalidad implements IDaoLocalidad {
 			resultSet = statement.executeQuery();
 			while(resultSet.next())
 			{
-				localidad.setID_Localidad(resultSet.getInt("ID"));
+				localidad.setIDLocalidad(resultSet.getInt("ID"));
 				localidad.setProvincia(dP.readall(resultSet.getInt("ID_Provincia")));
 				localidad.setDescripcion(resultSet.getString("Descripcion"));
 				

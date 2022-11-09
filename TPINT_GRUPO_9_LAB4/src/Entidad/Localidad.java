@@ -2,7 +2,7 @@ package Entidad;
 
 public class Localidad {
 	
-	private int ID_Localidad;
+	private int IDLocalidad;
 	private Provincia Provincia;
 	private String Descripcion;
 	
@@ -10,20 +10,20 @@ public class Localidad {
 	
 	public Localidad(int id, Provincia provincia, String descripcion) {
 		
-		this.ID_Localidad = id;
+		this.IDLocalidad = id;
 		this.Provincia = provincia;
 		this.Descripcion = descripcion;
 		
 	}
 
 
-	public int getID_Localidad() {
-		return ID_Localidad;
+	public int getIDLocalidad() {
+		return IDLocalidad;
 	}
 
 
-	public void setID_Localidad(int iD_Localidad) {
-		ID_Localidad = iD_Localidad;
+	public void setIDLocalidad(int iD_Localidad) {
+		IDLocalidad = iD_Localidad;
 	}
 
 
@@ -53,7 +53,7 @@ public class Localidad {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((Descripcion == null) ? 0 : Descripcion.hashCode());
-		result = prime * result + ID_Localidad;
+		result = prime * result + IDLocalidad;
 		result = prime * result + ((Provincia == null) ? 0 : Provincia.hashCode());
 		return result;
 	}
@@ -73,7 +73,7 @@ public class Localidad {
 				return false;
 		} else if (!Descripcion.equals(other.Descripcion))
 			return false;
-		if (ID_Localidad != other.ID_Localidad)
+		if (IDLocalidad != other.IDLocalidad)
 			return false;
 		if (Provincia == null) {
 			if (other.Provincia != null)
@@ -86,7 +86,7 @@ public class Localidad {
 
 	@Override
 	public String toString() {
-		return ID_Localidad + "-" +Provincia.getDescripcion() + "-" + Descripcion;
+		return IDLocalidad + "-" +Provincia.getDescripcion() + "-" + Descripcion;
 	}
 	
 	

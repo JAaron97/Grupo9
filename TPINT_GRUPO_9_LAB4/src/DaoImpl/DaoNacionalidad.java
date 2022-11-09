@@ -6,7 +6,6 @@ import java.sql.SQLException;
 
 import Dao.IDaoNacionalidad;
 import Entidad.Nacionalidad;
-import Entidad.Usuario;
 
 public class DaoNacionalidad implements IDaoNacionalidad {
 
@@ -25,7 +24,7 @@ public class DaoNacionalidad implements IDaoNacionalidad {
 			resultSet = statement.executeQuery();
 			while(resultSet.next())
 			{
-				nacionalidad.setID_Nacionalidad(resultSet.getInt("ID"));
+				nacionalidad.setID(resultSet.getInt("ID"));
 				nacionalidad.setPais(resultSet.getString("Pais_Nac"));
 				nacionalidad.setGentilicio(resultSet.getString("Gentilicio_Nac"));
 				nacionalidad.setIso(resultSet.getString("Iso_Nac"));
