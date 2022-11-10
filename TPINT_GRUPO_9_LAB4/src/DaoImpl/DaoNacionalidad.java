@@ -18,15 +18,17 @@ public class DaoNacionalidad implements IDaoNacionalidad {
 
 	private static final String readNacionalidad = "SELECT * FROM nacionalidades ";
 	private static final String leerUnaNacionalidadID ="SELECT * FROM nacionalidades WHERE ID = ?";
-	private static final String leerUnaNacionalidadDescripcicon ="select * from nacionalidad  where Pais_Nac = ?";
+	
 	
 
 
 	@Override
-	public List<Nacionalidad> readAll() {
+	public ArrayList<Nacionalidad> ReadAll() 
+	{
+		
 		PreparedStatement statement;
 		ResultSet resultSet; //Guarda el resultado de la query
-		ArrayList<Nacionalidad> personas = new ArrayList<Nacionalidad>();
+		ArrayList<Nacionalidad> Nacionalidades = new ArrayList<Nacionalidad>();
 		Conexion conexion = Conexion.getConexion();
 		try 
 		{
@@ -41,24 +43,14 @@ public class DaoNacionalidad implements IDaoNacionalidad {
 		{
 			e.printStackTrace();
 		}
-		return personas;
+		return Nacionalidades;
 	}
 	
 	
-	
-	private Nacionalidad getNacionalidad(ResultSet resultSet) throws SQLException
-	{
-		int id = resultSet.getInt("iD_Nacionalidad");
-		String pais = resultSet.getString("pais");
-		String gentilicio = resultSet.getString("gentilicio");
-		String iso = resultSet.getString("iso");
-		return new Nacionalidad(id, pais, gentilicio,iso);
-	}
-
 
 
 	@Override
-	public Nacionalidad ObtenerUnaNacinalidad(String nacionalidad) {
+	public Nacionalidad Read(int id) {
 	
 		PreparedStatement statement;
 		
@@ -88,36 +80,21 @@ public class DaoNacionalidad implements IDaoNacionalidad {
 	}
 
 
+	
+	
+	
+	private Nacionalidad getNacionalidad(ResultSet resultSet) throws SQLException
+	{
+		int id = resultSet.getInt("iD_Nacionalidad");
+		String pais = resultSet.getString("pais");
+		String gentilicio = resultSet.getString("gentilicio");
+		String iso = resultSet.getString("iso");
+		return new Nacionalidad(id, pais, gentilicio,iso);
+	}	
 
-	@Override
-	public Nacionalidad obtenerPorID(int ID) {
-		
-		PreparedStatement statement;
-		ResultSet resultSet;
-		Conexion conexion = Conexion.getConexion();
-		Nacionalidad nacionalidad = new Nacionalidad();
-		try 
-		{
-			statement = conexion.getSQLConexion().prepareStatement(leerUnaNacionalidadID);
-			statement.setInt(1, ID);
-			resultSet = statement.executeQuery();
-			while(resultSet.next())
-			{
-				nacionalidad.setID(resultSet.getInt("ID"));
-				nacionalidad.setPais(resultSet.getString("Pais_Nac"));
-				nacionalidad.setGentilicio(resultSet.getString("Gentilicio_Nac"));
-				nacionalidad.setIso(resultSet.getString("Iso_Nac"));
-			}
-		} 
-		catch (SQLException e) 
-		{
-			e.printStackTrace();
-		}
-		return nacionalidad;
-	}
-		
-
-		}
+	
+	
+}
 		
 	
 

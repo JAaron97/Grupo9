@@ -1,13 +1,17 @@
 package Dao;
 
-import java.util.List;
+import java.util.ArrayList;
 
 import Entidad.Nacionalidad;
 
 
 
 public interface IDaoNacionalidad {
-	public Nacionalidad obtenerPorID(int ID);
-	public List<Nacionalidad> readAll();
-	public Nacionalidad ObtenerUnaNacinalidad(String  nacionalidad);
+	
+	public Nacionalidad Read(int ID);
+	
+	public ArrayList<Nacionalidad> ReadAll();
+	
+	
+	
 }
