@@ -1,7 +1,13 @@
 package Dao;
 
+import java.util.ArrayList;
+
 import Entidad.Localidad;
 
 public interface IDaoLocalidad {
-	public Localidad readAll(int ID);
+	
+	public ArrayList<Localidad> ReadAll();
+	
+	public Localidad Read(int id);
+	
 }

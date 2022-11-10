@@ -13,7 +13,7 @@ public class DaoProvincia implements IDaoProvincia {
 	private static final String read = "SELECT * FROM provincias WHERE ID = ?";
 	
 	
-	public ArrayList<Provincia> readAll()
+	public ArrayList<Provincia> ReadAll()
 	{
 		PreparedStatement statement;
 		ResultSet resultSet;
@@ -27,6 +27,10 @@ public class DaoProvincia implements IDaoProvincia {
 			{
 				Provincias.add(getProvincias(resultSet));
 			}
+			
+			conexion.cerrarConexion();
+			
+			
 		} 
 		catch (SQLException e) 
 		{
@@ -37,11 +41,8 @@ public class DaoProvincia implements IDaoProvincia {
 	
 	
 	
-	
-	
-	
 	@Override
-	public Provincia readall(int ID) {
+	public Provincia Read(int ID) {
 		PreparedStatement statement;
 		ResultSet resultSet;
 		Conexion conexion = Conexion.getConexion();
@@ -54,8 +55,7 @@ public class DaoProvincia implements IDaoProvincia {
 			while(resultSet.next())
 			{
 				
-				provincia.setID_Provincia(resultSet.getInt("ID"));
-				provincia.setDescripcion(resultSet.getString("Descripcion"));
+				provincia = getProvincias(resultSet);
 			}
 		} 
 		catch (SQLException e) 
