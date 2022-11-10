@@ -1,7 +1,7 @@
 package Entidad;
 
 
-import java.sql.Date;
+import java.time.LocalDate;
 
 public class Usuario {
 		
@@ -11,8 +11,8 @@ public class Usuario {
 		private Nacionalidad Nacionalidad;
 		private Localidad Localidad;
 		private String CUIL;
-		private String Sexo;
-		private Date Nacimiento;
+		private int Sexo;
+		private LocalDate Nacimiento;
 		private String Direccion;
 		private String Mail;
 		private Telefono Telefono;
@@ -23,7 +23,7 @@ public class Usuario {
 		
 	public Usuario(String dni, String nombre, String apellido,
 			Nacionalidad nacionalidad, Localidad localidad, String cuil,
-			String sexo, Date nacimiento, String direccion, String mail,
+			int sexo, LocalDate nacimiento, String direccion, String mail,
 			Telefono telefono,String password,int tipo_usuario) {
 			
 		
@@ -117,25 +117,25 @@ public class Usuario {
 	
 	
 	
-	public String getSexo() {
+	public int getSexo() {
 		return Sexo;
 	}
 	
 	
 	
-	public void setSexo(String sexo) {
+	public void setSexo(int sexo) {
 		Sexo = sexo;
 	}
 	
 	
 	
-	public Date getNacimiento() {
+	public LocalDate getNacimiento() {
 		return Nacimiento;
 	}
 	
 	
 	
-	public void setNacimiento(Date nacimiento) {
+	public void setNacimiento(LocalDate nacimiento) {
 		Nacimiento = nacimiento;
 	}
 	
@@ -215,14 +215,14 @@ public class Usuario {
 		result = prime * result + ((Nacionalidad == null) ? 0 : Nacionalidad.hashCode());
 		result = prime * result + ((Nombre == null) ? 0 : Nombre.hashCode());
 		result = prime * result + ((Password == null) ? 0 : Password.hashCode());
-		result = prime * result + ((Sexo == null) ? 0 : Sexo.hashCode());
+		result = prime * result + Sexo;
 		result = prime * result + ((Telefono == null) ? 0 : Telefono.hashCode());
 		result = prime * result + TipoUsuario;
 		return result;
 	}
-
-
-
+	
+	
+	
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -282,10 +282,7 @@ public class Usuario {
 				return false;
 		} else if (!Password.equals(other.Password))
 			return false;
-		if (Sexo == null) {
-			if (other.Sexo != null)
-				return false;
-		} else if (!Sexo.equals(other.Sexo))
+		if (Sexo != other.Sexo)
 			return false;
 		if (Telefono == null) {
 			if (other.Telefono != null)
@@ -296,9 +293,9 @@ public class Usuario {
 			return false;
 		return true;
 	}
-
-
-
+	
+	
+	
 	@Override
 	public String toString() {
 		return DNI + "-" + Nombre + "-" + Apellido + "-" + Nacionalidad + "-" + Localidad + "-" + CUIL + "-" + Sexo + "-" + Nacimiento + "-" + Direccion + "-" + Mail + "-" + Telefono + "-" + Password + "-" + TipoUsuario;
