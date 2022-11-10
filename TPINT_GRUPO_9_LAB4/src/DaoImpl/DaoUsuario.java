@@ -42,7 +42,7 @@ public class DaoUsuario implements IDaoUsuario{
 			statement.setString(1, usuario.getDNI());
 			statement.setString(2, usuario.getNombre());
 			statement.setString(3, usuario.getApellido());
-			statement.setInt(4, nacionalidad.getID());
+			statement.setInt(4, nacionalidad.getID_Nacionalidad());
 			statement.setInt(5, localidad.getIDLocalidad());
 			statement.setString(6, usuario.getCUIL());
 			statement.setString(7, usuario.getSexo());
@@ -144,14 +144,14 @@ public class DaoUsuario implements IDaoUsuario{
 		 String DNI = resultSet.getString("DNI");
 		 String Nombre = resultSet.getString("Nombre");
 		 String Apellido = resultSet.getString("Apellido");
-		 Nacionalidad Nacionalidad = dN.obtenerPorID(resultSet.getInt("ID_Nacionalidad"));
-		 Localidad Localidad = dL.readAll(resultSet.getInt("ID_Localidad"));
+		 Nacionalidad Nacionalidad = dN.Read(resultSet.getInt("ID_Nacionalidad"));
+		 Localidad Localidad = dL.Read(resultSet.getInt("ID_Localidad"));
 		 String CUIL = resultSet.getString("CUIL");
 		 String Sexo = resultSet.getString("Sexo"); 
 		 Date Nacimiento = resultSet.getDate("Fecha_Nacimiento");
 		 String Direccion = resultSet.getString("Direccion");
 		 String Mail = resultSet.getString("Mail");
-		 Telefono Telefono = dT.readAll(resultSet.getInt("ID_Telefonos"));
+		 Telefono Telefono = dT.Read(resultSet.getInt("ID_Telefonos"));
 		 String Password = resultSet.getString("Password");
 		 int Tipo_Usuario = resultSet.getInt("Tipo_user");
 		 return new Usuario(DNI, Nombre, Apellido, Nacionalidad, Localidad, CUIL, Sexo, Nacimiento, Direccion, Mail, Telefono, Password, Tipo_Usuario);

@@ -79,7 +79,7 @@ public class DaoTelefono implements IDaoTelefono{
 	}
 
 	@Override
-	public Telefono readAll(int ID) {
+	public Telefono Read(int ID) {
 		PreparedStatement statement;
 		ResultSet resultSet;
 		Conexion conexion = Conexion.getConexion();

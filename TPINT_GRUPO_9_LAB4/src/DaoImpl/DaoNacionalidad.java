@@ -5,7 +5,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.List;
 
 import Dao.IDaoNacionalidad;
 
@@ -36,7 +35,7 @@ public class DaoNacionalidad implements IDaoNacionalidad {
 			resultSet = statement.executeQuery();
 			while(resultSet.next())
 			{
-				personas.add(getNacionalidad(resultSet));
+				Nacionalidades.add(getNacionalidad(resultSet));
 			}
 		} 
 		catch (SQLException e) 
@@ -60,13 +59,13 @@ public class DaoNacionalidad implements IDaoNacionalidad {
 		
 		try 
 		{
-			statement = conexion.getSQLConexion().prepareStatement(leerUnaNacionalidadDescripcicon);
-			statement.setString(2, nacionalidad);
+			statement = conexion.getSQLConexion().prepareStatement(leerUnaNacionalidadID);
+			statement.setInt(1, id);
 			resultSet = statement.executeQuery();
 			while(resultSet.next())
 			{
 				
-				na.setID(resultSet.getInt("iD_Nacionalidad"));
+				na.setID_Nacionalidad(resultSet.getInt("iD_Nacionalidad"));
 				na.setPais(resultSet.getString("pais"));
 				na.setGentilicio(resultSet.getString("gentilicio"));
 				na.setIso(resultSet.getString("iso"));
