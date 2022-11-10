@@ -5,7 +5,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import com.sun.org.apache.bcel.internal.generic.GETFIELD;
 
 import Dao.IDaoTelefono;
 import Entidad.Telefono;

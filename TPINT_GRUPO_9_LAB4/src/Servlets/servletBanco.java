@@ -30,7 +30,7 @@ public class servletBanco extends HttpServlet {
 			
 			for(Usuario user : usuarios) {
 				if(user.getDNI().equals(request.getParameter("txtDNI")) && user.getPassword().equals(request.getParameter("txtPasswd"))) {
-					request.getSession().setAttribute("Usuario", user.getNombre());
+					request.getSession().setAttribute("Usuario", user);
 					RequestDispatcher rd = request.getRequestDispatcher("/Inicio.jsp");
 					rd.forward(request, response);
 				}

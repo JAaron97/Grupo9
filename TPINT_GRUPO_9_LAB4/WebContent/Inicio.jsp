@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+<%@ page import="Entidad.Usuario" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,6 +12,8 @@
 <title>Inicio</title>
 </head>
 <body>
+<%!
+%>
 	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
 	  <div class="container-fluid">
 	    <a class="navbar-brand" href="Inicio.jsp">Inicio</a>
@@ -28,13 +31,15 @@
 			<%
 				}
 				else{
+				Usuario user = new Usuario();
+						user = (Usuario) session.getAttribute("Usuario");
 			%>
 			
 			<li class="nav-item">
-			<a class="nav-link disabled"><%= session.getAttribute("Usuario").toString() %></a>
+				<a class="nav-link disabled"><%= user.getNombre() %></a>
 			</li>
 			<li class="nav-item">
-			<a class="nav-link" href="IniciarSesion.jsp">Cerrar Sesión</a>
+				<a class="nav-link" href="CerrarSesion.jsp">Cerrar Sesión</a> 
 			</li>
 			<%
 				}
@@ -125,8 +130,8 @@
 				<div class="card border-primary mb-3 text-bg-dark mb-3" style="width: 18rem;">
 	  			<img src="cuenta.jpg" class="card-img-top" alt="...">
 	  				<div class="card-body">
-						<h5 class="card-title">Mis Cuentas</h5>
-						<p class="card-text">Consulte la informacion de sus cuentas.</p>
+						<h5 class="card-title">Información y Cuentas</h5>
+						<p class="card-text">Consulte la su informacion y la de sus cuentas.</p>
 						<%
 						if(session.getAttribute("Usuario") == null){
 						%>

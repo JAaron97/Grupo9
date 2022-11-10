@@ -23,7 +23,6 @@
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
         	<% 
-			session.setAttribute("Usuario", session.getAttribute("usuario"));
 			if(session.getAttribute("Usuario") == null){
 			%>
 	          <a class="nav-link active" aria-current="page" href="IniciarSesion.jsp">Iniciar Sesión</a>

@@ -2,6 +2,9 @@
     <wb-module deploy-name="TPINT_GRUPO_9_LAB4">
         <wb-resource deploy-path="/" source-path="/WebContent" tag="defaultRootSource"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src"/>
+        <dependent-module archiveName="mysql-connector-java-5.1.41-bin.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/TPINT_GRUPO_9_LAB4/mysql-connector-java-5.1.41-bin.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
         <property name="context-root" value="TPINT_GRUPO_9_LAB4"/>
         <property name="java-output-path" value="/TPINT_GRUPO_9_LAB4/build/classes"/>
     </wb-module>

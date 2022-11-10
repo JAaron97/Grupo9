@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+<%@ page import="Entidad.Usuario" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,6 +13,10 @@
 <title>Insert title here</title>
 </head>
 <body>
+<%
+Usuario user = new Usuario();
+user = (Usuario) session.getAttribute("Usuario"); 
+%>
 	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
 	  <div class="container-fluid">
 	    <a class="navbar-brand" href="Inicio.jsp">Inicio</a>
@@ -21,11 +26,10 @@
 	    <div class="collapse navbar-collapse" id="navbarSupportedContent">
 	      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
 			<li class="nav-item">
-			<!-- usar scriplet para mostrar el nombre con la session -->
-			<a class="nav-link disabled"><%= session.getAttribute("Usuario")%></a>
+				<a class="nav-link disabled"><%= user.getNombre()%></a>
 			</li>
 			<li class="nav-item">
-			<a class="nav-link" href="IniciarSesion.jsp">Cerrar Sesión</a>
+				<a class="nav-link" href="CerrarSesion.jsp">Cerrar Sesión</a>
 	        </li>
 	        <li class="nav-item dropdown">
 	          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -45,7 +49,7 @@
 	  </div>
 	</nav>
 <!-- usar scriplet para mostrar el nombre (cuando este el scriplet obvio) -->
-<h1 class="text-left">&nbsp; Hola, <%= session.getAttribute("Usuario")%></h1>
+<h1 class="text-left">&nbsp; Hola, <%= user.getNombre()%></h1>
 <div class="container">
 	<div class="row">
 		<div class="col justify-content-start">

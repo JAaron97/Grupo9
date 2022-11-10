@@ -45,7 +45,7 @@
 			<br>
 			<form action="servletBanco" method="get">
 			<p class="text-center">DNI: <input type="text" name="txtDNI" required> </p>
-			<p class="text-center">Contraseña: <input type="text" name="txtPasswd" required></p>
+			<p class="text-center">Contraseña: <input type="password" name="txtPasswd" required></p>
 			<p class="text-center"> <input type="submit" name="btnIngresar" value="Ingresar"> </p> 
 			</form>
 		</div>

@@ -2,6 +2,7 @@
     pageEncoding="ISO-8859-1"%>
     <%@ page import="Entidad.Movimiento"%>
     <%@ page import="java.util.ArrayList"%>
+    <%@ page import="Entidad.Usuario" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -19,6 +20,9 @@
 	if(request.getAttribute("listaUsuarios")!=null){
 		listaMovimientos = (ArrayList<Movimiento>) request.getAttribute("listaUsuarios");
 	}
+	
+	Usuario user = new Usuario();
+	user = (Usuario) session.getAttribute("Usuario");
 %>
 
 	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -30,10 +34,10 @@
 	    <div class="collapse navbar-collapse" id="navbarSupportedContent">
 	      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
 			<li class="nav-item">
-			<a class="nav-link disabled"><%= session.getAttribute("Usuario") %></a>
+			<a class="nav-link disabled"><%= user.getNombre() %></a>
 			</li>
 			<li class="nav-item">
-			<a class="nav-link" href="IniciarSesion.jsp">Cerrar Sesión</a>
+			<a class="nav-link" href="CerrarSesion.jsp">Cerrar Sesión</a>
 	        </li>
 	        <li class="nav-item dropdown">
 	          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
