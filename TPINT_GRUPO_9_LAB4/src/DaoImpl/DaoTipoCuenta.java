@@ -82,11 +82,6 @@ public class DaoTipoCuenta implements IDaoTipoCuenta{
 	
 	
 	
-	
-	
-	
-	
-	
 	private TipoCuenta getTiposCuentas(ResultSet resultset) throws SQLException 
 	{
 		

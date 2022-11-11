@@ -32,8 +32,7 @@ public class DaoTipoMovimiento implements IDaoTipoMovimiento{
 				tiposmovimiento.add(getTiposMovimientos(resultSet));
 			}
 			
-			
-			
+			conexion.cerrarConexion();
 			
 		}
 		catch (Exception e) {
