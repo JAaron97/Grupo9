@@ -144,8 +144,8 @@ public class DaoUsuario implements IDaoUsuario{
 		 String DNI = resultSet.getString("DNI");
 		 String Nombre = resultSet.getString("Nombre");
 		 String Apellido = resultSet.getString("Apellido");
-		 Nacionalidad Nacionalidad = dN.Read(resultSet.getInt("ID_Nacionalidad"));
-		 Localidad Localidad = dL.Read(resultSet.getInt("ID_Localidad"));
+		 Nacionalidad Nacionalidad = dN.Read(resultSet.getInt("ID_Nacionalidades"));
+		 Localidad Localidad = dL.Read(resultSet.getInt("ID_Localidades"));
 		 String CUIL = resultSet.getString("CUIL");
 		 String Sexo = resultSet.getString("Sexo"); 
 		 Date Nacimiento = resultSet.getDate("Fecha_Nacimiento");
