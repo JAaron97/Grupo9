@@ -2633,4 +2633,6 @@ INSERT INTO 'Numero_Cuotas' ('Descripcion') VALUES
 ('18 Cuotas'),
 ('24 Cuotas');
 
+INSERT INTO `telefonos` (`telefono_1`, `telefono_2`, `telefono_3`, `telefono_4`) VALUES(123,123445, 774361, 73918); 
 
+INSERT INTO `usuarios` (`DNI`,`nombre`,`apellido`,`ID_nacionalidades`,`id_localidades`,`cuil`,`sexo`,`fecha_nacimiento`,`direccion`,`mail`,`id_telefonos`,`password`,`tipo_user`) VAlUES('12345', 'Jose', 'Gauna', '9', '177', '54321', '0', '2003-04-22', 'Libertad', 'blablabla@gmail.com', '1', 'password', '1')

@@ -100,9 +100,6 @@ if(session.getAttribute("Usuario") != null){
 				<h1 style=font-size:150px class="text-center text-dark">Comencemos</h1><br>
 			</div>
 		</div>
-		<%
-		if(!admin){
-		%>
 		<div class="row">
 			<div class="col">
 				<div class="card border-primary mb-3 text-bg-dark mb-3" style="width: 18rem;">
@@ -152,26 +149,20 @@ if(session.getAttribute("Usuario") != null){
 	  				<div class="card-body">
 						<h5 class="card-title">Información y Cuentas</h5>
 						<p class="card-text">Consulte la su informacion y la de sus cuentas.</p>
-						<%
-						if(!sesionIniciada){
-						%>
-						<a href="IniciarSesion.jsp" class="btn btn-primary">Es necesario iniciar sesión</a>
-						<%
-							}
-							else{
-						%>
-						<a href="InfoUsuario.jsp" class="btn btn-primary">Mis cuentas</a>
-						<%
-							}
-						%>
+						<% verificarSesion(sesionIniciada); %>
 					</div>
 				</div>
 			</div>
 		</div>
-		<%
-		}
-		%>
 	</div>
+		<%!public void verificarSesion(boolean sesion){
+			if(!sesion){	
+	%>
+		<a href="IniciarSesion.jsp" class="btn btn-primary">Es necesario iniciar sesión</a>
+	<%! 
+			}
+	}
+	%>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
 </body>
 </html>

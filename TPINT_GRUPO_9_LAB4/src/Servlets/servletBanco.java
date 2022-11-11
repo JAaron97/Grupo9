@@ -16,12 +16,7 @@ import Entidad.Usuario;
 @WebServlet("/servletBanco")
 public class servletBanco extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    public servletBanco() {
-        super();
-    }
-
-
+      
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		if(request.getParameter("btnIngresar")!=null) {
 			DaoUsuario dU = new DaoUsuario();

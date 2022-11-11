@@ -42,7 +42,7 @@ public class DaoUsuario implements IDaoUsuario{
 			statement.setString(1, usuario.getDNI());
 			statement.setString(2, usuario.getNombre());
 			statement.setString(3, usuario.getApellido());
-			statement.setInt(4, nacionalidad.getID_Nacionalidad());
+			statement.setInt(4, nacionalidad.getID());
 			statement.setInt(5, localidad.getIDLocalidad());
 			statement.setString(6, usuario.getCUIL());
 			statement.setString(7, usuario.getSexo());

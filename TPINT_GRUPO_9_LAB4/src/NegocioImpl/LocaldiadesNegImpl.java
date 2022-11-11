@@ -1,17 +1,24 @@
 package NegocioImpl;
 
 
+import java.util.ArrayList;
+
 import DaoImpl.DaoLocalidad;
 import Entidad.Localidad;
 import Negocio.LocaldiadesNeg;
 public class LocaldiadesNegImpl implements LocaldiadesNeg {
 
 	DaoLocalidad Ldao = new DaoLocalidad();
+
 	@Override
-	public Localidad readAll(int ID) {
-		// TODO Auto-generated method stub
-		
-		return Ldao.readAll(ID);
+	public ArrayList<Localidad> ReadAll() {
+		return Ldao.ReadAll();
 	}
+
+	@Override
+	public Localidad Read(int id) {
+		return Ldao.Read(id);
+	}
+
 
 }

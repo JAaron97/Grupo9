@@ -12,26 +12,13 @@ public class NacionaldiadNegImpl implements NacionaldiadNeg {
 	DaoNacionalidad Ndao = new DaoNacionalidad();
 
 	@Override
-	public ArrayList<Nacionalidad> readAll() {
-		// TODO Auto-generated method stub
-		return (ArrayList<Nacionalidad>) Ndao.readAll();
-
-		
+	public Nacionalidad Read(int ID) {
+		return Ndao.Read(ID);
 	}
 
 	@Override
-	public Nacionalidad ObtenerUnaNacinalidad(String nacionalidad) {
-		return Ndao.ObtenerUnaNacinalidad(nacionalidad);
+	public ArrayList<Nacionalidad> ReadAll() {
+		return Ndao.ReadAll();
 	}
-
-	@Override
-	public Nacionalidad obtenerPorID(int ID) {
-		// TODO Auto-generated method stub
-		return Ndao.obtenerPorID(ID);
-	}
-
-
-
-	
 
 }
