@@ -131,7 +131,6 @@ public class DaoUsuario implements IDaoUsuario{
 	
 	@Override
 	public boolean update(Usuario usuario_a_modificar) {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
@@ -141,20 +140,22 @@ public class DaoUsuario implements IDaoUsuario{
 		DaoLocalidad dL = new DaoLocalidad();
 		DaoTelefono dT = new DaoTelefono();
 		
-		 String DNI = resultSet.getString("DNI");
-		 String Nombre = resultSet.getString("Nombre");
-		 String Apellido = resultSet.getString("Apellido");
-		 Nacionalidad Nacionalidad = dN.Read(resultSet.getInt("ID_Nacionalidades"));
-		 Localidad Localidad = dL.Read(resultSet.getInt("ID_Localidades"));
-		 String CUIL = resultSet.getString("CUIL");
-		 String Sexo = resultSet.getString("Sexo"); 
-		 Date Nacimiento = resultSet.getDate("Fecha_Nacimiento");
-		 String Direccion = resultSet.getString("Direccion");
-		 String Mail = resultSet.getString("Mail");
-		 Telefono Telefono = dT.Read(resultSet.getInt("ID_Telefonos"));
-		 String Password = resultSet.getString("Password");
-		 int Tipo_Usuario = resultSet.getInt("Tipo_user");
-		 return new Usuario(DNI, Nombre, Apellido, Nacionalidad, Localidad, CUIL, Sexo, Nacimiento, Direccion, Mail, Telefono, Password, Tipo_Usuario);
+		String DNI = resultSet.getString("DNI");
+		String Nombre = resultSet.getString("Nombre");
+		String Apellido = resultSet.getString("Apellido");
+		Nacionalidad Nacionalidad = dN.Read(resultSet.getInt("ID_Nacionalidades"));
+		Localidad Localidad = dL.Read(resultSet.getInt("ID_Localidades"));
+		String CUIL = resultSet.getString("CUIL");
+		String Sexo = resultSet.getString("Sexo");
+		Date Nacimiento = resultSet.getDate("Fecha_Nacimiento");
+		String Direccion = resultSet.getString("Direccion");
+		String Mail = resultSet.getString("Mail");
+		Telefono Telefono = dT.Read(resultSet.getInt("ID_Telefonos"));
+		String Password = resultSet.getString("Password");
+		int Tipo_Usuario = resultSet.getInt("Tipo_user");
+		
+		return new Usuario(DNI, Nombre, Apellido, Nacionalidad, Localidad, CUIL, Sexo, Nacimiento, Direccion, Mail, Telefono, Password, Tipo_Usuario);
+		 
 	}
 
 }

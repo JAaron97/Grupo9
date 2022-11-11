@@ -40,9 +40,6 @@ public class DaoNacionalidad implements IDaoNacionalidad {
 				Nacionalidades.add(getNacionalidad(resultSet));
 			}
 			
-			
-			conexion.cerrarConexion();
-			
 		} 
 		catch (SQLException e) 
 		{
@@ -73,8 +70,6 @@ public class DaoNacionalidad implements IDaoNacionalidad {
 			{
 				nacionalidad = getNacionalidad(resultSet);
 			}
-			
-			conexion.cerrarConexion();
 			
 		} 
 		catch (SQLException e) 

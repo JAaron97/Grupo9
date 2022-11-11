@@ -36,7 +36,6 @@ public class DaoLocalidad implements IDaoLocalidad {
 				
 			}
 			
-			conexion.cerrarConexion();
 			
 			
 		} 
@@ -70,7 +69,6 @@ public class DaoLocalidad implements IDaoLocalidad {
 				ld = getLocalidades(resultSet);
 			}
 			
-			conexion.cerrarConexion();
 			
 		}
 		catch (Exception e) 
