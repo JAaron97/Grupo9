@@ -1,15 +1,15 @@
 package DaoImpl;
 
-import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.List;
 
-import Dao.IDaoLocalidad;
-import Dao.IDaoUsuario;
+
+
+import java.sql.Connection;
+
 import DaoImpl.Conexion;
 import DaoImpl.DaoNacionalidad;
 import DaoImpl.DaoLocalidad;
@@ -24,146 +24,226 @@ public class DaoUsuario{
 	private static final String insert = "INSERT INTO usuarios(DNI, Nombre, Apellido, ID_Nacionalidades, ID_Localidades, CUIL, Sexo,"
 			+ " Fecha_Nacimiento, Direccion, Mail, ID_Telefonos, Password, Tipo_user) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 	
-	private static final String delete = "DELETE FROM usuarios WHERE DNI = ?";
+	private static final String delete = "DELETE FROM usuarios WHERE DNI = ? ";
 	private static final String readall = "SELECT * FROM usuarios";
-	private static final String read = "SELECT FROM usuarios WHERE DNI = ?";
+	private static final String read = "SELECT FROM usuarios WHERE DNI = '?' ";
 	
 	private DaoLocalidad DL;
 	private DaoNacionalidad DN;
 	private DaoTelefono DT;
 	
-	
-
-	public boolean insert(Usuario usuario_add) {
-		try {
-			Class.forName("com.mysql.jdbc.Driver");
-		} catch(ClassNotFoundException e) {
-			e.printStackTrace(); 
-		}
+	public ArrayList<Usuario> ReadAll()
+	{
+		ArrayList<Usuario> Usuarios = new ArrayList<Usuario>();
 		
-		PreparedStatement statement;
-		Connection conexion = Conexion.getConexion().getSQLConexion();
-		boolean isInsertExitoso = false;
-		try
-		{
-			statement = conexion.prepareStatement(insert);
-			statement.setString(1, usuario.getDNI());
-			statement.setString(2, usuario.getNombre());
-			statement.setString(3, usuario.getApellido());
-			statement.setInt(4, nacionalidad.getID());
-			statement.setInt(5, localidad.getIDLocalidad());
-			statement.setString(6, usuario.getCUIL());
-			statement.setString(7, usuario.getSexo());
-			statement.setDate(8, usuario.getNacimiento());
-			statement.setString(9, usuario.getDireccion());
-			statement.setString(10, usuario.getMail());
-			statement.setInt(11, telefono.getID_Telefono());
-			statement.setString(12, usuario.getPassword());
-			statement.setInt(13, usuario.getTipoUsuario());
-			if(statement.executeUpdate() > 0)
-			{
-				conexion.commit();
-				isInsertExitoso = true;
-			}
-		}
-		catch (SQLException e) 
-		{
-			e.printStackTrace();
-			try {
-				conexion.rollback();
-			} catch (SQLException e1) {
-				e1.printStackTrace();
-			}
-		}
-			
-		return isInsertExitoso;
-	}
-
-	@Override
-	public boolean delete(Usuario usuario_a_eliminar) {
-		
-		try {
-			Class.forName("com.mysql.jdbc.Driver");
-		} catch(ClassNotFoundException e) {
-			e.printStackTrace(); 
-		}
-		
-		PreparedStatement statement;
-		Connection conexion = Conexion.getConexion().getSQLConexion();
-		boolean isdeleteExitoso = false;
-		try 
-		{
-			statement = conexion.prepareStatement(delete);
-			statement.setString(1, usuario_a_eliminar.getDNI());
-			if(statement.executeUpdate() > 0)
-			{
-				conexion.commit();
-				isdeleteExitoso = true;
-			}
-		} 
-		catch (SQLException e) 
-		{
-			e.printStackTrace();
-		}
-		return isdeleteExitoso;
-	}
-
-	@Override
-	public List<Usuario> readAll() {
-		
-		try {
-			Class.forName("com.mysql.jdbc.Driver");
-		} catch(ClassNotFoundException e) {
-			e.printStackTrace(); 
-		}
-		
-		PreparedStatement statement;
-		ResultSet resultSet; 
-		ArrayList<Usuario> usuarios = new ArrayList<Usuario>();
 		Conexion conexion = Conexion.getConexion();
+		PreparedStatement statement;
+		ResultSet resultset;
+		
 		try 
 		{
 			statement = conexion.getSQLConexion().prepareStatement(readall);
-			resultSet = statement.executeQuery();
-			while(resultSet.next())
+			resultset = statement.executeQuery();
+			
+			while(resultset.next()) 
 			{
-				usuarios.add(getUsuario(resultSet));
+				Usuarios.add(getUsuario(resultset));
 			}
-		} 
-		catch (SQLException e) 
+			
+			conexion.cerrarConexion();
+			
+		}
+		catch (Exception e) 
 		{
 			e.printStackTrace();
 		}
-		return usuarios;
+		
+		return Usuarios;
 	}
 	
-	@Override
-	public boolean update(Usuario usuario_a_modificar) {
-		return false;
+	
+	public Usuario Read(String DNI) 
+	{
+		Usuario user = null;
+		
+		PreparedStatement statement;
+		Conexion conexion = Conexion.getConexion();
+		ResultSet resultset;
+		
+		try 
+		{
+			
+			statement = conexion.getSQLConexion().prepareStatement(read);
+			statement.setString(1,DNI);
+			resultset = statement.executeQuery();
+			
+			while(resultset.next()) 
+			{
+				user = getUsuario(resultset);
+			}
+			
+			conexion.cerrarConexion();
+			
+		}
+		catch (Exception e) 
+		{
+			e.printStackTrace();
+		}
+		
+		return user;
+		
 	}
 
-	private Usuario getUsuario(ResultSet resultSet) throws SQLException {
+
+	public boolean Insert(Usuario User) 
+	{
+		PreparedStatement statement;
+		Connection conexion = Conexion.getConexion().getSQLConexion();
 		
-		DaoNacionalidad dN = new DaoNacionalidad();
-		DaoLocalidad dL = new DaoLocalidad();
-		DaoTelefono dT = new DaoTelefono();
+		boolean isInsertExistoso = false;
 		
+		try 
+		{
+			statement = conexion.prepareStatement(insert);
+			
+			statement.setString(1, User.getDNI());
+			statement.setString(2, User.getNombre());
+			statement.setString(3,User.getApellido());
+			statement.setInt(4,User.getNacionalidad().getID());
+			statement.setInt(5,User.getLocalidad().getIDLocalidad());
+			statement.setString(6,User.getCUIL());
+			statement.setString(7,User.getSexo());
+			statement.setDate(8,User.getNacimiento());
+			statement.setString(9,User.getDireccion());
+			statement.setString(10,User.getMail());
+			statement.setInt(11,User.getTelefono().getID_Telefono());
+			statement.setString(12,User.getPassword());
+			statement.setInt(13,User.getTipoUsuario());
+			
+			if(statement.executeUpdate() > 0 )
+			{
+				conexion.commit();
+				isInsertExistoso = true;
+				
+			}
+			
+			
+		}
+		catch (Exception e) 
+		{
+		
+			e.printStackTrace();
+			try 
+			{
+				conexion.rollback();
+			} 
+			catch (SQLException e1) 
+			{
+				e1.printStackTrace();
+			}
+		}
+		
+		return isInsertExistoso;
+		
+	}
+	
+	public boolean Delete(String DNI) {
+		
+		PreparedStatement statement;
+		Connection conexion = Conexion.getConexion().getSQLConexion();
+		
+		boolean isDeleteExito = false;
+		
+		try 
+		{
+			statement = conexion.prepareStatement(delete);
+			statement.setString(1, DNI);
+			
+			if(statement.executeUpdate() > 0 )
+			{
+				conexion.commit();
+				isDeleteExito = true;
+			}	
+		}
+		catch (Exception e) 
+		{
+			e.printStackTrace();
+			
+			try 
+			{
+				conexion.rollback();
+			} 
+			catch (SQLException e1) 
+			{
+				e1.printStackTrace();
+			}
+			
+		}
+		
+		return isDeleteExito;
+	}
+	
+	
+	
+	
+	private Usuario getUsuario(ResultSet resultSet) throws SQLException 
+	{
 		String DNI = resultSet.getString("DNI");
+		
 		String Nombre = resultSet.getString("Nombre");
+		
 		String Apellido = resultSet.getString("Apellido");
-		Nacionalidad Nacionalidad = dN.Read(resultSet.getInt("ID_Nacionalidades"));
-		Localidad Localidad = dL.Read(resultSet.getInt("ID_Localidades"));
+		
+		Nacionalidad Nacionalidad = getNacionalidad(resultSet.getInt("ID_Nacionalidades"));
+		
+		Localidad Localidad = getLocalidad(resultSet.getInt("ID_Localidades"));
+		
 		String CUIL = resultSet.getString("CUIL");
+		
 		String Sexo = resultSet.getString("Sexo");
+		
 		Date Nacimiento = resultSet.getDate("Fecha_Nacimiento");
+		
 		String Direccion = resultSet.getString("Direccion");
+		
 		String Mail = resultSet.getString("Mail");
-		Telefono Telefono = dT.Read(resultSet.getInt("ID_Telefonos"));
+		
+		Telefono Telefono = getTelefono(resultSet.getInt("ID_Telefonos"));
+		
 		String Password = resultSet.getString("Password");
+		
 		int Tipo_Usuario = resultSet.getInt("Tipo_user");
 		
 		return new Usuario(DNI, Nombre, Apellido, Nacionalidad, Localidad, CUIL, Sexo, Nacimiento, Direccion, Mail, Telefono, Password, Tipo_Usuario);
 		 
+	}
+	
+	private Nacionalidad getNacionalidad(int id) {
+		
+		this.DN = new DaoNacionalidad();
+		
+		Nacionalidad nc = DN.Read(id); 
+		
+		return  nc;
+	}
+	
+	private Localidad getLocalidad(int id) {
+		
+		this.DL = new DaoLocalidad();
+		
+		Localidad nc = DL.Read(id); 
+		
+		return  nc;
+	}
+	
+	private Telefono getTelefono(int id) {
+		
+		this.DT = new DaoTelefono();
+		
+		Telefono nc = DT.Read(id);
+		
+		return nc;
+		
 	}
 
 }
