@@ -33,8 +33,6 @@ public class DaoTipoCuenta implements IDaoTipoCuenta{
 				
 			}
 			
-			conexion.cerrarConexion();
-			
 			
 		} 
 		catch (SQLException e) 
@@ -65,9 +63,7 @@ public class DaoTipoCuenta implements IDaoTipoCuenta{
 			{
 				tc = getTiposCuentas(resultSet);
 			}
-			
-			conexion.cerrarConexion();
-			
+		
 			
 		}
 		catch (Exception e)

@@ -28,9 +28,6 @@ public class DaoProvincia implements IDaoProvincia {
 				Provincias.add(getProvincias(resultSet));
 			}
 			
-			conexion.cerrarConexion();
-			
-			
 		} 
 		catch (SQLException e) 
 		{

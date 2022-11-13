@@ -30,10 +30,7 @@ public class DaoNumeroCuotas  implements IDaoNumeroCuotas{
 			{
 				numerocuotas.add(getNumeroCuotas(resultset));
 			}
-			
-			
-			
-		conexion.cerrarConexion();	
+		
 		}
 		
 		catch (Exception e) 
@@ -64,8 +61,6 @@ public class DaoNumeroCuotas  implements IDaoNumeroCuotas{
 			{
 				nc = getNumeroCuotas(resultset);
 			}
-			
-			conexion.cerrarConexion();
 			
 		}
 		catch (Exception e) 

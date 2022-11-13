@@ -32,8 +32,6 @@ public class DaoTipoMovimiento implements IDaoTipoMovimiento{
 				tiposmovimiento.add(getTiposMovimientos(resultSet));
 			}
 			
-			conexion.cerrarConexion();
-			
 		}
 		catch (Exception e) {
 		
@@ -65,8 +63,7 @@ public class DaoTipoMovimiento implements IDaoTipoMovimiento{
 			{
 				tm = getTiposMovimientos(resultset);
 			}
-			
-			conexion.cerrarConexion();
+		
 			
 		}
 		catch (Exception e) {

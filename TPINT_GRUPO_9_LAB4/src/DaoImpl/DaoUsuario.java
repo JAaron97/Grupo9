@@ -55,8 +55,6 @@ public class DaoUsuario implements IDaoUsuario{
 				Usuarios.add(getUsuario(resultset));
 			}
 			
-			conexion.cerrarConexion();
-			
 		}
 		catch (Exception e) 
 		{
@@ -86,8 +84,6 @@ public class DaoUsuario implements IDaoUsuario{
 			{
 				user = getUsuario(resultset);
 			}
-			
-			conexion.cerrarConexion();
 			
 		}
 		catch (Exception e) 
