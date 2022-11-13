@@ -9,14 +9,13 @@ import Entidad.Telefono;
 
 public class DaoTelefono implements IDaoTelefono{
 	
-	private static final String insert = "INSERT INTO telefonos (ID, Telefono_1,Telefono_2,Telefono_3,Telefono_4) VALUES ('?','?','?','?','?')";
-	
-	private static final String delete = "DELETE FROM telfonos WHERE ID = ?";
+	private static final String insert = "INSERT INTO telefonos (Telefono_1,Telefono_2,Telefono_3,Telefono_4) VALUES ('?','?','?','?')";
 	
 	private static final String read = "SELECT * FROM telefonos WHERE ID = ?";
 	
 	private static final String update = "UPDATE telefonos SET Telefono_1 = '?' , Telefono_2 = '?', Telefono_3 = '?', Telefono_4 = '?' WHERE ID = ?";
 	
+	private static final String nextid = "SELECT MAX(ID)+1 AS 'nextid' FROM telefonos ";
 	
 	
 
@@ -30,7 +29,7 @@ public class DaoTelefono implements IDaoTelefono{
 		{
 			statement = conexion.prepareStatement(insert);
 			
-			statement.setInt(1,telefono_add.getID_Telefono());
+			
 			statement.setString(2,telefono_add.getTelefono_1());
 			statement.setString(3,telefono_add.getTelefono_2());
 			statement.setString(4,telefono_add.getTelefono_3());
@@ -62,38 +61,6 @@ public class DaoTelefono implements IDaoTelefono{
 	}
 
 	
-	public boolean Delete(int id) {
-		PreparedStatement statement;
-		Connection conexion = Conexion.getConexion().getSQLConexion();
-		
-		boolean isdeleteExitoso = false;
-		
-		try 
-		{
-			statement = conexion.prepareStatement(delete);
-			
-			statement.setInt(1, id);
-			if(statement.executeUpdate() > 0)
-			{
-				conexion.commit();
-				isdeleteExitoso = true;
-			}
-		} 
-		catch (Exception e) 
-		{
-			e.printStackTrace();
-			
-			try 
-			{
-				conexion.rollback();
-			} 
-			catch (SQLException e1) 
-			{
-				e1.printStackTrace();
-			}
-		}
-		return isdeleteExitoso;
-	}
 
 	public boolean Update(Telefono telefono_update) {
 
@@ -168,6 +135,37 @@ public class DaoTelefono implements IDaoTelefono{
 		return Tele;
 	}
 
+	
+	public int NextID() {
+		
+		int Nextid = 0;
+		
+		PreparedStatement statement;
+		Conexion conexion = Conexion.getConexion();
+		ResultSet resultset;
+		
+		
+		try 
+		{
+			statement = conexion.getSQLConexion().prepareStatement(nextid);
+			resultset = statement.executeQuery();
+			
+			while(resultset.next()) 
+			{
+				Nextid = resultset.getInt("nextid");
+			}
+			
+			
+		}
+		catch (Exception e) 
+		{
+			e.printStackTrace();
+		}
+		
+		return Nextid;
+		
+	}
+	
 	
 	private Telefono getTelefono(ResultSet rs) throws SQLException 
 	{

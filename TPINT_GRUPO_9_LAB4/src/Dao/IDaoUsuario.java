@@ -2,9 +2,6 @@ package Dao;
 
 import java.util.List;
 
-import Entidad.Localidad;
-import Entidad.Nacionalidad;
-import Entidad.Telefono;
 import Entidad.Usuario;
 
 public interface IDaoUsuario {

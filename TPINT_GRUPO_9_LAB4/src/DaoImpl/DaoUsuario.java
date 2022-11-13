@@ -22,11 +22,16 @@ import Entidad.Usuario;
 public class DaoUsuario implements IDaoUsuario{
 	
 	private static final String insert = "INSERT INTO usuarios(DNI, Nombre, Apellido, ID_Nacionalidades, ID_Localidades, CUIL, Sexo,"
-			+ " Fecha_Nacimiento, Direccion, Mail, ID_Telefonos, Password, Tipo_user) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+			+ " Fecha_Nacimiento, Direccion, Mail, ID_Telefonos, Password, Tipo_user) VALUES('?', '?', '?', ?, ?, '?', '?', ?, '?', '?', ?, '?', ?)";
 	
-	private static final String delete = "DELETE FROM usuarios WHERE DNI = ? ";
+	private static final String delete = "DELETE FROM usuarios WHERE DNI = '?' ";
+	
 	private static final String readall = "SELECT * FROM usuarios";
+	
 	private static final String read = "SELECT FROM usuarios WHERE DNI = '?' ";
+	
+	private static final String update = "UPDATE usuarios SET Nombre = '?', Apellido = '?', ID_Nacionalidades = ? , ID_Localidades = ?, CUIL = '?' "
+			+ ", Sexo = '?' , Fecha_Nacimiento = ? , Direccion = '?' , Mail = '?' , ID_Telefonos = ? , Password = '?' , Tipo_user = ?  WHERE DNI = '?' ";
 	
 	private DaoLocalidad DL;
 	private DaoNacionalidad DN;
@@ -97,6 +102,7 @@ public class DaoUsuario implements IDaoUsuario{
 
 	public boolean Insert(Usuario User) 
 	{
+		
 		PreparedStatement statement;
 		Connection conexion = Conexion.getConexion().getSQLConexion();
 		
@@ -116,7 +122,10 @@ public class DaoUsuario implements IDaoUsuario{
 			statement.setDate(8,User.getNacimiento());
 			statement.setString(9,User.getDireccion());
 			statement.setString(10,User.getMail());
-			statement.setInt(11,User.getTelefono().getID_Telefono());
+			
+			
+			statement.setInt(11,getNewTelefono(User));
+			
 			statement.setString(12,User.getPassword());
 			statement.setInt(13,User.getTipoUsuario());
 			
@@ -183,7 +192,56 @@ public class DaoUsuario implements IDaoUsuario{
 		return isDeleteExito;
 	}
 	
-	
+	public boolean Update(Usuario user) 
+	{
+		PreparedStatement statement;
+		Connection conexion = Conexion.getConexion().getSQLConexion();
+		boolean isUpdateExito = false;
+		
+		try 
+		{
+			
+			statement = conexion.prepareStatement(update);
+			
+			statement.setString(1,user.getNombre());
+			statement.setString(2,user.getApellido());
+			statement.setInt(3, user.getNacionalidad().getID());
+			statement.setInt(4,user.getLocalidad().getIDLocalidad());
+			statement.setString(5, user.getCUIL());
+			statement.setString(6, user.getSexo());
+			statement.setDate(7, user.getNacimiento());
+			statement.setString(8,user.getDireccion());
+			statement.setString(9,user.getMail());
+			statement.setInt(10,user.getTelefono().getID_Telefono());
+			statement.setString(11,user.getPassword());
+			statement.setInt(12,user.getTipoUsuario());
+			
+			statement.setString(13, user.getDNI());
+			
+			if(statement.executeUpdate() > 0 )
+			{
+				conexion.commit();
+				isUpdateExito = true;
+			}
+			
+			
+		}
+		catch (Exception e) 
+		{
+			e.printStackTrace();
+			
+			try 
+			{
+				conexion.rollback();
+			} 
+			catch (SQLException e1) 
+			{
+				e1.printStackTrace();
+			}
+		}
+		
+		return isUpdateExito;
+	}
 	
 	
 	private Usuario getUsuario(ResultSet resultSet) throws SQLException 
@@ -245,11 +303,16 @@ public class DaoUsuario implements IDaoUsuario{
 		return nc;
 		
 	}
-
-	@Override
-	public boolean Update(Usuario usuario_update) {
-		// TODO Auto-generated method stub
-		return false;
+	
+	private int getNewTelefono(Usuario user) {
+		
+		int id=0;
+		this.DT = new DaoTelefono();
+		
+		DT.Insert(user.getTelefono());
+		id = DT.NextID();
+		
+		return id;
 	}
 
 }
