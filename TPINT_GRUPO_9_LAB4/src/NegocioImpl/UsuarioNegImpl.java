@@ -14,23 +14,23 @@ public class UsuarioNegImpl implements UsuarioNeg{
 	DaoUsuario daoUser = new DaoUsuario();
 	
 	@Override
-	public boolean insert(Usuario usuario, Nacionalidad nacionalidad, Telefono telefono, Localidad localidad) {
-		return daoUser.in(usuario, nacionalidad, telefono, localidad);
+	public boolean insert(Usuario usuario) {
+		return daoUser.Insert(usuario);
 	}
 
 	@Override
-	public boolean delete(Usuario usuario_a_eliminar) {
-		return daoUser.delete(usuario_a_eliminar);
+	public boolean delete(String DNI) {
+		return daoUser.Delete(DNI);
 	}
 
 	@Override
 	public boolean update(Usuario usuario_a_modificar) {
-		return daoUser.update(usuario_a_modificar);
+		return daoUser.Update(usuario_a_modificar);
 	}
 
 	@Override
 	public List<Usuario> readAll() {
-		return daoUser.readAll();
+		return daoUser.ReadAll();
 	}
 
 }

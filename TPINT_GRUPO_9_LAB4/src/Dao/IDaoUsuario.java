@@ -11,7 +11,7 @@ public interface IDaoUsuario {
 	
 	public boolean Insert(Usuario usuario_add);
 	
-	public boolean Delete(Usuario usuario_delete);
+	public boolean Delete(String DNI);
 	
 	public boolean Update(Usuario usuario_update);
 	

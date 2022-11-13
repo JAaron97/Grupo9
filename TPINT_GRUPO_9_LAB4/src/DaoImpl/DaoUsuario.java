@@ -6,7 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-
+import Dao.IDaoUsuario;
 
 import java.sql.Connection;
 
@@ -19,7 +19,7 @@ import Entidad.Nacionalidad;
 import Entidad.Telefono;
 import Entidad.Usuario;
 
-public class DaoUsuario{
+public class DaoUsuario implements IDaoUsuario{
 	
 	private static final String insert = "INSERT INTO usuarios(DNI, Nombre, Apellido, ID_Nacionalidades, ID_Localidades, CUIL, Sexo,"
 			+ " Fecha_Nacimiento, Direccion, Mail, ID_Telefonos, Password, Tipo_user) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
@@ -244,6 +244,12 @@ public class DaoUsuario{
 		
 		return nc;
 		
+	}
+
+	@Override
+	public boolean Update(Usuario usuario_update) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 }
