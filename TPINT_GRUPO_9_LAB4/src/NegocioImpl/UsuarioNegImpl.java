@@ -15,7 +15,7 @@ public class UsuarioNegImpl implements UsuarioNeg{
 	
 	@Override
 	public boolean insert(Usuario usuario, Nacionalidad nacionalidad, Telefono telefono, Localidad localidad) {
-		return daoUser.insert(usuario, nacionalidad, telefono, localidad);
+		return daoUser.in(usuario, nacionalidad, telefono, localidad);
 	}
 
 	@Override

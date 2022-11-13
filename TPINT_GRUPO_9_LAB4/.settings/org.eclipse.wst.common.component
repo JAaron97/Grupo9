@@ -5,6 +5,9 @@
         <dependent-module archiveName="mysql-connector-java-5.1.41-bin.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/TPINT_GRUPO_9_LAB4/mysql-connector-java-5.1.41-bin.jar">
             <dependency-type>uses</dependency-type>
         </dependent-module>
+        <dependent-module archiveName="mysql-connector-java-5.1.47.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/C:/Users/juanm/Desktop/lAB4/mysql-connector-java-5.1.47/mysql-connector-java-5.1.47.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
         <property name="context-root" value="TPINT_GRUPO_9_LAB4"/>
         <property name="java-output-path" value="/TPINT_GRUPO_9_LAB4/build/classes"/>
     </wb-module>

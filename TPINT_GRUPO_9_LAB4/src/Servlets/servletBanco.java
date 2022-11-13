@@ -21,7 +21,7 @@ public class servletBanco extends HttpServlet {
 		if(request.getParameter("btnIngresar")!=null) {
 			DaoUsuario dU = new DaoUsuario();
 			ArrayList<Usuario> usuarios = new ArrayList<Usuario>();
-			usuarios = (ArrayList<Usuario>) dU.readAll();
+			usuarios = (ArrayList<Usuario>) dU.ReadAll();
 			
 			for(Usuario user : usuarios) {
 				if(user.getDNI().equals(request.getParameter("txtDNI")) && user.getPassword().equals(request.getParameter("txtPasswd"))) {

@@ -158,7 +158,7 @@ public class DaoTelefono implements IDaoTelefono{
 				Tele = getTelefono(resultSet);
 			}
 			
-			conexion.cerrarConexion();
+			
 			
 		} 
 		catch (SQLException e) 
