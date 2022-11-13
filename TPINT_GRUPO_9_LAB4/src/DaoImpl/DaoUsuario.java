@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import Dao.IDaoLocalidad;
 import Dao.IDaoUsuario;
 import DaoImpl.Conexion;
 import DaoImpl.DaoNacionalidad;
@@ -18,15 +19,22 @@ import Entidad.Nacionalidad;
 import Entidad.Telefono;
 import Entidad.Usuario;
 
-public class DaoUsuario implements IDaoUsuario{
+public class DaoUsuario{
 	
 	private static final String insert = "INSERT INTO usuarios(DNI, Nombre, Apellido, ID_Nacionalidades, ID_Localidades, CUIL, Sexo,"
 			+ " Fecha_Nacimiento, Direccion, Mail, ID_Telefonos, Password, Tipo_user) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+	
 	private static final String delete = "DELETE FROM usuarios WHERE DNI = ?";
 	private static final String readall = "SELECT * FROM usuarios";
+	private static final String read = "SELECT FROM usuarios WHERE DNI = ?";
+	
+	private DaoLocalidad DL;
+	private DaoNacionalidad DN;
+	private DaoTelefono DT;
+	
+	
 
-	@Override
-	public boolean insert(Usuario usuario, Nacionalidad nacionalidad, Telefono telefono, Localidad localidad) {
+	public boolean insert(Usuario usuario_add) {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 		} catch(ClassNotFoundException e) {
