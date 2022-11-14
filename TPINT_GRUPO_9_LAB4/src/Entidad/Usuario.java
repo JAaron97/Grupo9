@@ -1,7 +1,7 @@
 package Entidad;
 
 
-import java.sql.Date;
+import java.time.LocalDate;
 
 public class Usuario {
 		
@@ -12,7 +12,7 @@ public class Usuario {
 		private Localidad Localidad;
 		private String CUIL;
 		private String Sexo;
-		private Date Nacimiento;
+		private LocalDate Nacimiento;
 		private String Direccion;
 		private String Mail;
 		private Telefono Telefono;
@@ -23,7 +23,7 @@ public class Usuario {
 		
 	public Usuario(String dni, String nombre, String apellido,
 			Nacionalidad nacionalidad, Localidad localidad, String cuil,
-			String sexo, Date nacimiento, String direccion, String mail,
+			String sexo, LocalDate nacimiento, String direccion, String mail,
 			Telefono telefono,String password,int tipo_usuario) {
 			
 		
@@ -129,13 +129,13 @@ public class Usuario {
 	
 	
 	
-	public Date getNacimiento() {
+	public LocalDate getNacimiento() {
 		return Nacimiento;
 	}
 	
 	
 	
-	public void setNacimiento(Date nacimiento) {
+	public void setNacimiento(LocalDate nacimiento) {
 		Nacimiento = nacimiento;
 	}
 	

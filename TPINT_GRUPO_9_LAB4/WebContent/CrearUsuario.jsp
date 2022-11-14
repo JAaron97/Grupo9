@@ -3,8 +3,8 @@
     <%@ page import="Entidad.Usuario" %>
     <%@ page import="Entidad.Nacionalidad" %>
     <%@ page import="Entidad.Localidad" %>
-    <%@ page import="NegocioImpl.NacionaldiadNegImpl" %>
-    <%@ page import="NegocioImpl.LocaldiadesNegImpl" %>
+    <%@ page import="NegocioImpl.NacionalidadNegImpl" %>
+    <%@ page import="NegocioImpl.LocalidadesNegImpl" %>
     <%@ page import="java.util.ArrayList" %>
 <!DOCTYPE html>
 <html>
@@ -18,11 +18,11 @@
 </head>
 <body>
 <%
-boolean sesionIniciada = false;
+	boolean sesionIniciada = false;
 Usuario user = new Usuario();
 user = (Usuario) session.getAttribute("Usuario");
-NacionaldiadNegImpl nacioNeg = new NacionaldiadNegImpl();
-LocaldiadesNegImpl locNeg = new LocaldiadesNegImpl();
+NacionalidadNegImpl nacioNeg = new NacionalidadNegImpl();
+LocalidadesNegImpl locNeg = new LocalidadesNegImpl();
 ArrayList<Nacionalidad> listaNacionalidades = null; 
 	listaNacionalidades = nacioNeg.ReadAll();
 ArrayList<Localidad> listaLocalidades = null;
@@ -40,7 +40,7 @@ ArrayList<Localidad> listaLocalidades = null;
 			<a class="nav-link disabled"><%= user.getNombre() %></a>
 		</li>
 		<li>
-			<a class="nav-link" href="IniciarSesion.jsp">Cerrar Sesión</a>
+			<a class="nav-link" href="CerrarSesion.jsp">Cerrar Sesión</a>
         </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -65,6 +65,7 @@ ArrayList<Localidad> listaLocalidades = null;
 			<p class="text-center">Nombre: <input type="text" name="txtNombre"> </p>
 			<p class="text-center">Apellido: <input type="text" name="txtApellido"> </p>
 			<p class="text-center">Dni: <input type="number" name="txtDni"></p>
+			<p class="text-center">Contraseña: <input type="text" name="txtPassword"></p>
 			<p class="text-center">Nacionalidad:
 				<select name="Nacionalidad">
 					    <%
@@ -76,7 +77,7 @@ ArrayList<Localidad> listaLocalidades = null;
 					    %>
 				</select></p>
 			<p class="text-center">Localidad:
-				<select name="Nacionalidad">
+				<select name="Localidad">
 					    <%
 					    for(Localidad loc : listaLocalidades){
 					    %>
@@ -98,13 +99,27 @@ ArrayList<Localidad> listaLocalidades = null;
 			<p class="text-center">Calle: <input type="text" name="txtCalle"> Altura: <input type="text" name="txtAltura"></p>
 			<p class="text-center">Mail: <input type="email" placeholder="pedrogonzalez@gmail.com" name="mail"></p>
 			<p class="text-center">Telefonos: <br> 
-				<input type="number" name="telefono1" placeholder="Telefono 1"><br>
+				<input type="number" name="telefono1" placeholder="Telefono 1" required><br>
 				<input type="number" name="telefono2" placeholder="Telefono 2"><br>
 				<input type="number" name="telefono3" placeholder="Telefono 3"><br>
 				<input type="number" name="telefono4" placeholder="Telefono 4">
 			</p>
-			<p class="text-center"> <input type="submit" name="btnRegistrarse" value="Registrarse"> </p> 
+			<p class="text-center"> <input type="submit" name="btnCrear" value="Crear"> </p> 
 			</form>
+			<%
+			boolean filas = false;
+			filas = (Boolean)request.getAttribute("cantFilas");
+			if(filas){;
+			%>
+			<p class="text-center">Cliente creado correctamente</p>
+			<%
+			}
+			else{
+			%>
+			<p class="text-center">No se pudo añadir el cliente</p>
+			<%
+			}
+			%>
 		</div>
 	</div>
 </div>

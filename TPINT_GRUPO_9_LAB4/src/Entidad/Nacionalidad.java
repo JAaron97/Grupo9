@@ -5,7 +5,8 @@ public class Nacionalidad {
 	private int ID;
 	private String Descripcion;
 
-
+	public Nacionalidad() {}
+	
 	public Nacionalidad(int id, String descripcion) {
 		this.ID= id;
 		this.Descripcion = descripcion;

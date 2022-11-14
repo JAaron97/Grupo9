@@ -5,8 +5,8 @@ import java.util.ArrayList;
 
 import DaoImpl.DaoLocalidad;
 import Entidad.Localidad;
-import Negocio.LocaldiadesNeg;
-public class LocaldiadesNegImpl implements LocaldiadesNeg {
+import Negocio.LocalidadesNeg;
+public class LocalidadesNegImpl implements LocalidadesNeg {
 
 	DaoLocalidad Ldao = new DaoLocalidad();
 

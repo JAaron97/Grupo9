@@ -9,7 +9,7 @@ import Entidad.Telefono;
 
 public class DaoTelefono implements IDaoTelefono{
 	
-	private static final String insert = "INSERT INTO telefonos (Telefono_1,Telefono_2,Telefono_3,Telefono_4) VALUES ('?','?','?','?')";
+	private static final String insert = "INSERT INTO telefonos (Telefono_1,Telefono_2,Telefono_3,Telefono_4) VALUES (?, ?, ?, ?)";
 	
 	private static final String read = "SELECT * FROM telefonos WHERE ID = ?";
 	
@@ -30,10 +30,10 @@ public class DaoTelefono implements IDaoTelefono{
 			statement = conexion.prepareStatement(insert);
 			
 			
-			statement.setString(2,telefono_add.getTelefono_1());
-			statement.setString(3,telefono_add.getTelefono_2());
-			statement.setString(4,telefono_add.getTelefono_3());
-			statement.setString(5,telefono_add.getTelefono_4());
+			statement.setString(1,telefono_add.getTelefono_1());
+			statement.setString(2,telefono_add.getTelefono_2());
+			statement.setString(3,telefono_add.getTelefono_3());
+			statement.setString(4,telefono_add.getTelefono_4());
 		
 			if(statement.executeUpdate() > 0)
 			{

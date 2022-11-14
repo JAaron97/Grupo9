@@ -10,4 +10,6 @@ public interface IDaoTelefono {
 	public boolean Update(Telefono telefono_update);
 	
 	public Telefono Read(int ID);
+	
+	public int NextID();
 }

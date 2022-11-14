@@ -1,14 +1,15 @@
 package DaoImpl;
 
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 import Dao.IDaoUsuario;
 
 import java.sql.Connection;
+import java.sql.Date;
 
 import DaoImpl.Conexion;
 import DaoImpl.DaoNacionalidad;
@@ -22,7 +23,7 @@ import Entidad.Usuario;
 public class DaoUsuario implements IDaoUsuario{
 	
 	private static final String insert = "INSERT INTO usuarios(DNI, Nombre, Apellido, ID_Nacionalidades, ID_Localidades, CUIL, Sexo,"
-			+ " Fecha_Nacimiento, Direccion, Mail, ID_Telefonos, Password, Tipo_user) VALUES('?', '?', '?', ?, ?, '?', '?', ?, '?', '?', ?, '?', ?)";
+			+ " Fecha_Nacimiento, Direccion, Mail, ID_Telefonos, Password, Tipo_user) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 	
 	private static final String delete = "DELETE FROM usuarios WHERE DNI = '?' ";
 	
@@ -103,6 +104,7 @@ public class DaoUsuario implements IDaoUsuario{
 		Connection conexion = Conexion.getConexion().getSQLConexion();
 		
 		boolean isInsertExistoso = false;
+		int id_tel = getNewTelefono(User);
 		
 		try 
 		{
@@ -115,13 +117,10 @@ public class DaoUsuario implements IDaoUsuario{
 			statement.setInt(5,User.getLocalidad().getIDLocalidad());
 			statement.setString(6,User.getCUIL());
 			statement.setString(7,User.getSexo());
-			statement.setDate(8,User.getNacimiento());
+			statement.setObject(8,User.getNacimiento());
 			statement.setString(9,User.getDireccion());
 			statement.setString(10,User.getMail());
-			
-			
-			statement.setInt(11,getNewTelefono(User));
-			
+			statement.setInt(11, id_tel);
 			statement.setString(12,User.getPassword());
 			statement.setInt(13,User.getTipoUsuario());
 			
@@ -205,7 +204,7 @@ public class DaoUsuario implements IDaoUsuario{
 			statement.setInt(4,user.getLocalidad().getIDLocalidad());
 			statement.setString(5, user.getCUIL());
 			statement.setString(6, user.getSexo());
-			statement.setDate(7, user.getNacimiento());
+			statement.setObject(7, user.getNacimiento());
 			statement.setString(8,user.getDireccion());
 			statement.setString(9,user.getMail());
 			statement.setInt(10,user.getTelefono().getID_Telefono());
@@ -242,6 +241,11 @@ public class DaoUsuario implements IDaoUsuario{
 	
 	private Usuario getUsuario(ResultSet resultSet) throws SQLException 
 	{
+		Date fecha;
+		fecha = (Date) resultSet.getObject("Fecha_Nacimiento");
+		LocalDate fechaNac = fecha.toLocalDate();
+		
+		
 		String DNI = resultSet.getString("DNI");
 		
 		String Nombre = resultSet.getString("Nombre");
@@ -256,7 +260,7 @@ public class DaoUsuario implements IDaoUsuario{
 		
 		String Sexo = resultSet.getString("Sexo");
 		
-		Date Nacimiento = resultSet.getDate("Fecha_Nacimiento");
+		LocalDate Nacimiento = fechaNac;
 		
 		String Direccion = resultSet.getString("Direccion");
 		
@@ -305,8 +309,8 @@ public class DaoUsuario implements IDaoUsuario{
 		int id=0;
 		this.DT = new DaoTelefono();
 		
-		DT.Insert(user.getTelefono());
 		id = DT.NextID();
+		DT.Insert(user.getTelefono());
 		
 		return id;
 	}

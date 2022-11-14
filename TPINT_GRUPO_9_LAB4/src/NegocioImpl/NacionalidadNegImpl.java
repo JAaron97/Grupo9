@@ -5,9 +5,9 @@ import java.util.ArrayList;
 
 import DaoImpl.DaoNacionalidad;
 import Entidad.Nacionalidad;
-import Negocio.NacionaldiadNeg;
+import Negocio.NacionalidadNeg;
 
-public class NacionaldiadNegImpl implements NacionaldiadNeg {
+public class NacionalidadNegImpl implements NacionalidadNeg {
 
 	DaoNacionalidad Ndao = new DaoNacionalidad();
 
