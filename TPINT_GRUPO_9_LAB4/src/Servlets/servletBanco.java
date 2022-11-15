@@ -39,12 +39,10 @@ public class servletBanco extends HttpServlet {
 					RequestDispatcher rd = request.getRequestDispatcher("/Inicio.jsp");
 					rd.forward(request, response);
 				}
-				else {
-					request.getSession().setAttribute("Usuario", null);
-					RequestDispatcher rd = request.getRequestDispatcher("/Inicio.jsp");
-					rd.forward(request, response);
-				}
 			}	
+		}
+		if(request.getParameter("btnAsignarCuenta")!=null) {
+			
 		}
 	}
 

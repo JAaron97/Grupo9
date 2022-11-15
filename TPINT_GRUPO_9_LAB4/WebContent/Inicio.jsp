@@ -81,7 +81,7 @@ if(session.getAttribute("Usuario") != null){
 	            <li><a class="dropdown-item" href="Prestamos.jsp">Prestamos</a></li>
 	            <li><hr class="dropdown-divider"></li>
 	            <li><a class="dropdown-item" href="#">Pedir cuenta bancaria</a></li>
-	            <li><a class="dropdown-item" href="#">Informacion de Usuario</a></li>
+	            <li><a class="dropdown-item" href="InfoUsuario.jsp">Informacion de Usuario</a></li>
 				<%
 					}
 				%>

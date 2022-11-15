@@ -18,7 +18,6 @@
 </head>
 <body>
 <%
-	boolean sesionIniciada = false;
 Usuario user = new Usuario();
 user = (Usuario) session.getAttribute("Usuario");
 NacionalidadNegImpl nacioNeg = new NacionalidadNegImpl();
