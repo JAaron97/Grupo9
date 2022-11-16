@@ -1,12 +1,15 @@
 package Dao;
 
-import java.util.List;
+import java.util.ArrayList;
+
 
 import Entidad.Movimiento;
 
 public interface IDaoMovimiento {
-	public boolean insert(Movimiento movimiento);
-	public boolean delete(Movimiento ovimiento_a_eliminar);
-	public boolean update(Movimiento movimiento_a_modificar);
-	public List<Movimiento> readAll();
+	
+	public boolean Insert(Movimiento movimiento);
+	
+	public Movimiento Read(String id);
+	
+	public ArrayList<Movimiento> ReadAll();
 }

@@ -5,7 +5,7 @@ import java.time.LocalDate;
 
 public class Movimiento {
 	
-		private int ID;
+		private String ID;
 		private LocalDate Fecha;
 		private TipoMovimiento TipoMovimiento;
 		private BigDecimal Importe;
@@ -13,7 +13,7 @@ public class Movimiento {
 		private String NumeroCuentaDestino;
 		
 		
-		public Movimiento(int id, LocalDate fecha, TipoMovimiento tipomovimiento, BigDecimal importe, String numerocuentaorigen, String numerocuentadestino) {
+		public Movimiento(String id, LocalDate fecha, TipoMovimiento tipomovimiento, BigDecimal importe, String numerocuentaorigen, String numerocuentadestino) {
 			
 			this.ID = id;
 			this.Fecha = fecha;
@@ -25,12 +25,12 @@ public class Movimiento {
 		}
 
 
-		public int getID() {
+		public String getID() {
 			return ID;
 		}
 
 
-		public void setID(int iD) {
+		public void setID(String iD) {
 			ID = iD;
 		}
 
