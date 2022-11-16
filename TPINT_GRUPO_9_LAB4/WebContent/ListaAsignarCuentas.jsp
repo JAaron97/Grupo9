@@ -73,7 +73,7 @@ ArrayList<Usuario> listaUsuarios = new ArrayList<Usuario>();
   </div>
 </nav>
 
-<form method="get" action="/AsignarCuenta.jsp">
+<form method="get" action="AsignarCuenta.jsp">
 <table id="cliente">
 	<tr>
 		<th>DNI</th>
@@ -116,10 +116,7 @@ ArrayList<Usuario> listaUsuarios = new ArrayList<Usuario>();
 <div class ="container fondo">
 	<div class="row">
 		<div class="col">
-			
-			<form action="servletBanco" method="post">
-				
-			</form>
+			<!-- poner acar si se creo cuenta correctamente -->
 		</div>
 	</div>
 </div>

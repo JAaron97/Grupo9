@@ -71,7 +71,7 @@ if(session.getAttribute("Usuario") != null){
 					else if(admin){
 				%>
 				<li><a class="dropdown-item" href="CrearUsuario.jsp">Nuevo Cliente</a></li>
-	            <li><a class="dropdown-item" href="AsignarCuentas.jsp">Asignar Cuentas</a></li>
+	            <li><a class="dropdown-item" href="ListaAsignarCuentas.jsp">Asignar Cuentas</a></li>
 	            <li><a class="dropdown-item" href="PrestamosAdmin.jsp">Aceptar/Rechazar Prestamos</a></li>
 				<%
 					}

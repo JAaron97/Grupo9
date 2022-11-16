@@ -57,8 +57,8 @@ ArrayList<TipoCuenta> listaTipoCuentas = new ArrayList<TipoCuenta>();
 	<div class="row">
 		<div class="col">
 			<form action="servletBanco" method="post">
-			<p class="text.center">Tipo de Cuenta
-			<select>
+			<p class="text-center">Tipo de Cuenta
+			<select name="TipoCuenta">
 			<%
 			for(TipoCuenta tC : listaTipoCuentas){
 			%>
@@ -68,6 +68,8 @@ ArrayList<TipoCuenta> listaTipoCuentas = new ArrayList<TipoCuenta>();
 			%>
 			</select>
 			</p>
+			<p class="text-center"><input type="submit" name="btnAsignar" value="Asignar"></p>
+			<input type="hidden" name="DNI" value=<%request.getParameter("dni"); %>>
 			</form>
 		</div>
 	</div>

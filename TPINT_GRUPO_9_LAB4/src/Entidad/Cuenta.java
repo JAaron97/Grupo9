@@ -12,6 +12,7 @@ public class Cuenta {
 	private String CBU;
 	private BigDecimal Saldo;
 	
+	public Cuenta() {}
 	
 	public Cuenta(String numerocuenta ,String dnicliente ,LocalDate fechacreacion, TipoCuenta tipocuenta, String cbu , BigDecimal saldo) {
 		

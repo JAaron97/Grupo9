@@ -1,12 +1,15 @@
 package Servlets;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Locale;
+import java.util.Random;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -15,12 +18,16 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import Entidad.Cuenta;
 import Entidad.Localidad;
 import Entidad.Nacionalidad;
 import Entidad.Telefono;
+import Entidad.TipoCuenta;
 import Entidad.Usuario;
+import NegocioImpl.CuentaNegImpl;
 import NegocioImpl.LocalidadesNegImpl;
 import NegocioImpl.NacionalidadNegImpl;
+import NegocioImpl.TipoCuentaNegImpl;
 import NegocioImpl.UsuarioNegImpl;
 
 @WebServlet("/servletBanco")
@@ -41,9 +48,6 @@ public class servletBanco extends HttpServlet {
 				}
 			}	
 		}
-		if(request.getParameter("btnAsignarCuenta")!=null) {
-			
-		}
 	}
 
 
@@ -61,6 +65,38 @@ public class servletBanco extends HttpServlet {
 			RequestDispatcher rd = request.getRequestDispatcher("/CrearUsuario.jsp");
 			rd.forward(request, response);
 		}
+		
+		if(request.getParameter("btnAsignarCuenta")!=null) {
+			 Cuenta cuenta = new Cuenta();
+			 Random rand = new Random();
+			 TipoCuentaNegImpl negTC = new TipoCuentaNegImpl();
+			 CuentaNegImpl negC = new CuentaNegImpl();
+			 ArrayList<TipoCuenta> listaTipoCuentas = new ArrayList<TipoCuenta>();
+			 
+			 cuenta.setNumeroCuenta(String.valueOf(rand.nextInt(50000)));
+			 cuenta.setDNICliente(request.getParameter("DNI"));
+			 cuenta.setFechaCreacion(java.time.LocalDate.now());
+			 cuenta.setTipoCuenta(negTC.Read(getIdTipoCuenta(listaTipoCuentas, request)));
+			 cuenta.setCBU(String.valueOf(rand.nextInt(999999)));
+			 cuenta.setSaldo(BigDecimal.valueOf(10000));
+			 
+			 boolean filas = negC.Insert(cuenta);
+			 
+			 request.setAttribute("Filas", filas);
+			 RequestDispatcher rd = request.getRequestDispatcher("/ListaAsignarCuentas.jsp");
+			 rd.forward(request, response);
+		}
+	}
+	
+	public int getIdTipoCuenta(ArrayList<TipoCuenta> listaTipoCuentas, HttpServletRequest request ) {
+		int idTC = 0;
+		for(TipoCuenta tc : listaTipoCuentas) {
+			if(tc.getDescripcion().equals(request.getParameter("TipoCuenta"))) {
+				idTC = tc.getID();
+			}
+		}
+		
+		return idTC;
 	}
 
 	
