@@ -8,10 +8,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
+
+import Dao.IDaoSolicitudPrestamo;
 import Entidad.NumeroCuotas;
 import Entidad.SolicitudPrestamo;
 
-public class DaoSolicitudPrestamo {
+public class DaoSolicitudPrestamo implements IDaoSolicitudPrestamo{
 	
 	private static final String insert = "INSERT INTO solicitud_prestamo ( DNI_Usuario, Importe_Solicitado, ID_Numero_Cuotas, Cuenta_Destinataria, Fecha, Estado) " + 
 										 "VALUES (?, ?, ?, ?, ?, ?)";
