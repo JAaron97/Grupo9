@@ -52,6 +52,12 @@ public class DaoCuenta implements IDaoCuenta {
 			
 			statement.setString(6, cuenta.getNumeroCuenta());
 			
+			if(statement.executeUpdate() > 0)
+			{
+				conexion.commit();
+				isUpdateExito = true;
+			}
+			
 		}
 		catch (Exception e) 
 		{
