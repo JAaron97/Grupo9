@@ -35,10 +35,19 @@ public class servletBanco extends HttpServlet {
 	private static final long serialVersionUID = 1L;
       
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		UsuarioNegImpl nU = new UsuarioNegImpl();
+		ArrayList<Usuario> usuarios = new ArrayList<Usuario>();
+		usuarios = (ArrayList<Usuario>) nU.readAll();
+		NacionalidadNegImpl Na =  new NacionalidadNegImpl();
+		ArrayList<Nacionalidad> nacionalidades = new ArrayList<Nacionalidad>();
+		nacionalidades =(ArrayList<Nacionalidad>)Na.ReadAll();
+		LocalidadesNegImpl Lo =  new LocalidadesNegImpl();
+		ArrayList<Localidad> localidadades = new ArrayList<Localidad>();
+		localidadades =(ArrayList<Localidad>)Lo.ReadAll();
+		
 		if(request.getParameter("btnIngresar")!=null) {
-			UsuarioNegImpl nU = new UsuarioNegImpl();
-			ArrayList<Usuario> usuarios = new ArrayList<Usuario>();
-			usuarios = (ArrayList<Usuario>) nU.readAll();
+		
 			
 			for(Usuario user : usuarios) {
 				if(user.getDNI().equals(request.getParameter("txtDNI")) && user.getPassword().equals(request.getParameter("txtPasswd"))) {
@@ -48,10 +57,99 @@ public class servletBanco extends HttpServlet {
 				}
 			}	
 		}
+		
+		
+		if(request.getParameter("param")!=null)
+		{
+			String param= request.getParameter("param").toString();
+			if(param.equals("add")) 
+			{
+				request.setAttribute("Localidades",localidadades);
+				request.setAttribute("Nacionalidades",nacionalidades);
+				RequestDispatcher rd = request.getRequestDispatcher("/CrearUsuario.jsp");
+				rd.forward(request, response);
+			}		
+			if(param.equals("list"))
+			{
+				
+
+				request.setAttribute("listaUsu",usuarios);
+				request.setAttribute("ListaIdUsuarios",usuarios);
+				RequestDispatcher  rd = request.getRequestDispatcher("/ListarUsuarios.jsp");
+				rd.forward(request, response);
+				
+			}
+			if(param.equals("eliminar"))
+			{
+				
+
+				request.setAttribute("listaUsu",usuarios);
+				RequestDispatcher  rd = request.getRequestDispatcher("/EliminarUsuarios.jsp");
+				rd.forward(request, response);
+				
+			}
+		}
 	}
 
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		UsuarioNegImpl nU = new UsuarioNegImpl();
+		ArrayList<Usuario> usuarios = new ArrayList<Usuario>();
+		usuarios = (ArrayList<Usuario>) nU.readAll();
+		if(request.getParameter("btnFiltrar")!=null) {
+			
+			try 
+			{
+				if(Integer.parseInt(request.getParameter("ddlId").toString()) == 0) {
+					request.setAttribute("listaUsu",usuarios);
+				
+				}
+				else
+				{
+					int  tipo= Integer.parseInt(request.getParameter("ddlId").toString());
+					ArrayList<Usuario> rep = new ArrayList<Usuario>();
+					
+					for(int i=0; i<usuarios.size();i++) {
+						Usuario x = new Usuario();
+						x=usuarios.get(i);
+						
+						if(Integer.parseInt(x.getDNI())==tipo) {
+							
+							rep.add(usuarios.get(i));
+						}
+					}
+					request.setAttribute("listaUsu",rep);	
+				}
+				request.setAttribute("ListaIdUsuarios",usuarios);
+				RequestDispatcher rd = request.getRequestDispatcher("/ListarUsuarios.jsp");
+				rd.forward(request, response);
+			}
+			catch (Exception e) 
+			{
+			e.printStackTrace();
+			request.setAttribute("ListaIdUsuarios",usuarios);
+			
+			RequestDispatcher rd = request.getRequestDispatcher("/CrearUsuario.jsp");
+			rd.forward(request, response);
+			}	
+		}
+		
+if (request.getParameter("BtnEliminar")!=null) {
+			
+			String id = request.getParameter("dni").toString();
+		UsuarioNegImpl negdao = new UsuarioNegImpl();
+		 negdao.delete(id);
+		 usuarios= (ArrayList<Usuario>) nU.readAll();
+		 request.setAttribute("listaUsu",usuarios);
+		 request.setAttribute("eldini", id);
+		 
+		 
+	
+		RequestDispatcher rd = request.getRequestDispatcher("/EliminarUsuarios.jsp");
+		rd.forward(request, response);
+		
+		}
+		
 		if(request.getParameter("btnCrear")!=null) {
 			UsuarioNegImpl negU = new UsuarioNegImpl();
 			NacionalidadNegImpl negN = new NacionalidadNegImpl();

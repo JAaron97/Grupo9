@@ -1,10 +1,10 @@
+<%@page import="javax.swing.text.StyledEditorKit.BoldAction"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
     <%@ page import="Entidad.Usuario" %>
     <%@ page import="Entidad.Nacionalidad" %>
     <%@ page import="Entidad.Localidad" %>
-    <%@ page import="NegocioImpl.NacionalidadNegImpl" %>
-    <%@ page import="NegocioImpl.LocalidadesNegImpl" %>
+
     <%@ page import="java.util.ArrayList" %>
 <!DOCTYPE html>
 <html>
@@ -18,15 +18,20 @@
 </head>
 <body>
 <%
+	boolean sesionIniciada = false;
 Usuario user = new Usuario();
 user = (Usuario) session.getAttribute("Usuario");
-NacionalidadNegImpl nacioNeg = new NacionalidadNegImpl();
-LocalidadesNegImpl locNeg = new LocalidadesNegImpl();
+
 ArrayList<Nacionalidad> listaNacionalidades = null; 
-	listaNacionalidades = nacioNeg.ReadAll();
+if(request.getAttribute("Nacionalidades")!=null)
+listaNacionalidades =  (ArrayList<Nacionalidad>) request.getAttribute("Nacionalidades");
+
 ArrayList<Localidad> listaLocalidades = null;
-	listaLocalidades = locNeg.ReadAll();
+if(request.getAttribute("Localidades")!=null)
+listaLocalidades =  (ArrayList<Localidad>) request.getAttribute("Localidades");
+	
 %>
+
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <div class="container-fluid">
     <a class="navbar-brand" href="Inicio.jsp">Inicio</a>
@@ -46,7 +51,7 @@ ArrayList<Localidad> listaLocalidades = null;
             Más
           </a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="CrearUsuario.jsp">Nuevo Cliente</a></li>
+           <li><a class="dropdown-item" href="AmblUsuarios.jsp">Ambl Usuarios</a></li>
 	        <li><a class="dropdown-item" href="AsignarCuentas.jsp">Asignar Cuentas</a></li>
 	        <li><a class="dropdown-item" href="PrestamosAdmin.jsp">Aceptar/Rechazar Prestamos</a></li>
           </ul>
@@ -56,11 +61,16 @@ ArrayList<Localidad> listaLocalidades = null;
   </div>
 </nav>
 
-<div class="containter">
-	<div class="row">
-		<div class="col">	
-			<br>
+
+			
+			
+			<p class="text-center">
+			  
+				
+
+			</p>
 			<form action="servletBanco" method="post">
+			 	
 			<p class="text-center">Nombre: <input type="text" name="txtNombre"> </p>
 			<p class="text-center">Apellido: <input type="text" name="txtApellido"> </p>
 			<p class="text-center">Dni: <input type="number" name="txtDni"></p>
@@ -98,17 +108,20 @@ ArrayList<Localidad> listaLocalidades = null;
 			<p class="text-center">Calle: <input type="text" name="txtCalle"> Altura: <input type="text" name="txtAltura"></p>
 			<p class="text-center">Mail: <input type="email" placeholder="pedrogonzalez@gmail.com" name="mail"></p>
 			<p class="text-center">Telefonos: <br> 
-				<input type="number" name="telefono1" placeholder="Telefono 1" required><br>
+				<input type="number" name="telefono1" placeholder="Telefono 1"><br>
 				<input type="number" name="telefono2" placeholder="Telefono 2"><br>
 				<input type="number" name="telefono3" placeholder="Telefono 3"><br>
 				<input type="number" name="telefono4" placeholder="Telefono 4">
 			</p>
-			<p class="text-center"> <input type="submit" name="btnCrear" value="Crear"> </p> 
-			</form>
-			<%
+			<p class="text-center"> <input type="submit" name="btnCrear" value="Crear"> </p> 			</form>
+			
+<div> 
+	<%
+			
+			if(request.getAttribute("cantFilas")!=null){
 			boolean filas = false;
 			filas = (Boolean)request.getAttribute("cantFilas");
-			if(filas){;
+			if(filas){
 			%>
 			<p class="text-center">Cliente creado correctamente</p>
 			<%
@@ -118,9 +131,9 @@ ArrayList<Localidad> listaLocalidades = null;
 			<p class="text-center">No se pudo añadir el cliente</p>
 			<%
 			}
+			}
 			%>
-		</div>
-	</div>
+
 </div>
 
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
