@@ -57,6 +57,7 @@ ArrayList<TipoCuenta> listaTipoCuentas = new ArrayList<TipoCuenta>();
 	<div class="row">
 		<div class="col">
 			<form action="servletBanco" method="post">
+			<p class="text-center">Dni: <input type="text" name="txtDNI"></p>
 			<p class="text-center">Tipo de Cuenta
 			<select name="TipoCuenta">
 			<%

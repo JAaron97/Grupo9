@@ -20,29 +20,16 @@
 <body>
 
 <%
-	boolean sesionIniciada = false;
 Usuario user = new Usuario();
 user = (Usuario) session.getAttribute("Usuario");
-NacionalidadNegImpl nacioNeg = new NacionalidadNegImpl();
-LocalidadesNegImpl locNeg = new LocalidadesNegImpl();
-ArrayList<Nacionalidad> listaNacionalidades = null; 
-	listaNacionalidades = nacioNeg.ReadAll();
-ArrayList<Localidad> listaLocalidades = null;
-	listaLocalidades = locNeg.ReadAll();
 %>
 <%
-
 ArrayList<Usuario> listaUsuarios = new  ArrayList<Usuario>();
 if(request.getAttribute("listaUsu")!=null)
 listaUsuarios =  (ArrayList<Usuario>) request.getAttribute("listaUsu");
 ArrayList<Usuario> list = new  ArrayList<Usuario>();
 if(request.getAttribute("ListaIdUsuarios")!=null)
 list =  (ArrayList<Usuario>) request.getAttribute("ListaIdUsuarios");
-
-
-
-
-
 %>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <div class="container-fluid">
@@ -91,44 +78,43 @@ list =  (ArrayList<Usuario>) request.getAttribute("ListaIdUsuarios");
 				</select>  <input type="submit" name ="btnFiltrar" value="Filtrar">
 				</form>
 				<br>
-
-			
-			
+				
 			<table border="1">
-<tr> <th>DNI </th>  <th> Nombre </th>  <th>Apellido </th>  <th>ID_Nacionalidades </th><th>ID_Localidades </th><th>CUIL </th><th>Fecha_Nacimiento </th><th>Mail</th>  <th>ID_Telefonos </th><th>Password </th><th>Tipo_user </th></tr>
-	
-	<% 
-		for( Usuario u : listaUsuarios) 
-		{
-	%>
-	
-	<tr>  
-	
-	   
-	     <td><%=u.getDNI()%> </td>
-	     <td><%=u.getNombre()%></td>   
-	       <td><%=u.getApellido()%></td> 
-	     <td><%=user.getNacionalidad().getID() %></td>
-	     <td><%=user.getLocalidad().getIDLocalidad() %></td> 
-	     <td><%=user.getCUIL()%></td> 
-	      <td><%=user.getNacimiento() %></td>
-	      <td><%=user.getMail() %></td>
-	      <td><%=user.getTelefono().getID_Telefono()%></td>
-	      <td><%=user.getPassword() %></td>
-	      <td><%=user.getTipoUsuario()%></td>     
-	      
-	     
-	     
-	  
-	</tr>
+			<tr> 
+				<th>DNI</th>  
+				<th> Nombre</th>  
+				<th>Apellido</th>  
+				<th>ID_Nacionalidades</th>
+				<th>ID_Localidades</th>
+				<th>CUIL </th>
+				<th>Fecha_Nacimiento</th>
+				<th>Mail</th>  
+				<th>ID_Telefonos</th>
+				<th>Password </th>
+				<th>Tipo_user </th>
+			</tr>
+			<% 
+				for( Usuario u : listaUsuarios) 
+				{
+			%>
+			<tr>  
+				<td><%=u.getDNI()%> </td>
+				<td><%=u.getNombre()%></td>   
+				<td><%=u.getApellido()%></td> 
+				<td><%=u.getNacionalidad().getID() %></td>
+				<td><%=u.getLocalidad().getIDLocalidad() %></td> 
+				<td><%=u.getCUIL()%></td> 
+				<td><%=u.getNacimiento() %></td>
+				<td><%=u.getMail() %></td>
+				<td><%=u.getTelefono().getID_Telefono()%></td>
+				<td><%=u.getPassword() %></td>
+				<td><%=u.getTipoUsuario()%></td>     
+			</tr>
 
-	<%  } 
- %>
-	
-	
-	    </tbody>
-</table> 	
-			
+			<% 
+			} 
+			%>
+		</table> 	
 		</div>
 	</div>
 </div>

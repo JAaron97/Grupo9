@@ -17,18 +17,18 @@ import Entidad.TipoCuenta;
 
 public class DaoCuenta implements IDaoCuenta {
 	
-	private static final String read= "SELECT * FROM cuentas WHERE Numero_Cuenta = '?' ";
+	private static final String read= "SELECT * FROM cuentas WHERE Numero_Cuenta = ? ";
 	
 	private static final String readall= "SELECT * FROM cuentas ";
 	
 	private static final String insert= "INSERT INTO cuentas (Numero_Cuenta, DNI_Usuario, Fecha_Creacion, ID_Tipo_Cuenta, CBU, Saldo) "
-										+ " VALUES ('?','?','?',?,'?',?)";
+										+ " VALUES (?, ?, ?, ?, ?, ?)";
 	
 	private static final String update= "UPDATE cuntas SET "
-										+ "DNI_Usuario = '?', Fecha_Creacion = '?', ID_Tipo_Cuenta = ?, CBU = '?', Saldo = ?"
-										+ " WHERE  Numero_Cuenta = '?' ";
+										+ "DNI_Usuario = ?, Fecha_Creacion = ?, ID_Tipo_Cuenta = ?, CBU = ?, Saldo = ?"
+										+ " WHERE  Numero_Cuenta = ? ";
 	
-	private static final String delete= "DELETE * FROM cuentas WHERE Numero_Cuenta = '?'";
+	private static final String delete= "DELETE * FROM cuentas WHERE Numero_Cuenta = ?";
 	
 	private DaoTipoCuenta DTC;
 	

@@ -94,7 +94,7 @@ ArrayList<Usuario> listaUsuarios = new ArrayList<Usuario>();
 	for(Usuario u : listaUsuarios){
 	%>
 	<tr>
-		<td><%=u.getDNI() %><input type="hidden" name="dni" value=<% u.getDNI();%>></td>
+		<td><%=u.getDNI() %></td>
 		<td><%=u.getNombre() %></td>
 		<td><%=u.getApellido() %></td>
 		<td><%=u.getNacionalidad().getID() %></td>
@@ -113,10 +113,27 @@ ArrayList<Usuario> listaUsuarios = new ArrayList<Usuario>();
 	%>
 </table>
 </form>
+<br>
 <div class ="container fondo">
 	<div class="row">
 		<div class="col">
 			<!-- poner acar si se creo cuenta correctamente -->
+			<%
+			if(request.getAttribute("Filas") != null){
+				boolean filas = false;
+				filas = (Boolean)request.getAttribute("Filas");
+				if(filas){
+				%>
+				<p class="text-center">Cuenta asignada correctamente</p>
+				<%
+				}
+				else{
+				%>
+				<p class="text-center">El cliente ya posee el maximo de cuentas</p>
+				<%
+				}
+			}
+			%>
 		</div>
 	</div>
 </div>

@@ -47,8 +47,6 @@ public class servletBanco extends HttpServlet {
 		localidadades =(ArrayList<Localidad>)Lo.ReadAll();
 		
 		if(request.getParameter("btnIngresar")!=null) {
-		
-			
 			for(Usuario user : usuarios) {
 				if(user.getDNI().equals(request.getParameter("txtDNI")) && user.getPassword().equals(request.getParameter("txtPasswd"))) {
 					request.getSession().setAttribute("Usuario", user);
@@ -57,8 +55,6 @@ public class servletBanco extends HttpServlet {
 				}
 			}	
 		}
-		
-		
 		if(request.getParameter("param")!=null)
 		{
 			String param= request.getParameter("param").toString();
@@ -69,20 +65,16 @@ public class servletBanco extends HttpServlet {
 				RequestDispatcher rd = request.getRequestDispatcher("/CrearUsuario.jsp");
 				rd.forward(request, response);
 			}		
-			if(param.equals("list"))
+			else if(param.equals("list"))
 			{
-				
-
 				request.setAttribute("listaUsu",usuarios);
 				request.setAttribute("ListaIdUsuarios",usuarios);
 				RequestDispatcher  rd = request.getRequestDispatcher("/ListarUsuarios.jsp");
 				rd.forward(request, response);
 				
 			}
-			if(param.equals("eliminar"))
+			else if(param.equals("eliminar"))
 			{
-				
-
 				request.setAttribute("listaUsu",usuarios);
 				RequestDispatcher  rd = request.getRequestDispatcher("/EliminarUsuarios.jsp");
 				rd.forward(request, response);
@@ -97,12 +89,10 @@ public class servletBanco extends HttpServlet {
 		ArrayList<Usuario> usuarios = new ArrayList<Usuario>();
 		usuarios = (ArrayList<Usuario>) nU.readAll();
 		if(request.getParameter("btnFiltrar")!=null) {
-			
 			try 
 			{
 				if(Integer.parseInt(request.getParameter("ddlId").toString()) == 0) {
 					request.setAttribute("listaUsu",usuarios);
-				
 				}
 				else
 				{
@@ -134,20 +124,17 @@ public class servletBanco extends HttpServlet {
 			}	
 		}
 		
-if (request.getParameter("BtnEliminar")!=null) {
-			
+		if (request.getParameter("BtnEliminar")!=null) {
 			String id = request.getParameter("dni").toString();
-		UsuarioNegImpl negdao = new UsuarioNegImpl();
-		 negdao.delete(id);
-		 usuarios= (ArrayList<Usuario>) nU.readAll();
-		 request.setAttribute("listaUsu",usuarios);
-		 request.setAttribute("eldini", id);
-		 
-		 
-	
-		RequestDispatcher rd = request.getRequestDispatcher("/EliminarUsuarios.jsp");
-		rd.forward(request, response);
+			UsuarioNegImpl negdao = new UsuarioNegImpl();
+			negdao.delete(id);
+			usuarios= (ArrayList<Usuario>) nU.readAll();
+			request.setAttribute("listaUsu",usuarios);
+			request.setAttribute("eldini", id);
 		
+			RequestDispatcher rd = request.getRequestDispatcher("/EliminarUsuarios.jsp");
+			rd.forward(request, response);
+			
 		}
 		
 		if(request.getParameter("btnCrear")!=null) {
@@ -164,26 +151,49 @@ if (request.getParameter("BtnEliminar")!=null) {
 			rd.forward(request, response);
 		}
 		
-		if(request.getParameter("btnAsignarCuenta")!=null) {
+		if(request.getParameter("btnAsignar")!=null) {
 			 Cuenta cuenta = new Cuenta();
 			 Random rand = new Random();
 			 TipoCuentaNegImpl negTC = new TipoCuentaNegImpl();
 			 CuentaNegImpl negC = new CuentaNegImpl();
 			 ArrayList<TipoCuenta> listaTipoCuentas = new ArrayList<TipoCuenta>();
+			 ArrayList<Cuenta> listaCuentas = new ArrayList<Cuenta>();
+			 listaCuentas = negC.ReadAll();
+			 listaTipoCuentas = negTC.ReadAll();
 			 
 			 cuenta.setNumeroCuenta(String.valueOf(rand.nextInt(50000)));
-			 cuenta.setDNICliente(request.getParameter("DNI"));
+			 cuenta.setDNICliente(request.getParameter("txtDNI"));
 			 cuenta.setFechaCreacion(java.time.LocalDate.now());
 			 cuenta.setTipoCuenta(negTC.Read(getIdTipoCuenta(listaTipoCuentas, request)));
 			 cuenta.setCBU(String.valueOf(rand.nextInt(999999)));
 			 cuenta.setSaldo(BigDecimal.valueOf(10000));
 			 
-			 boolean filas = negC.Insert(cuenta);
+			 boolean filas = false;
+			 if(!maximoCuentas(listaCuentas, request)) {
+				 filas = negC.Insert(cuenta);
+			 }
 			 
 			 request.setAttribute("Filas", filas);
 			 RequestDispatcher rd = request.getRequestDispatcher("/ListaAsignarCuentas.jsp");
 			 rd.forward(request, response);
 		}
+	}
+	
+	public boolean maximoCuentas(ArrayList<Cuenta> listaCuentas, HttpServletRequest request) {
+		int cont;
+		boolean maxCuentas = false;
+		
+		cont=0;
+		for(Cuenta c : listaCuentas) {
+			if(c.getDNICliente().equals(request.getParameter("txtDNI"))) {
+				cont++;
+			}
+		}
+		if(cont == 3) {
+			maxCuentas=true;
+		}
+		
+		return maxCuentas;
 	}
 	
 	public int getIdTipoCuenta(ArrayList<TipoCuenta> listaTipoCuentas, HttpServletRequest request ) {
