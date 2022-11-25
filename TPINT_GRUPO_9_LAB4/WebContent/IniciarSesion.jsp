@@ -43,11 +43,18 @@
 	<div class="row">
 		<div class="col">	
 			<br>
-			<form action="servletBanco" method="get">
+			<form action="servletBanco" method="post">
 			<p class="text-center">DNI: <input type="text" name="txtDNI" required> </p>
 			<p class="text-center">Contraseña: <input type="password" name="txtPasswd" required></p>
 			<p class="text-center"> <input type="submit" name="btnIngresar" value="Ingresar"> </p> 
 			</form>
+			<%
+			if(request.getAttribute("Usuario")==null){
+			%>
+			<p class="text-center">DNI o contraseña incorrectos</p>
+			<%
+			}
+			%>
 		</div>
 	</div>
 </div>

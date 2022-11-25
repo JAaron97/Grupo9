@@ -39,22 +39,16 @@ public class servletBanco extends HttpServlet {
 		UsuarioNegImpl nU = new UsuarioNegImpl();
 		ArrayList<Usuario> usuarios = new ArrayList<Usuario>();
 		usuarios = (ArrayList<Usuario>) nU.readAll();
+		
 		NacionalidadNegImpl Na =  new NacionalidadNegImpl();
 		ArrayList<Nacionalidad> nacionalidades = new ArrayList<Nacionalidad>();
 		nacionalidades =(ArrayList<Nacionalidad>)Na.ReadAll();
+		
 		LocalidadesNegImpl Lo =  new LocalidadesNegImpl();
 		ArrayList<Localidad> localidadades = new ArrayList<Localidad>();
 		localidadades =(ArrayList<Localidad>)Lo.ReadAll();
 		
-		if(request.getParameter("btnIngresar")!=null) {
-			for(Usuario user : usuarios) {
-				if(user.getDNI().equals(request.getParameter("txtDNI")) && user.getPassword().equals(request.getParameter("txtPasswd"))) {
-					request.getSession().setAttribute("Usuario", user);
-					RequestDispatcher rd = request.getRequestDispatcher("/Inicio.jsp");
-					rd.forward(request, response);
-				}
-			}	
-		}
+
 		if(request.getParameter("param")!=null)
 		{
 			String param= request.getParameter("param").toString();
@@ -88,6 +82,20 @@ public class servletBanco extends HttpServlet {
 		UsuarioNegImpl nU = new UsuarioNegImpl();
 		ArrayList<Usuario> usuarios = new ArrayList<Usuario>();
 		usuarios = (ArrayList<Usuario>) nU.readAll();
+		
+		if(request.getParameter("btnIngresar")!=null) {
+			for(Usuario user : usuarios) {
+				if(user.getDNI().equals(request.getParameter("txtDNI")) && user.getPassword().equals(request.getParameter("txtPasswd"))) {
+					request.getSession().setAttribute("Usuario", user);
+					RequestDispatcher rd = request.getRequestDispatcher("/Inicio.jsp");
+					rd.forward(request, response);
+				}
+			}
+			request.getSession().setAttribute("Usuario", null);
+			RequestDispatcher rd = request.getRequestDispatcher("/IniciarSesion.jsp");
+			rd.forward(request, response);
+		}
+		
 		if(request.getParameter("btnFiltrar")!=null) {
 			try 
 			{
