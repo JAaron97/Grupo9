@@ -60,5 +60,101 @@ public class TelefonosNegImpl implements TelefonosNeg{
 			return true;	
 	}
 	
+	
+	
+	
+	private boolean TelefonoIsNumber(Telefono telefono) 
+	{
+		try 
+		{
+			Integer.parseInt(telefono.getTelefono_1());
+		}
+		catch (Exception e) 
+		{
+			return false;
+		}
+		try 
+		{	
+			if(telefono.getTelefono_2() != null) 
+			{
+			Integer.parseInt(telefono.getTelefono_2());
+			}
+		}
+		catch (Exception e) 
+		{
+			return false;
+		}
+		try 
+		{	
+			if(telefono.getTelefono_3() != null) 
+			{
+			Integer.parseInt(telefono.getTelefono_3());
+			}
+		}
+		catch (Exception e) 
+		{
+			return false;
+		}
+		try 
+		{	
+			if(telefono.getTelefono_4() != null) 
+			{
+			Integer.parseInt(telefono.getTelefono_4());
+			}
+		}
+		catch (Exception e) 
+		{
+			return false;
+		}
+		
+		return true;
+	}
+	
+	private boolean TelefonoisCorrect(Telefono telefono) 
+	{
+		if(telefono.getTelefono_1().length() != 8 || telefono.getTelefono_1().length() != 10) 
+		{
+			
+			return false;
+		}
+		
+		if(telefono.getTelefono_2() != null) 
+		{
+		if(telefono.getTelefono_2().length() != 8 || telefono.getTelefono_2().length() != 10) 
+		{
+			
+			return false;
+		}
+		}
 
+		if(telefono.getTelefono_3() != null) 
+		{
+		if(telefono.getTelefono_3().length() != 8 || telefono.getTelefono_3().length() != 10) 
+		{
+			
+			return false;
+		}
+		}
+		
+		if(telefono.getTelefono_4() != null) 
+		{
+		if(telefono.getTelefono_4().length() != 8 || telefono.getTelefono_4().length() != 10) 
+		{
+			
+			return false;
+		}
+		}
+
+		return true;
+	}
+	
+	/*private boolean TelefonoDontRepeat(Telefono telefono)
+	{
+		if(telefono.getTelefono_2() !=null)
+		
+		
+		return true;
+	}
+	*/
+	
 }
