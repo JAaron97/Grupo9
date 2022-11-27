@@ -18,10 +18,7 @@ public class UsuarioNegImpl implements UsuarioNeg{
 		return daoUser.Insert(usuario);
 	}
 
-	@Override
-	public boolean delete(String DNI) {
-		return daoUser.Delete(DNI);
-	}
+	
 
 	@Override
 	public boolean update(Usuario usuario_a_modificar) {
@@ -31,6 +28,14 @@ public class UsuarioNegImpl implements UsuarioNeg{
 	@Override
 	public List<Usuario> readAll() {
 		return daoUser.ReadAll();
+	}
+
+
+
+	@Override
+	public boolean Delete(Usuario Usuario) {
+		// TODO Auto-generated method stub
+		return daoUser.Delete(Usuario);
 	}
 
 }

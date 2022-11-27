@@ -17,10 +17,17 @@
 
 </head>
 <body>
+
 <%
-	boolean sesionIniciada = false;
 Usuario user = new Usuario();
+
 user = (Usuario) session.getAttribute("Usuario");
+
+
+%>
+
+<%
+
 NacionalidadNegImpl nacioNeg = new NacionalidadNegImpl();
 LocalidadesNegImpl locNeg = new LocalidadesNegImpl();
 ArrayList<Nacionalidad> listaNacionalidades = null; 
@@ -85,23 +92,22 @@ ArrayList<Usuario> list = new  ArrayList<Usuario>();
 	%>
 	
 	<tr>  
-	<form action="servletBanco" method="post">
+<form name="formulario" action="servletBanco?idUsuario=<%=u.getDNI()%>" method="post">
 	   
-	     <td><%=u.getDNI()%> <input type="hidden" name = "dni" value ="<%u.getDNI();%>"></td>    
+	     <td><%=u.getDNI() %> <input type="hidden" name = "idUsuario" value ="<%=u.getDNI()%>"></td>    
 	     <td><%=u.getNombre()%></td>   
 	       <td><%=u.getApellido()%></td> 
-	     <td><%=user.getNacionalidad().getID() %></td>
-	     <td><%=user.getLocalidad().getIDLocalidad() %></td> 
-	     <td><%=user.getCUIL()%></td> 
-	      <td><%=user.getNacimiento() %></td>
-	      <td><%=user.getMail() %></td>
-	      <td><%=user.getTelefono().getID_Telefono()%></td>
-	      <td><%=user.getPassword() %></td>
-	      <td><%=user.getTipoUsuario()%></td>     
-	      <td > <input type="submit" name= "BtnEliminar "value="Eliminar" ></td>
+	     <td><%=u.getNacionalidad().getID() %></td>
+	     <td><%=u.getLocalidad().getIDLocalidad() %></td> 
+	     <td><%=u.getCUIL()%></td> 
+	      <td><%=u.getNacimiento() %></td>
+	      <td><%=u.getMail() %></td>
+	      <td><%=u.getTelefono().getID_Telefono()%></td>
+	      <td><%=u.getPassword() %></td>
+	      <td><%=u.getTipoUsuario()%></td>     
+	     <td> <input type="submit" name="btnEliminar2" value="Eliminar"> </td>  
 	     
-	     
-	   	</form>   
+	   	</form>     
 	</tr>
 
 	<%  } 

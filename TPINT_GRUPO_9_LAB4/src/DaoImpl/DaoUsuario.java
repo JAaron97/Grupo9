@@ -25,7 +25,7 @@ public class DaoUsuario implements IDaoUsuario{
 	private static final String insert = "INSERT INTO usuarios(DNI, Nombre, Apellido, ID_Nacionalidades, ID_Localidades, CUIL, Sexo,"
 			+ " Fecha_Nacimiento, Direccion, Mail, ID_Telefonos, Password, Tipo_user) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 	
-	private static final String delete = "DELETE FROM usuarios WHERE DNI = '?' ";
+	private static final String delete = "DELETE FROM usuarios WHERE DNI = ? ";
 	
 	private static final String readall = "SELECT * FROM usuarios";
 	
@@ -151,40 +151,26 @@ public class DaoUsuario implements IDaoUsuario{
 		
 	}
 	
-	public boolean Delete(String DNI) {
-		
+	public boolean Delete(Usuario usuario)
+	{
 		PreparedStatement statement;
 		Connection conexion = Conexion.getConexion().getSQLConexion();
-		
-		boolean isDeleteExito = false;
-		
+		boolean isdeleteExitoso = false;
 		try 
 		{
 			statement = conexion.prepareStatement(delete);
-			statement.setString(1, DNI);
-			
-			if(statement.executeUpdate() > 0 )
+			statement.setString(1, usuario.getDNI());
+			if(statement.executeUpdate() > 0)
 			{
 				conexion.commit();
-				isDeleteExito = true;
-			}	
-		}
-		catch (Exception e) 
+				isdeleteExitoso = true;
+			}
+		} 
+		catch (SQLException e) 
 		{
 			e.printStackTrace();
-			
-			try 
-			{
-				conexion.rollback();
-			} 
-			catch (SQLException e1) 
-			{
-				e1.printStackTrace();
-			}
-			
 		}
-		
-		return isDeleteExito;
+		return isdeleteExitoso;
 	}
 	
 	public boolean Update(Usuario user) 

@@ -79,11 +79,13 @@ public class servletBanco extends HttpServlet {
 
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		UsuarioNegImpl nU = new UsuarioNegImpl();
-		ArrayList<Usuario> usuarios = new ArrayList<Usuario>();
-		usuarios = (ArrayList<Usuario>) nU.readAll();
+		
+		
 		
 		if(request.getParameter("btnIngresar")!=null) {
+			UsuarioNegImpl nU = new UsuarioNegImpl();
+			ArrayList<Usuario> usuarios = new ArrayList<Usuario>();
+			usuarios = (ArrayList<Usuario>) nU.readAll();
 			for(Usuario user : usuarios) {
 				if(user.getDNI().equals(request.getParameter("txtDNI")) && user.getPassword().equals(request.getParameter("txtPasswd"))) {
 					request.getSession().setAttribute("Usuario", user);
@@ -91,12 +93,16 @@ public class servletBanco extends HttpServlet {
 					rd.forward(request, response);
 				}
 			}
-			request.getSession().setAttribute("Usuario", null);
+			/*esto no sirve por que te cierra la secion cuando salis de inicio*/
+			/*request.getSession().setAttribute("Usuario", null);
 			RequestDispatcher rd = request.getRequestDispatcher("/IniciarSesion.jsp");
-			rd.forward(request, response);
+			rd.forward(request, response);*/
 		}
 		
 		if(request.getParameter("btnFiltrar")!=null) {
+			UsuarioNegImpl nU = new UsuarioNegImpl();
+			ArrayList<Usuario> usuarios = new ArrayList<Usuario>();
+			usuarios = (ArrayList<Usuario>) nU.readAll();
 			try 
 			{
 				if(Integer.parseInt(request.getParameter("ddlId").toString()) == 0) {
@@ -132,16 +138,24 @@ public class servletBanco extends HttpServlet {
 			}	
 		}
 		
-		if (request.getParameter("BtnEliminar")!=null) {
-			String id = request.getParameter("dni").toString();
-			UsuarioNegImpl negdao = new UsuarioNegImpl();
-			negdao.delete(id);
-			usuarios= (ArrayList<Usuario>) nU.readAll();
-			request.setAttribute("listaUsu",usuarios);
-			request.setAttribute("eldini", id);
-		
-			RequestDispatcher rd = request.getRequestDispatcher("/EliminarUsuarios.jsp");
-			rd.forward(request, response);
+		if(request.getParameter("btnEliminar2")!=null)
+		{
+			UsuarioNegImpl nU = new UsuarioNegImpl();
+			ArrayList<Usuario> usuarios = new ArrayList<Usuario>();
+			usuarios = (ArrayList<Usuario>) nU.readAll();
+			String aux = request.getParameter("idUsuario").toString();
+			System.out.println(aux);
+			for(Usuario user : usuarios) {
+				if(user.getDNI().equals(request.getParameter("idUsuario")) ) {
+					nU.Delete(user);
+				}
+			}
+			
+		     ArrayList<Usuario> lista= usuarios;
+				request.setAttribute("listaUsu", lista);
+				
+				RequestDispatcher  rd = request.getRequestDispatcher("/EliminarUsuarios.jsp");
+		        rd.forward(request, response);
 			
 		}
 		
@@ -184,8 +198,11 @@ public class servletBanco extends HttpServlet {
 			 request.setAttribute("Filas", filas);
 			 RequestDispatcher rd = request.getRequestDispatcher("/ListaAsignarCuentas.jsp");
 			 rd.forward(request, response);
-		}
+		
 	}
+		}
+		
+	
 	
 	public boolean maximoCuentas(ArrayList<Cuenta> listaCuentas, HttpServletRequest request) {
 		int cont;

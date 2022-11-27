@@ -20,30 +20,12 @@
 <body>
 
 <%
-	boolean sesionIniciada = false;
 Usuario user = new Usuario();
+
 user = (Usuario) session.getAttribute("Usuario");
-NacionalidadNegImpl nacioNeg = new NacionalidadNegImpl();
-LocalidadesNegImpl locNeg = new LocalidadesNegImpl();
-ArrayList<Nacionalidad> listaNacionalidades = null; 
-	listaNacionalidades = nacioNeg.ReadAll();
-ArrayList<Localidad> listaLocalidades = null;
-	listaLocalidades = locNeg.ReadAll();
-%>
-<%
-
-ArrayList<Usuario> listaUsuarios = new  ArrayList<Usuario>();
-if(request.getAttribute("listaUsu")!=null)
-listaUsuarios =  (ArrayList<Usuario>) request.getAttribute("listaUsu");
-ArrayList<Usuario> list = new  ArrayList<Usuario>();
-if(request.getAttribute("ListaIdUsuarios")!=null)
-list =  (ArrayList<Usuario>) request.getAttribute("ListaIdUsuarios");
-
-
-
-
 
 %>
+
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <div class="container-fluid">
     <a class="navbar-brand" href="Inicio.jsp">Inicio</a>
