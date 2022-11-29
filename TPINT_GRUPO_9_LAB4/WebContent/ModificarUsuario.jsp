@@ -1,28 +1,33 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-     <%@ page import="Entidad.Usuario" %>
+    <%@ page import="Entidad.Usuario" %>
     <%@ page import="Entidad.Nacionalidad" %>
     <%@ page import="Entidad.Localidad" %>
     <%@ page import="NegocioImpl.NacionalidadNegImpl" %>
     <%@ page import="NegocioImpl.LocalidadesNegImpl" %>
     <%@ page import="java.util.ArrayList" %>
-<!DOCTYPE html >
-
+<!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Listar Usuario</title>
+<title>Modificar Usuario</title>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
 
 </head>
 <body>
 
 <%
-	boolean sesionIniciada = false;
 Usuario user = new Usuario();
+
 user = (Usuario) session.getAttribute("Usuario");
+
+
+%>
+
+<%
+
 NacionalidadNegImpl nacioNeg = new NacionalidadNegImpl();
 LocalidadesNegImpl locNeg = new LocalidadesNegImpl();
 ArrayList<Nacionalidad> listaNacionalidades = null; 
@@ -36,8 +41,6 @@ ArrayList<Usuario> listaUsuarios = new  ArrayList<Usuario>();
 if(request.getAttribute("listaUsu")!=null)
 listaUsuarios =  (ArrayList<Usuario>) request.getAttribute("listaUsu");
 ArrayList<Usuario> list = new  ArrayList<Usuario>();
-if(request.getAttribute("ListaIdUsuarios")!=null)
-list =  (ArrayList<Usuario>) request.getAttribute("ListaIdUsuarios");
 
 
 
@@ -63,8 +66,8 @@ list =  (ArrayList<Usuario>) request.getAttribute("ListaIdUsuarios");
             Más
           </a>
           <ul class="dropdown-menu">
-             <li><a class="dropdown-item" href="AmblUsuarios.jsp">Ambl Usuarios</a></li>
-	        <li><a class="dropdown-item" href="ListaAsignarCuentas.jsp">Asignar Cuentas</a></li>
+          <li><a class="dropdown-item" href="AmblUsuarios.jsp">Ambl Usuarios</a></li>
+	        <li><a class="dropdown-item" href="AsignarCuentas.jsp">Asignar Cuentas</a></li>
 	        <li><a class="dropdown-item" href="PrestamosAdmin.jsp">Aceptar/Rechazar Prestamos</a></li>
           </ul>
         </li>
@@ -76,18 +79,44 @@ list =  (ArrayList<Usuario>) request.getAttribute("ListaIdUsuarios");
 <div class="containter">
 	<div class="row">
 		<div class="col">	
-<div class="card border-primary mb-3 text-bg-dark mb-3" style="width: 18rem;">
-			<p ><a href="servletBanco?param=add"> Agregar Usuario</a></p>
-			<p>
-<a href="servletBanco?param=list"> listar Usuarios</a>
-</p>
-<p>
-<a href="servletBanco?param=eliminar">Eliminar Usuarios </a>
-</p>
-<p>
-<a href="servletBanco?param=modificar">Modificar Usuarios </a>
-</p>
-</div>
+			<br>
+			
+			
+			
+			<table border="1">
+<tr> <th>DNI </th>  <th> Nombre </th>  <th>Apellido </th>  <th>ID_Nacionalidades </th><th>ID_Localidades </th><th>CUIL </th><th>Fecha_Nacimiento </th><th>Mail</th>  <th>ID_Telefonos </th><th>Password </th><th>Tipo_user </th><th></th></tr>
+	
+	<% 
+		for( Usuario u : listaUsuarios) 
+		{
+	%>
+	
+	<tr>  
+<form name="formulario" action="servletBanco?idUsuario=<%=u.getDNI()%>" method="post">
+	   
+	     <td><%=u.getDNI() %> <input type="hidden" name = "idUsuario" value ="<%=u.getDNI()%>"></td>    
+	     <td><%=u.getNombre()%></td>   
+	       <td><%=u.getApellido()%></td> 
+	     <td><%=u.getNacionalidad().getID() %></td>
+	     <td><%=u.getLocalidad().getIDLocalidad() %></td> 
+	     <td><%=u.getCUIL()%></td> 
+	      <td><%=u.getNacimiento() %></td>
+	      <td><%=u.getMail() %></td>
+	      <td><%=u.getTelefono().getID_Telefono()%></td>
+	      <td><input type="text" name="txtPasword" value="<%=u.getPassword() %>"></td>
+	      <td><%=u.getTipoUsuario()%></td>     
+	     <td> <input type="submit" name="btnModificar" value="modificar"> </td>  
+	     
+	   	</form>      
+	</tr>
+
+	<%  } 
+ %>
+	
+	
+	    </tbody>
+</table> 	
+
 			
 		</div>
 	</div>

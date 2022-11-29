@@ -35,25 +35,19 @@ public class servletBanco extends HttpServlet {
 	private static final long serialVersionUID = 1L;
       
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		UsuarioNegImpl nU = new UsuarioNegImpl();
-		ArrayList<Usuario> usuarios = new ArrayList<Usuario>();
-		usuarios = (ArrayList<Usuario>) nU.readAll();
-		
-		NacionalidadNegImpl Na =  new NacionalidadNegImpl();
-		ArrayList<Nacionalidad> nacionalidades = new ArrayList<Nacionalidad>();
-		nacionalidades =(ArrayList<Nacionalidad>)Na.ReadAll();
-		
-		LocalidadesNegImpl Lo =  new LocalidadesNegImpl();
-		ArrayList<Localidad> localidadades = new ArrayList<Localidad>();
-		localidadades =(ArrayList<Localidad>)Lo.ReadAll();
-		
-
 		if(request.getParameter("param")!=null)
 		{
+			
 			String param= request.getParameter("param").toString();
 			if(param.equals("add")) 
 			{
+				NacionalidadNegImpl Na =  new NacionalidadNegImpl();
+				ArrayList<Nacionalidad> nacionalidades = new ArrayList<Nacionalidad>();
+				nacionalidades =(ArrayList<Nacionalidad>)Na.ReadAll();
+				LocalidadesNegImpl Lo =  new LocalidadesNegImpl();
+				ArrayList<Localidad> localidadades = new ArrayList<Localidad>();
+				localidadades =(ArrayList<Localidad>)Lo.ReadAll();
+				
 				request.setAttribute("Localidades",localidadades);
 				request.setAttribute("Nacionalidades",nacionalidades);
 				RequestDispatcher rd = request.getRequestDispatcher("/CrearUsuario.jsp");
@@ -61,19 +55,36 @@ public class servletBanco extends HttpServlet {
 			}		
 			else if(param.equals("list"))
 			{
+				UsuarioNegImpl nU = new UsuarioNegImpl();
+				ArrayList<Usuario> usuarios = new ArrayList<Usuario>();
+				usuarios = (ArrayList<Usuario>) nU.readAll();
 				request.setAttribute("listaUsu",usuarios);
 				request.setAttribute("ListaIdUsuarios",usuarios);
 				RequestDispatcher  rd = request.getRequestDispatcher("/ListarUsuarios.jsp");
 				rd.forward(request, response);
 				
 			}
+			
 			else if(param.equals("eliminar"))
 			{
+				UsuarioNegImpl nU = new UsuarioNegImpl();
+				ArrayList<Usuario> usuarios = new ArrayList<Usuario>();
+				usuarios = (ArrayList<Usuario>) nU.readAll();
 				request.setAttribute("listaUsu",usuarios);
 				RequestDispatcher  rd = request.getRequestDispatcher("/EliminarUsuarios.jsp");
 				rd.forward(request, response);
-				
+			
 			}
+			else if (param.equals("modificar")) {
+				
+				UsuarioNegImpl nU = new UsuarioNegImpl();
+				ArrayList<Usuario> usuarios = new ArrayList<Usuario>();
+				usuarios = (ArrayList<Usuario>) nU.readAll();
+				request.setAttribute("listaUsu",usuarios);
+				RequestDispatcher  rd = request.getRequestDispatcher("/ModificarUsuario.jsp");
+				rd.forward(request, response);
+			}
+			
 		}
 	}
 
@@ -97,6 +108,30 @@ public class servletBanco extends HttpServlet {
 			/*request.getSession().setAttribute("Usuario", null);
 			RequestDispatcher rd = request.getRequestDispatcher("/IniciarSesion.jsp");
 			rd.forward(request, response);*/
+		}
+		
+if(request.getParameter("btnModificar")!=null) {
+			
+			UsuarioNegImpl nU = new UsuarioNegImpl();
+			ArrayList<Usuario> usuarios = new ArrayList<Usuario>();
+			usuarios = (ArrayList<Usuario>) nU.readAll();
+			for(Usuario user : usuarios) {
+				if(user.getDNI().equals(request.getParameter("idUsuario")) ) {
+				
+					user.setPassword(request.getParameter("txtPasword").toString());
+					nU.update(user);
+					
+			}
+				}
+		
+			
+            ArrayList<Usuario> lista= usuarios;
+			request.setAttribute("listaUsu", lista);
+			
+			RequestDispatcher  rd = request.getRequestDispatcher("/ModificarUsuario.jsp");
+	        rd.forward(request, response);
+			
+			
 		}
 		
 		if(request.getParameter("btnFiltrar")!=null) {
