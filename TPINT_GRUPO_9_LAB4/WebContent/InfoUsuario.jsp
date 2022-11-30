@@ -6,7 +6,8 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" type="text/css" href="controladorEstilos.css">
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+<link rel="stylesheet" type="text/css" href="infouser.css">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
 <meta charset="utf-8">
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
@@ -48,27 +49,97 @@ user = (Usuario) session.getAttribute("Usuario");
 	    </div>
 	  </div>
 	</nav>
-<!-- usar scriplet para mostrar el nombre (cuando este el scriplet obvio) -->
-<h1 class="text-left">&nbsp; Hola, <%= user.getNombre()%></h1>
-<div class="container">
-	<div class="row">
-		<div class="col justify-content-start">
-			<ul class="list-group list-group-flush">
-			  <li class="list-group-item">Dni</li>
-			  <li class="list-group-item">Cuil</li>
-			  <li class="list-group-item">Nombre y apellido</li>
-			  <li class="list-group-item">Nacionalidad</li>
-			  <li class="list-group-item">Localidad</li>
-			  <li class="list-group-item">Sexo</li>
-			  <li class="list-group-item">Fecha de nacimiento</li>
-			  <li class="list-group-item">Direccion</li>
-			  <li class="list-group-item">Mail</li>
-			  <li class="list-group-item">Telefonos</li>
-			  <li class="list-group-item">Contraseña</li>
-			</ul>
-		</div>
-	</div>
-</div>
+
+<div class="container bootdey flex-grow-1 container-p-y">
+
+            <div class="media align-items-center py-3 mb-3">
+              <div class="media-body ml-4">
+                <h2 class="font-weight-bold mb-0"><%= user.getNombre()%></h2>
+              </div>
+            </div>
+
+            <div class="card mb-4">
+              <div class="card-body">
+                <h6>Cuentas</h6>
+              </div>
+              <hr class="border-light m-0">
+            </div>
+
+            <div class="card">
+              <hr class="border-light m-0">
+              <div class="card-body">
+                <h6 class="mt-2 mb-3">Personal info</h6>
+                
+                <table class="table user-view-table m-0">
+                  <tbody>
+                  	<tr>
+                  		<td>DNI:</td>
+                  		<td><%= user.getDNI() %></td>
+                  	</tr>
+                    <tr>
+                      <td>Nombre:</td>
+                      <td><%= user.getNombre()%></td>
+                    </tr>
+                    <tr>
+                    	<td>Apellido:</td>
+                    	<td><%= user.getApellido()%></td>
+                    </tr>
+                    <tr>
+                      <td>E-mail:</td>
+                      <td><%= user.getMail() %></td>
+                    </tr>
+                    <tr>
+                      <td>Nacimiento:</td>
+                      <td><%= user.getNacimiento() %></td>
+                    </tr>
+                    <tr>
+                      <td>Nacionalidad:</td>
+                      <td><%= user.getNacionalidad().getDescripcion() %></td> 
+                    </tr>
+                    <tr>
+                    	<td>Localidad:</td>
+                    	<td><%= user.getLocalidad().getDescripcion() %></td>
+                    </tr>
+                    <tr>
+                    	<td>CUIL:</td>
+                    	<td><%= user.getCUIL() %></td>
+                    </tr>
+                    <tr>
+                    	<td>Sexo:</td>
+                    	<td><%= user.getSexo() %></td>
+                    </tr>
+                    <tr>
+                    	<td>Direccion:</td>
+                    	<td><%= user.getDireccion() %></td>
+                    </tr>
+                  </tbody>
+                </table>
+                
+                <h6 class="mt-4 mb-3">Telefonos</h6>
+                    
+                <table class="table user-view-table m-0">
+                  <tbody>
+                    <tr>
+                      <td>Telefono 1:</td>
+                      <td><%= user.getTelefono().getTelefono_1() %></td>
+                    </tr>
+                    <tr>
+                    <td>Telefono 2:</td>
+                    	<td><%= user.getTelefono().getTelefono_2() %></td>
+                    </tr>
+                    <tr>
+                    <td>Telefono 3:</td>
+                    	<td><%= user.getTelefono().getTelefono_3() %></td>
+                    </tr>
+                    <tr>
+                    <td>Telefono 4:</td>
+                    	<td><%= user.getTelefono().getTelefono_4() %></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
 	
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.min.js" integrity="sha384-IDwe1+LCz02ROU9k972gdyvl+AESN10+x7tBKgc9I5HFtuNz0wWnPclzo6p9vxnk" crossorigin="anonymous"></script>	
