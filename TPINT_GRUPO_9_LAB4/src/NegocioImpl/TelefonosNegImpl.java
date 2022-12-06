@@ -1,5 +1,7 @@
 package NegocioImpl;
 
+import java.util.ArrayList;
+
 import DaoImpl.DaoTelefono;
 import Entidad.Telefono;
 import Negocio.TelefonosNeg;
@@ -43,16 +45,17 @@ public class TelefonosNegImpl implements TelefonosNeg{
 	
 	private boolean ValidationTelefono(Telefono telefono)
 	{
-		try 
-		{
-			Integer.parseInt(telefono.getTelefono_1());
-		}
-		catch (Exception e) 
+		if(!TelefonoIsNumber(telefono)) 
 		{
 			return false;
 		}
 		
-		if(telefono.getTelefono_1().length() != 8 || telefono.getTelefono_1().length() != 10) {
+		if(!TelefonoisCorrect(telefono)) 
+		{
+			return false;
+		}
+		if(!TelefonoDontRepeat(telefono)) 
+		{
 			
 			return false;
 		}
@@ -112,7 +115,7 @@ public class TelefonosNegImpl implements TelefonosNeg{
 	
 	private boolean TelefonoisCorrect(Telefono telefono) 
 	{
-		if(telefono.getTelefono_1().length() != 8 || telefono.getTelefono_1().length() != 10) 
+		if(telefono.getTelefono_1().trim().length() != 8 ||telefono.getTelefono_1().trim().length() != 10) 
 		{
 			
 			return false;
@@ -120,7 +123,7 @@ public class TelefonosNegImpl implements TelefonosNeg{
 		
 		if(telefono.getTelefono_2() != null) 
 		{
-		if(telefono.getTelefono_2().length() != 8 || telefono.getTelefono_2().length() != 10) 
+		if(telefono.getTelefono_2().trim().length() != 8 || telefono.getTelefono_2().trim().length() != 10) 
 		{
 			
 			return false;
@@ -129,7 +132,7 @@ public class TelefonosNegImpl implements TelefonosNeg{
 
 		if(telefono.getTelefono_3() != null) 
 		{
-		if(telefono.getTelefono_3().length() != 8 || telefono.getTelefono_3().length() != 10) 
+		if(telefono.getTelefono_3().trim().length() != 8 || telefono.getTelefono_3().trim().length() != 10) 
 		{
 			
 			return false;
@@ -138,7 +141,7 @@ public class TelefonosNegImpl implements TelefonosNeg{
 		
 		if(telefono.getTelefono_4() != null) 
 		{
-		if(telefono.getTelefono_4().length() != 8 || telefono.getTelefono_4().length() != 10) 
+		if(telefono.getTelefono_4().trim().length() != 8 || telefono.getTelefono_4().trim().length() != 10) 
 		{
 			
 			return false;
@@ -148,13 +151,48 @@ public class TelefonosNegImpl implements TelefonosNeg{
 		return true;
 	}
 	
-	/*private boolean TelefonoDontRepeat(Telefono telefono)
+	private boolean TelefonoDontRepeat(Telefono telefono)
 	{
-		if(telefono.getTelefono_2() !=null)
+		ArrayList<Integer> Telefonos = new ArrayList<Integer>(); 
+		boolean iscorret = true;
 		
+		try 
+		{
+			Telefonos.add(Integer.parseInt(telefono.getTelefono_1()));
+			Telefonos.add(Integer.parseInt(telefono.getTelefono_2()));
+			Telefonos.add(Integer.parseInt(telefono.getTelefono_3()));
+			Telefonos.add(Integer.parseInt(telefono.getTelefono_4()));
+			
+			
+			for(int i = 0; i< Telefonos.size() ; i++) 
+			{
+				int copi=0;
+				
+				for(int j =0; j<Telefonos.size(); j++) 
+				{
+					if(Telefonos.get(i).equals(Telefonos.get(j)))
+					{
+						copi++;
+					}
+							
+				}
+				
+				if(copi > 1)
+				{
+					iscorret = false;
+					break;	
+				}
+				
+			}
+			
+		}
+		catch (Exception e) 
+		{
+			e.printStackTrace();
+		}
 		
-		return true;
+		return iscorret;
 	}
-	*/
+	
 	
 }
