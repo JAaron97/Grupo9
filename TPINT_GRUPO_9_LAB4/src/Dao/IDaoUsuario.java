@@ -15,4 +15,6 @@ public interface IDaoUsuario {
 	public List<Usuario> ReadAll();
 	
 	public Usuario Read(String DNI);
+	
+	public boolean DniExist(String dni);
 }

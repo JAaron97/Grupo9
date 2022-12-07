@@ -300,5 +300,37 @@ public class DaoUsuario implements IDaoUsuario{
 		
 		return id;
 	}
+	
+	public boolean DniExist(String dni) {
+		
+		boolean exist = false;
+		
+		PreparedStatement statement;
+		Conexion conexion = Conexion.getConexion();
+		ResultSet resultset;
+		
+		try 
+		{
+			
+			statement = conexion.getSQLConexion().prepareStatement(read);
+			statement.setString(1,dni);
+			resultset = statement.executeQuery();
+			
+			while(resultset.next()) 
+			{
+				exist = true;
+			}
+			
+		}
+		catch (Exception e) 
+		{
+			e.printStackTrace();
+		}
+		
+		return exist;
+		
+		
+		
+	}
 
 }
