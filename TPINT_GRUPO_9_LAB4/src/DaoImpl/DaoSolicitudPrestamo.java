@@ -15,8 +15,8 @@ import Entidad.SolicitudPrestamo;
 
 public class DaoSolicitudPrestamo implements IDaoSolicitudPrestamo{
 	
-	private static final String insert = "INSERT INTO solicitud_prestamo ( DNI_Usuario, Importe_Solicitado, ID_Numero_Cuotas, Cuenta_Destinataria, Fecha, Estado) " + 
-										 "VALUES (?, ?, ?, ?, ?, ?)";
+	private static final String insert = "INSERT INTO solicitud_prestamo ( DNI_Usuario, Importe_Solicitado, ID_Numero_Cuotas, Cuenta_Destinataria, Fecha) " + 
+										 "VALUES (?, ?, ?, ?, ?)";
 	
 	private static final String update = "UPDATE solicitud_prestamo SET DNI_Usuario = ? , Importe_Solicitado = ? , ID_Numero_Cuotas = ?, Cuenta_Destinataria = ?, Fecha = ?, Estado = ? WHERE ID = ?";
 	
