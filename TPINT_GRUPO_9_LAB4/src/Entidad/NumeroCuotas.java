@@ -5,6 +5,7 @@ public class NumeroCuotas {
 	private int ID;
 	private String Descripcion;
 	
+	public NumeroCuotas() {}
 	
 	public NumeroCuotas(int id, String descripcion) {
 		

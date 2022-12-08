@@ -8,8 +8,8 @@ import Entidad.NumeroCuotas;
 
 public class DaoNumeroCuotas  implements IDaoNumeroCuotas{
 	
-	private static final String readall = "SELECT * FROM localidades";
-	private static final String read = "SELECT * FROM localidades WHERE ID = ?";
+	private static final String readall = "SELECT * FROM numero_cuotas";
+	private static final String read = "SELECT * FROM numero_cuotas WHERE ID = ?";
 	
 	
 	public ArrayList<NumeroCuotas> ReadAll()

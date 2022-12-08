@@ -21,12 +21,15 @@ import javax.servlet.http.HttpServletResponse;
 import Entidad.Cuenta;
 import Entidad.Localidad;
 import Entidad.Nacionalidad;
+import Entidad.NumeroCuotas;
+import Entidad.SolicitudPrestamo;
 import Entidad.Telefono;
 import Entidad.TipoCuenta;
 import Entidad.Usuario;
 import NegocioImpl.CuentaNegImpl;
 import NegocioImpl.LocalidadesNegImpl;
 import NegocioImpl.NacionalidadNegImpl;
+import NegocioImpl.NumeroCuotasNegImpl;
 import NegocioImpl.TipoCuentaNegImpl;
 import NegocioImpl.UsuarioNegImpl;
 
@@ -110,7 +113,7 @@ public class servletBanco extends HttpServlet {
 			rd.forward(request, response);*/
 		}
 		
-if(request.getParameter("btnModificar")!=null) {
+		if(request.getParameter("btnModificar")!=null) {
 			
 			UsuarioNegImpl nU = new UsuarioNegImpl();
 			ArrayList<Usuario> usuarios = new ArrayList<Usuario>();
@@ -233,9 +236,27 @@ if(request.getParameter("btnModificar")!=null) {
 			 request.setAttribute("Filas", filas);
 			 RequestDispatcher rd = request.getRequestDispatcher("/ListaAsignarCuentas.jsp");
 			 rd.forward(request, response);
-		
-	}
 		}
+		
+		if(request.getParameter("btnSolicitar")!=null) {
+			SolicitudPrestamo sP = new SolicitudPrestamo();
+			Usuario u = new Usuario();
+			NumeroCuotas nC = new NumeroCuotas();
+			NumeroCuotasNegImpl negNC = new NumeroCuotasNegImpl();
+			ArrayList<NumeroCuotas> listaNumeroCuotas = null;
+			listaNumeroCuotas = negNC.ReadAll();
+			u = (Usuario)request.getSession().getAttribute("Usuario");
+			int importe = Integer.valueOf(request.getParameter("txtImporte"));
+			
+			
+			sP.setDNICliente(u.getDNI());
+			sP.setImportePedido(BigDecimal.valueOf(importe));
+			sP.setCuentaDestinataria(request.getParameter("cuenta"));
+			sP.setNumeroCuotas(negNC.Read(getIdNumeroCuotas(listaNumeroCuotas, request)));
+			sP.setFecha(java.time.LocalDate.now());
+			
+		}
+	}
 		
 	
 	
@@ -316,6 +337,17 @@ if(request.getParameter("btnModificar")!=null) {
 		}
 		
 		return idNac;
+	}
+	
+	public int getIdNumeroCuotas(ArrayList<NumeroCuotas> listaNumeroCuotas, HttpServletRequest request) {
+		int idNC = 0;
+		for(NumeroCuotas nc : listaNumeroCuotas) {
+			if(nc.getDescripcion().equals(request.getParameter("Localidad"))) {
+				idNC = nc.getID(); 
+			}
+		}
+		
+		return idNC;
 	}
 	
 	public int getIdLocalidad(ArrayList<Localidad> listaLocalidades, HttpServletRequest request) {

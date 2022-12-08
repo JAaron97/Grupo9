@@ -1,6 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
     <%@ page import="Entidad.Usuario" %>
+    <%@ page import="Entidad.NumeroCuotas" %>
+    <%@ page import="DaoImpl.DaoNumeroCuotas" %>
+    <%@ page import="DaoImpl.DaoCuenta" %>
+    <%@ page import="Entidad.Cuenta" %>
+    <%@ page import="java.util.ArrayList" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,7 +19,15 @@
 <body>
 	<%
 Usuario user = new Usuario();
-user = (Usuario) session.getAttribute("Usuario"); 
+user = (Usuario) session.getAttribute("Usuario");
+
+DaoNumeroCuotas dNC = new DaoNumeroCuotas(); 
+ArrayList<NumeroCuotas> listaNumeroCuotas = new  ArrayList<NumeroCuotas>();
+listaNumeroCuotas = dNC.ReadAll();
+
+DaoCuenta dC = new DaoCuenta();
+ArrayList<Cuenta> listaCuenta = new  ArrayList<Cuenta>();
+listaCuenta = dC.ReadAll();
 %>
 	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
 	  <div class="container-fluid">
@@ -25,7 +38,7 @@ user = (Usuario) session.getAttribute("Usuario");
 	    <div class="collapse navbar-collapse" id="navbarSupportedContent">
 	      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
 			<li class="nav-item">
-				<a class="nav-link disabled"><%= user.getNombre()%></a>
+				<a class="nav-link disabled">sexo</a>
 			</li>
 			<li class="nav-item">
 				<a class="nav-link" href="CerrarSesion.jsp">Cerrar Sesión</a>
@@ -51,21 +64,37 @@ user = (Usuario) session.getAttribute("Usuario");
 <div class="container">
 	<div class="row">
 		<div class="col text-center">
+			<form action="servletBanco" method="post">
 			<p>Ingrese el importe que desea solicitar: <input type="number" name="txtImporte"></p>
 			<p>
 				Cantidad de cuotas: 
-				<select>
-					<!-- scriplet de la base de datos con el numer de cuotas -->
+				<select name="cuotas">
+					<%
+					for(NumeroCuotas nc : listaNumeroCuotas){
+						
+					%>
+					<option value="<%=nc.getDescripcion() %>"><%=nc.getDescripcion() %></option>
+					<%
+					}
+					%>
 				</select>
 			</p>
 			<p>
 				Seleccione la cuenta para el prestamo:
-				<select>
-					<!-- scriplet con las cuentas del usuario -->
-					<option></option>
+				<select name="cuenta">
+					<%
+					for(Cuenta c : listaCuenta){
+						if(user.getDNI()==c.getDNICliente()){
+					%>
+					<option value="<%c.getNumeroCuenta(); %>"><%=c.getNumeroCuenta() %></option>
+					<%
+						}
+					}
+					%>
 				</select>
 			</p>
 			<p><input type="submit" name="btnSolicitar" value="Solicitar"></p>
+			</form>
 		</div>
 	</div>
 </div>	

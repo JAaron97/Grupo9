@@ -13,6 +13,7 @@ public class SolicitudPrestamo {
 	private LocalDate Fecha;
 	private int Estado;
 	
+	public SolicitudPrestamo(){}
 	
 	public SolicitudPrestamo(int id, String dnicliente,BigDecimal importepedido, NumeroCuotas numerocuotas,String numerocuenta,LocalDate fecha,int estado) {
 		

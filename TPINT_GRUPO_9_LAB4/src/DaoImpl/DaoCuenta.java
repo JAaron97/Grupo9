@@ -206,6 +206,8 @@ public class DaoCuenta implements IDaoCuenta {
 		return cuenta;
 	}
 	
+	
+	
  	private Cuenta getCuenta(ResultSet resultset)throws SQLException
 	{	
 		
