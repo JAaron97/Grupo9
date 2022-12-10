@@ -1,15 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-    <%@ page import="Entidad.Usuario" %>
-    <%@ page import="NegocioImpl.UsuarioNegImpl" %>
+         <%@ page import="Entidad.Usuario" %>
+    <%@ page import="Entidad.Cuenta" %>
+    <%@ page import="Entidad.Localidad" %>
+    <%@ page import="NegocioImpl.NacionalidadNegImpl" %>
+    <%@ page import="NegocioImpl.LocalidadesNegImpl" %>
     <%@ page import="java.util.ArrayList" %>
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Lista Asignar Cuentas</title>
+<title>Insert title here</title>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
 <style>
 #cliente {
@@ -37,13 +38,20 @@
 </style>
 </head>
 <body>
+
 <%
 Usuario user = new Usuario();
 user = (Usuario) session.getAttribute("Usuario");
-UsuarioNegImpl userN = new UsuarioNegImpl();
-ArrayList<Usuario> listaUsuarios = new ArrayList<Usuario>();
-	listaUsuarios = (ArrayList<Usuario>)userN.readAll();
 %>
+<%
+ArrayList<Cuenta> listaCuentas = new  ArrayList<Cuenta>();
+if(request.getAttribute("listaUsu")!=null)
+listaCuentas =  (ArrayList<Cuenta>) request.getAttribute("listaUsu");
+ArrayList<Cuenta> list = new  ArrayList<Cuenta>();
+if(request.getAttribute("Listacuentas")!=null)
+list =  (ArrayList<Cuenta>) request.getAttribute("Listacuentas");
+%>
+
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <div class="container-fluid">
     <a class="navbar-brand" href="Inicio.jsp">Inicio</a>
@@ -72,76 +80,51 @@ ArrayList<Usuario> listaUsuarios = new ArrayList<Usuario>();
     </div>
   </div>
 </nav>
+<form action="servletBanco" method="post">
+			<p class="text-center">
+			  
+				</form>
+				<br>
+				
+			<table id="cliente">
+			<tr> 
+				<th>Numero de Cuenta</th>  
+				<th> Dni_Usuario</th>  
+				<th>Fecha creacion</th>  
+				<th>Tipo de cuenta </th>
+				<th>Cbu</th>
+				<th>Saldo </th>
+				
+				
+			</tr>
+			<% 
+				for( Cuenta c : list) 
+				{
+			%>
+			<tr>  
+				<td><%=c.getNumeroCuenta()%> </td>
+				<td><%=c.getDNICliente()%></td>   
+				<td><%=c.getFechaCreacion()%></td> 
+				<td><%=c.getTipoCuenta() %></td>
+				<td><%=c.getCBU()%></td>
+				<td><%=c.getSaldo()%></td> 
+				
+				   
+			</tr>
 
-
-<table id="cliente">
-	<tr>
-		<th>DNI</th>
-		<th>Nombre</th>
-		<th>Apellido</th>
-		<th>ID Nacionalidad</th>
-		<th>ID Localidad</th>
-		<th>CUIL</th>
-		<th>Sexo</th>
-		<th>Fecha de Nacimiento</th>
-		<th>Direccion</th>
-		<th>Mail</th>
-		<th>ID Telefonos</th>
-		<th>Contraseña</th>
-		<th></th>
-		<th></th>>
-	</tr>
-	<%
-	for(Usuario u : listaUsuarios){
-	%>
-	<tr>
-	<form name="form" action="servletBanco?idUsuario=<%=u.getDNI()%>" method="post">
-		<td><%=u.getDNI() %><input type="hidden" name = "dni" value ="<%=u.getDNI()%>"></td>
-		<td><%=u.getNombre() %></td>
-		<td><%=u.getApellido() %></td>
-		<td><%=u.getNacionalidad().getID() %></td>
-		<td><%=u.getLocalidad().getIDLocalidad() %></td>
-		<td><%=u.getCUIL() %></td>
-		<td><%=u.getSexo() %></td>
-		<td><%=u.getNacimiento() %></td>
-		<td><%=u.getDireccion() %></td>
-		<td><%=u.getMail() %></td>
-		<td><%=u.getTelefono().getID_Telefono() %></td>
-		<td><%=u.getPassword() %></td>
-		<td><input type="submit" name="btnVercuentas" value="Ver cuentas "></td>
-		<td><a href="AsignarCuenta.jsp">Asignar cuentas</a></td>
-		</form>
-	</tr>
-	<%
-	}
-	%>
-</table>
-
-<br>
-<div class ="container fondo">
+			<% 
+			} 
+			%>
+		</table> 
+		<div class ="container fondo">
 	<div class="row">
 		<div class="col">
 			<!-- poner acar si se creo cuenta correctamente -->
-			<%
-			if(request.getAttribute("Filas") != null){
-				boolean filas = false;
-				filas = (Boolean)request.getAttribute("Filas");
-				if(filas){
-				%>
-				<p class="text-center">Cuenta asignada correctamente</p>
-				<%
-				}
-				else{
-				%>
-				<p class="text-center">El cliente ya posee el maximo de cuentas</p>
-				<%
-				}
-			}
-			%>
+			
 		</div>
 	</div>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>	
 </body>
 </html>

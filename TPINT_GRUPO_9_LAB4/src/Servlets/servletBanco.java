@@ -176,6 +176,38 @@ public class servletBanco extends HttpServlet {
 			}	
 		}
 		
+if(request.getParameter("btnVercuentas")!=null) {
+			
+			CuentaNegImpl nC = new  CuentaNegImpl();
+			ArrayList<Cuenta> cue = new ArrayList<Cuenta>();
+			cue = (ArrayList<Cuenta>) nC.ReadAll();
+			//pasar un el nro dni y listar solo las cuentas de esa dni
+			
+			int  tipo= Integer.parseInt(request.getParameter("idUsuario").toString());
+			ArrayList<Cuenta> rep = new ArrayList<Cuenta>();
+
+			
+			for(int i=0; i<cue.size();i++) {
+				Cuenta x = new Cuenta();
+				x=cue.get(i);
+				
+				if(Integer.parseInt(x.getDNICliente())==tipo) {
+					
+					rep.add(cue.get(i));
+				}
+			}
+			
+			
+			
+			request.setAttribute("listaUsu",rep);
+			request.setAttribute("Listacuentas",rep);
+			RequestDispatcher  rd = request.getRequestDispatcher("/Listar cuentas.jsp");
+			rd.forward(request, response);
+			
+			
+		
+	}
+		
 		if(request.getParameter("btnEliminar2")!=null)
 		{
 			UsuarioNegImpl nU = new UsuarioNegImpl();
