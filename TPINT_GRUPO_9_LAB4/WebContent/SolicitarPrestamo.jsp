@@ -2,8 +2,8 @@
     pageEncoding="ISO-8859-1"%>
     <%@ page import="Entidad.Usuario" %>
     <%@ page import="Entidad.NumeroCuotas" %>
-    <%@ page import="DaoImpl.DaoNumeroCuotas" %>
-    <%@ page import="DaoImpl.DaoCuenta" %>
+    <%@ page import="NegocioImpl.NumeroCuotasNegImpl" %>
+    <%@ page import="NegocioImpl.CuentaNegImpl" %>
     <%@ page import="Entidad.Cuenta" %>
     <%@ page import="java.util.ArrayList" %>
 <!DOCTYPE html>
@@ -21,11 +21,11 @@
 Usuario user = new Usuario();
 user = (Usuario) session.getAttribute("Usuario");
 
-DaoNumeroCuotas dNC = new DaoNumeroCuotas(); 
+NumeroCuotasNegImpl dNC = new NumeroCuotasNegImpl(); 
 ArrayList<NumeroCuotas> listaNumeroCuotas = new  ArrayList<NumeroCuotas>();
 listaNumeroCuotas = dNC.ReadAll();
 
-DaoCuenta dC = new DaoCuenta();
+CuentaNegImpl dC = new CuentaNegImpl();
 ArrayList<Cuenta> listaCuenta = new  ArrayList<Cuenta>();
 listaCuenta = dC.ReadAll();
 %>

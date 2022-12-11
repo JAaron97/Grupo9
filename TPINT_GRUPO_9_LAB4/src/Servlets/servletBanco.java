@@ -89,6 +89,24 @@ public class servletBanco extends HttpServlet {
 			}
 			
 		}
+		
+		if(request.getParameter("btnSolicitarCuenta") != null) {
+			Usuario user = new Usuario();
+			user = (Usuario) request.getSession().getAttribute("Usuario");
+			CuentaNegImpl dC = new CuentaNegImpl();
+			ArrayList<Cuenta> listaCuenta = new  ArrayList<Cuenta>();
+			listaCuenta = dC.ReadAll();
+			int cont=0;
+			
+			for(Cuenta cu : listaCuenta) {
+				if(cu.getDNICliente().equals(user.getDNI())) {
+					cont++;
+				}
+			}
+			if(cont==3) {
+				//Crear luego algo para recibir solicitudes de creacion de cuentas
+			}
+		}
 	}
 
 
@@ -273,7 +291,6 @@ if(request.getParameter("btnVercuentas")!=null) {
 		if(request.getParameter("btnSolicitar")!=null) {
 			SolicitudPrestamo sP = new SolicitudPrestamo();
 			Usuario u = new Usuario();
-			NumeroCuotas nC = new NumeroCuotas();
 			NumeroCuotasNegImpl negNC = new NumeroCuotasNegImpl();
 			ArrayList<NumeroCuotas> listaNumeroCuotas = null;
 			listaNumeroCuotas = negNC.ReadAll();
