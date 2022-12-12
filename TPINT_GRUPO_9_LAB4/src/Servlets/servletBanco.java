@@ -22,6 +22,7 @@ import Entidad.Cuenta;
 import Entidad.Localidad;
 import Entidad.Nacionalidad;
 import Entidad.NumeroCuotas;
+import Entidad.SolicitudCuenta;
 import Entidad.SolicitudPrestamo;
 import Entidad.Telefono;
 import Entidad.TipoCuenta;
@@ -30,6 +31,7 @@ import NegocioImpl.CuentaNegImpl;
 import NegocioImpl.LocalidadesNegImpl;
 import NegocioImpl.NacionalidadNegImpl;
 import NegocioImpl.NumeroCuotasNegImpl;
+import NegocioImpl.SolicitudCuentaNegImpl;
 import NegocioImpl.TipoCuentaNegImpl;
 import NegocioImpl.UsuarioNegImpl;
 
@@ -94,18 +96,21 @@ public class servletBanco extends HttpServlet {
 			Usuario user = new Usuario();
 			user = (Usuario) request.getSession().getAttribute("Usuario");
 			CuentaNegImpl dC = new CuentaNegImpl();
+			SolicitudCuenta SolicitudCuenta = new SolicitudCuenta();
+			SolicitudCuentaNegImpl nSC = new SolicitudCuentaNegImpl();
 			ArrayList<Cuenta> listaCuenta = new  ArrayList<Cuenta>();
 			listaCuenta = dC.ReadAll();
-			int cont=0;
 			
-			for(Cuenta cu : listaCuenta) {
-				if(cu.getDNICliente().equals(user.getDNI())) {
-					cont++;
-				}
-			}
-			if(cont==3) {
-				//Crear luego algo para recibir solicitudes de creacion de cuentas
-			}
+			SolicitudCuenta.setDNI_Cliente(user.getDNI());
+			SolicitudCuenta.setFechaSolicitud(java.time.LocalDate.now());
+			boolean filas = false;
+			 if(!maximoCuentas(listaCuenta, request, user.getDNI())) {
+				 filas = nSC.Insert(SolicitudCuenta);
+			 }
+			 
+			 request.setAttribute("Filas", filas);
+			 RequestDispatcher rd = request.getRequestDispatcher("/InfoUsuario.jsp");
+			 rd.forward(request, response);
 		}
 	}
 
@@ -194,7 +199,7 @@ public class servletBanco extends HttpServlet {
 			}	
 		}
 		
-if(request.getParameter("btnVercuentas")!=null) {
+			if(request.getParameter("btnVercuentas")!=null) {
 			
 			CuentaNegImpl nC = new  CuentaNegImpl();
 			ArrayList<Cuenta> cue = new ArrayList<Cuenta>();
@@ -279,7 +284,7 @@ if(request.getParameter("btnVercuentas")!=null) {
 			 cuenta.setSaldo(BigDecimal.valueOf(10000));
 			 
 			 boolean filas = false;
-			 if(!maximoCuentas(listaCuentas, request)) {
+			 if(!maximoCuentas(listaCuentas, request, request.getParameter("txtDNI"))) {
 				 filas = negC.Insert(cuenta);
 			 }
 			 
@@ -309,13 +314,13 @@ if(request.getParameter("btnVercuentas")!=null) {
 		
 	
 	
-	public boolean maximoCuentas(ArrayList<Cuenta> listaCuentas, HttpServletRequest request) {
+	public boolean maximoCuentas(ArrayList<Cuenta> listaCuentas, HttpServletRequest request, String DNI) {
 		int cont;
 		boolean maxCuentas = false;
 		
 		cont=0;
 		for(Cuenta c : listaCuentas) {
-			if(c.getDNICliente().equals(request.getParameter("txtDNI"))) {
+			if(c.getDNICliente().equals(DNI)) {
 				cont++;
 			}
 		}

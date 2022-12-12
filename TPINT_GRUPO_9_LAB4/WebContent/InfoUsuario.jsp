@@ -99,6 +99,22 @@ listaCuenta = dC.ReadAll();
         		%>
         		</tbody>
         	</table>
+			<%
+				if(request.getAttribute("Filas") != null){
+					boolean filas = false;
+					filas = (Boolean)request.getAttribute("Filas");
+					if(filas){
+						%>
+						<p class="text-center">Cuenta Solicitada correctamente</p>
+						<%
+					}
+					else{
+						%>
+							<p class="text-center">Ya posee el maximo de cuentas</p>
+						<%
+					}
+				}
+			%>
         	<form action="servletBanco" method="get">
         	<input type="submit" name="btnSolicitarCuenta" value="Solicitar nueva cuenta">
         	</form>
@@ -181,7 +197,6 @@ listaCuenta = dC.ReadAll();
     	</div>
 	</div>
 </div>
-	
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.min.js" integrity="sha384-IDwe1+LCz02ROU9k972gdyvl+AESN10+x7tBKgc9I5HFtuNz0wWnPclzo6p9vxnk" crossorigin="anonymous"></script>	
 </body>
