@@ -89,7 +89,7 @@ ArrayList<Usuario> listaUsuarios = new ArrayList<Usuario>();
 		<th>ID Telefonos</th>
 		<th>Contraseña</th>
 		<th></th>
-		<th></th>>
+		<th></th>
 	</tr>
 	<%
 	for(Usuario u : listaUsuarios){

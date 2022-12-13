@@ -2,13 +2,8 @@ package Servlets;
 
 import java.io.IOException;
 import java.math.BigDecimal;
-import java.sql.Date;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Locale;
 import java.util.Random;
 
 import javax.servlet.RequestDispatcher;
@@ -117,23 +112,21 @@ public class servletBanco extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		
-		
 		if(request.getParameter("btnIngresar")!=null) {
 			UsuarioNegImpl nU = new UsuarioNegImpl();
 			ArrayList<Usuario> usuarios = new ArrayList<Usuario>();
 			usuarios = (ArrayList<Usuario>) nU.readAll();
-			for(Usuario user : usuarios) {
-				if(user.getDNI().equals(request.getParameter("txtDNI")) && user.getPassword().equals(request.getParameter("txtPasswd"))) {
-					request.getSession().setAttribute("Usuario", user);
-					RequestDispatcher rd = request.getRequestDispatcher("/Inicio.jsp");
-					rd.forward(request, response);
-				}
+			boolean aux = false;
+			
+			RequestDispatcher rd = loginUsuario(usuarios, request);
+			if(rd!=null) {
+				rd.forward(request, response);
 			}
-			/*esto no sirve por que te cierra la secion cuando salis de inicio*/
-			/*request.getSession().setAttribute("Usuario", null);
-			RequestDispatcher rd = request.getRequestDispatcher("/IniciarSesion.jsp");
-			rd.forward(request, response);*/
+			else {
+				request.setAttribute("sesion", aux);
+				RequestDispatcher rd2 = request.getRequestDispatcher("/IniciarSesion.jsp");
+				rd2.forward(request, response);
+			}
 		}
 		
 		if(request.getParameter("btnModificar")!=null) {
@@ -312,7 +305,17 @@ public class servletBanco extends HttpServlet {
 		}
 	}
 		
-	
+	public RequestDispatcher loginUsuario( ArrayList<Usuario> usuarios , HttpServletRequest request) {
+		RequestDispatcher rd = null;
+		for(Usuario user : usuarios) {
+			if(user.getDNI().equals(request.getParameter("txtDNI")) && user.getPassword().equals(request.getParameter("txtPasswd"))) {
+				request.getSession().setAttribute("Usuario", user);
+				rd = request.getRequestDispatcher("/Inicio.jsp");
+			} 
+		}
+		
+		return rd;
+	}
 	
 	public boolean maximoCuentas(ArrayList<Cuenta> listaCuentas, HttpServletRequest request, String DNI) {
 		int cont;

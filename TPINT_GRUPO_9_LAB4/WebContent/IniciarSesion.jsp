@@ -68,10 +68,13 @@
 			</form>
 			<!-- arreglar este if no anda bien masomenos -->
 			<%
-			if(request.getAttribute("Usuario")==null){
-			%>
-			<p>DNI o contraseña incorrectos</p>
-			<%
+			if(request.getAttribute("sesion") != null){
+				boolean filas = false;
+				if(!filas){
+				%>
+				<p class="text-center">DNI o Contraseña Incorrectos</p>
+				<%
+				}
 			}
 			%>
 	</main>
