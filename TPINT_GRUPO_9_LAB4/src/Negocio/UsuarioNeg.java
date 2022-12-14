@@ -13,4 +13,6 @@ public interface UsuarioNeg {
 	public boolean update(Usuario usuario_a_modificar);
 	
 	public List<Usuario> readAll();
+	
+	public Usuario Read(String DNI);
 }

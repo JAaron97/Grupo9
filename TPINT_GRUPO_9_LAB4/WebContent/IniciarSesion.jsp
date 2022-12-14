@@ -66,7 +66,6 @@
 			</div>
 				<input class="w-100 btn btn-lg btn-primary" type="submit" name="btnIngresar" value="Ingresar">
 			</form>
-			<!-- arreglar este if no anda bien masomenos -->
 			<%
 			if(request.getAttribute("sesion") != null){
 				boolean filas = false;

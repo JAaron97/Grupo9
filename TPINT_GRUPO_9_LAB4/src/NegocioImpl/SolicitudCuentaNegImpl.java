@@ -24,4 +24,9 @@ public class SolicitudCuentaNegImpl implements SolicitudCuentaNeg{
 		return dSC.Read(ID);
 	}
 
+	@Override
+	public boolean UpdateEstado(int ID) {
+		return dSC.UpdateEstado(ID);
+	}
+
 }

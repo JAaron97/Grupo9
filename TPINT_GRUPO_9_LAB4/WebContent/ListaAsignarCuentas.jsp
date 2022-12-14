@@ -96,7 +96,7 @@ ArrayList<Usuario> listaUsuarios = new ArrayList<Usuario>();
 	%>
 	<tr>
 	<form name="form" action="servletBanco?idUsuario=<%=u.getDNI()%>" method="post">
-		<td><%=u.getDNI() %><input type="hidden" name = "dni" value ="<%=u.getDNI()%>"></td>
+		<td><%=u.getDNI() %></td>
 		<td><%=u.getNombre() %></td>
 		<td><%=u.getApellido() %></td>
 		<td><%=u.getNacionalidad().getID() %></td>
@@ -108,8 +108,8 @@ ArrayList<Usuario> listaUsuarios = new ArrayList<Usuario>();
 		<td><%=u.getMail() %></td>
 		<td><%=u.getTelefono().getID_Telefono() %></td>
 		<td><%=u.getPassword() %></td>
-		<td><input type="submit" name="btnVercuentas" value="Ver cuentas "></td>
-		<td><a href="AsignarCuenta.jsp">Asignar cuentas</a></td>
+		<td><input type="submit" name="btnVercuentas" value="Ver cuentas"></td>
+		<td><input type="submit" name="btnVerSolicitudCuentas" value="Ver Solicitudes de cuenta"></td>
 		</form>
 	</tr>
 	<%

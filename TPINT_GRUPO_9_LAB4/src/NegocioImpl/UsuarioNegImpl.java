@@ -42,6 +42,11 @@ public class UsuarioNegImpl implements UsuarioNeg{
 	}
 
 	
+	@Override
+	public Usuario Read(String DNI) {
+		return daoUser.Read(DNI);
+	}
+	
 	private boolean UserValidation(Usuario user) {
 		
 		if(DniVerification(user) && NombreVerification(user)) 
@@ -109,6 +114,9 @@ public class UsuarioNegImpl implements UsuarioNeg{
 		{
 			return false;
 		}
+
+
+
 		
 	}
 	

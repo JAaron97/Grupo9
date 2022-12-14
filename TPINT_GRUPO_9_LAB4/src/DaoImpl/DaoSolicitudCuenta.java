@@ -13,7 +13,9 @@ import Entidad.SolicitudCuenta;
 
 public class DaoSolicitudCuenta implements IDaoSolicitudCuenta {
 	private static final String insert = "INSERT INTO solicitudcuenta (ID, DNICliente, Fecha_Solicitud, Estado_Solicitud) VALUES (?, ?, ?, ?)";
-
+	
+	private static final String updateEstado= "UPDATE cuentas SET Estado_Solicitud = 1 WHERE DNICliente = ?";
+	
 	private static final String  read = "SELECT * FROM solicitudcuenta WHERE ID = ?";
 
 	private static final String readall = "SELECT * FROM solicitudcuenta";
@@ -34,8 +36,7 @@ public class DaoSolicitudCuenta implements IDaoSolicitudCuenta {
 			statement.setString(2, SolicitudCuenta.getDNI_Cliente());
 			statement.setDate(3, Date.valueOf(SolicitudCuenta.getFechaSolicitud()));
 			statement.setInt(4, SolicitudCuenta.getEstadoSolicitud());
-			
-			
+						
 			
 			if(statement.executeUpdate() > 0)
 			{
@@ -114,6 +115,41 @@ public class DaoSolicitudCuenta implements IDaoSolicitudCuenta {
 		
 	}
 	
+	@Override
+	public boolean UpdateEstado(int ID) {
+		PreparedStatement statement;
+		Connection conexion = Conexion.getConexion().getSQLConexion();
+		
+		boolean isUpdateExito = false;
+		
+		try 
+		{
+			statement = conexion.prepareStatement(updateEstado);
+			statement.setInt(1, ID);
+				
+			if(statement.executeUpdate() > 0)
+			{
+				conexion.commit();
+				isUpdateExito= true;
+			}
+				
+		}
+		catch (Exception e) 
+		{
+			e.printStackTrace();
+			
+			try 
+			{
+				conexion.rollback();
+			} 
+			catch (SQLException e1) 
+			{
+				e1.printStackTrace();
+			}			
+		}
+		return isUpdateExito;
+	}
+	
 	private SolicitudCuenta getSolicitudCuenta(ResultSet resultset) throws SQLException 
 	{
 		int id = resultset.getInt("ID");
@@ -123,5 +159,6 @@ public class DaoSolicitudCuenta implements IDaoSolicitudCuenta {
 		
 		return new SolicitudCuenta(id, DNICliente, FechaSolicitud, estadoSolicitud);
 	}
+
 
 }

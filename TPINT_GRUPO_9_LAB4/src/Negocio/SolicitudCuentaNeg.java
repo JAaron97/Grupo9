@@ -8,4 +8,5 @@ public interface SolicitudCuentaNeg {
 	public boolean Insert (SolicitudCuenta SolicitudCuenta);
 	public ArrayList<SolicitudCuenta> ReadAll();
 	public SolicitudCuenta Read(int ID);
+	public boolean UpdateEstado(int ID);
 }

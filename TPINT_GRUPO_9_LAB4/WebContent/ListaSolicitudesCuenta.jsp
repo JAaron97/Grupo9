@@ -1,14 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-         <%@ page import="Entidad.Usuario" %>
-    <%@ page import="Entidad.Cuenta" %>
-    <%@ page import="Entidad.Localidad" %>
-    <%@ page import="NegocioImpl.NacionalidadNegImpl" %>
-    <%@ page import="NegocioImpl.LocalidadesNegImpl" %>
+    <%@ page import="Entidad.Usuario" %>
+    <%@ page import="Entidad.SolicitudCuenta" %>
+    <%@ page import="NegocioImpl.SolicitudCuentaNegImpl" %>
     <%@ page import="java.util.ArrayList" %>
 <!DOCTYPE html>
 <html>
 <head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
@@ -38,17 +38,14 @@
 </style>
 </head>
 <body>
-
 <%
 Usuario user = new Usuario();
 user = (Usuario) session.getAttribute("Usuario");
-%>
-<%
-ArrayList<Cuenta> list = new  ArrayList<Cuenta>();
-if(request.getAttribute("Listacuentas")!=null)
-list =  (ArrayList<Cuenta>) request.getAttribute("Listacuentas");
-%>
 
+SolicitudCuentaNegImpl scN = new SolicitudCuentaNegImpl();
+ArrayList<SolicitudCuenta> listaSolicitudCuenta = new ArrayList<SolicitudCuenta>();
+	listaSolicitudCuenta = (ArrayList<SolicitudCuenta>) request.getAttribute("listaSolicitudes");
+%>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <div class="container-fluid">
     <a class="navbar-brand" href="Inicio.jsp">Inicio</a>
@@ -76,31 +73,42 @@ list =  (ArrayList<Cuenta>) request.getAttribute("Listacuentas");
       </ul>
     </div>
   </div>
-</nav>			
+</nav>
+
 <table id="cliente">
-	<tr> 
-		<th>Numero de Cuenta</th>  
-		<th> Dni_Usuario</th>  
-		<th>Fecha creacion</th>  
-		<th>Tipo de cuenta </th>
-		<th>Cbu</th>
-		<th>Saldo </th>
+	<tr>
+		<th>DNI</th>
+		<th>Nombre</th>
+		<th>Apellido</th>
+		<th>ID Nacionalidad</th>
+		<th>ID Localidad</th>
+		<th>CUIL</th>
+		<th>Sexo</th>
+		<th>Fecha de Nacimiento</th>
+		<th>Direccion</th>
+		<th>Mail</th>
+		<th>ID Telefonos</th>
+		<th>Contraseña</th>
+		<th></th>
+		<th></th>
 	</tr>
-	<% 
-	for( Cuenta c : list){
+	<%
+	for(SolicitudCuenta sc : listaSolicitudCuenta){
 	%>
-	<tr>  
-		<td><%=c.getNumeroCuenta()%> </td>
-		<td><%=c.getDNICliente()%></td>   
-		<td><%=c.getFechaCreacion()%></td> 
-		<td><%=c.getTipoCuenta() %></td>
-		<td><%=c.getCBU()%></td>
-		<td><%=c.getSaldo()%></td> 
+	<tr>
+	<form name="form" action="servletBanco?Solicitud=<%=sc.getID()%>" method="post">
+		<td><%=sc.getID() %></td>
+		<td><%=sc.getDNI_Cliente() %></td>
+		<td><%=sc.getFechaSolicitud() %></td>
+		<td><%=sc.getEstadoSolicitud() %></td>
+		<td><input type="submit" name="btnAceptarSolicitud" value="Aceptar solicitud"></td>
+	</form>
 	</tr>
-	<% 
-	} 
+	<%
+	}
 	%>
-</table> 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>	
+</table>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
 </body>
 </html>

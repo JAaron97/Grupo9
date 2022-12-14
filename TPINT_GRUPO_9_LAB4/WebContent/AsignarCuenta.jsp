@@ -19,10 +19,15 @@
 Usuario user = new Usuario();
 TipoCuenta tCuenta = new TipoCuenta();
 user = (Usuario) session.getAttribute("Usuario");
+
 UsuarioNegImpl userN = new UsuarioNegImpl();
 TipoCuentaNegImpl dNTC = new TipoCuentaNegImpl();
+
 ArrayList<TipoCuenta> listaTipoCuentas = new ArrayList<TipoCuenta>();
 	listaTipoCuentas = (ArrayList<TipoCuenta>) dNTC.ReadAll();
+
+Usuario user2 = new Usuario();
+	user2 = (Usuario)request.getAttribute("User");
 %>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <div class="container-fluid">
@@ -52,12 +57,23 @@ ArrayList<TipoCuenta> listaTipoCuentas = new ArrayList<TipoCuenta>();
     </div>
   </div>
 </nav>
+<%
+if(request.getAttribute("update")!=null){
+	boolean update = (boolean)request.getAttribute("update");
+	if(update){
+		%>
+		<h2 class="text-center">SolicitudAceptada</h2>
+		<% 
+	}
+}
+%>
 
 <div class="container">
 	<div class="row">
 		<div class="col">
 			<form action="servletBanco" method="post">
-			<p class="text-center">Dni: <input type="text" name="txtDNI"></p>
+			<p class="text-center">Dni: <%=user2.getDNI() %></p>
+			<input type="hidden" name="DNI" value=<%=user2.getDNI() %>>
 			<p class="text-center">Tipo de Cuenta
 			<select name="TipoCuenta">
 			<%
@@ -70,7 +86,6 @@ ArrayList<TipoCuenta> listaTipoCuentas = new ArrayList<TipoCuenta>();
 			</select>
 			</p>
 			<p class="text-center"><input type="submit" name="btnAsignar" value="Asignar"></p>
-			<input type="hidden" name="DNI" value=<%request.getParameter("dni"); %>>
 			</form>
 		</div>
 	</div>

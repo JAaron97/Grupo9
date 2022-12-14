@@ -24,7 +24,7 @@ public class DaoCuenta implements IDaoCuenta {
 	private static final String insert= "INSERT INTO cuentas (Numero_Cuenta, DNI_Usuario, Fecha_Creacion, ID_Tipo_Cuenta, CBU, Saldo) "
 										+ " VALUES (?, ?, ?, ?, ?, ?)";
 	
-	private static final String update= "UPDATE cuntas SET "
+	private static final String update= "UPDATE cuentas SET "
 										+ "DNI_Usuario = ?, Fecha_Creacion = ?, ID_Tipo_Cuenta = ?, CBU = ?, Saldo = ?"
 										+ " WHERE  Numero_Cuenta = ? ";
 	

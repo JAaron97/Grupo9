@@ -193,36 +193,24 @@ public class servletBanco extends HttpServlet {
 		}
 		
 			if(request.getParameter("btnVercuentas")!=null) {
-			
-			CuentaNegImpl nC = new  CuentaNegImpl();
-			ArrayList<Cuenta> cue = new ArrayList<Cuenta>();
-			cue = (ArrayList<Cuenta>) nC.ReadAll();
-			//pasar un el nro dni y listar solo las cuentas de esa dni
-			
-			int  tipo= Integer.parseInt(request.getParameter("idUsuario").toString());
-			ArrayList<Cuenta> rep = new ArrayList<Cuenta>();
-
-			
-			for(int i=0; i<cue.size();i++) {
-				Cuenta x = new Cuenta();
-				x=cue.get(i);
+				CuentaNegImpl nC = new  CuentaNegImpl();
+				ArrayList<Cuenta> cue = new ArrayList<Cuenta>();
+				cue = (ArrayList<Cuenta>) nC.ReadAll();
+				//pasar un el nro dni y listar solo las cuentas de esa dni
 				
-				if(Integer.parseInt(x.getDNICliente())==tipo) {
-					
-					rep.add(cue.get(i));
+				int tipo= Integer.parseInt(request.getParameter("idUsuario"));
+				ArrayList<Cuenta> rep = new ArrayList<Cuenta>();
+				
+				for(Cuenta x : cue) {
+					if(Integer.parseInt(x.getDNICliente())==tipo) {
+						rep.add(x);
+					}
 				}
+				
+				request.setAttribute("Listacuentas",rep);
+				RequestDispatcher  rd = request.getRequestDispatcher("/Listar cuentas.jsp");
+				rd.forward(request, response);
 			}
-			
-			
-			
-			request.setAttribute("listaUsu",rep);
-			request.setAttribute("Listacuentas",rep);
-			RequestDispatcher  rd = request.getRequestDispatcher("/Listar cuentas.jsp");
-			rd.forward(request, response);
-			
-			
-		
-	}
 		
 		if(request.getParameter("btnEliminar2")!=null)
 		{
@@ -270,14 +258,14 @@ public class servletBanco extends HttpServlet {
 			 listaTipoCuentas = negTC.ReadAll();
 			 
 			 cuenta.setNumeroCuenta(String.valueOf(rand.nextInt(50000)));
-			 cuenta.setDNICliente(request.getParameter("txtDNI"));
+			 cuenta.setDNICliente(request.getParameter("DNI"));
 			 cuenta.setFechaCreacion(java.time.LocalDate.now());
 			 cuenta.setTipoCuenta(negTC.Read(getIdTipoCuenta(listaTipoCuentas, request)));
 			 cuenta.setCBU(String.valueOf(rand.nextInt(999999)));
 			 cuenta.setSaldo(BigDecimal.valueOf(10000));
 			 
 			 boolean filas = false;
-			 if(!maximoCuentas(listaCuentas, request, request.getParameter("txtDNI"))) {
+			 if(!maximoCuentas(listaCuentas, request, request.getParameter("DNI"))) {
 				 filas = negC.Insert(cuenta);
 			 }
 			 
@@ -302,6 +290,41 @@ public class servletBanco extends HttpServlet {
 			sP.setNumeroCuotas(negNC.Read(getIdNumeroCuotas(listaNumeroCuotas, request)));
 			sP.setFecha(java.time.LocalDate.now());
 			
+		}
+		
+		if(request.getParameter("btnVerSolicitudCuentas")!=null) {
+			SolicitudCuentaNegImpl nC = new  SolicitudCuentaNegImpl();
+			ArrayList<SolicitudCuenta> scue = new ArrayList<SolicitudCuenta>();
+			scue = (ArrayList<SolicitudCuenta>) nC.ReadAll();
+			
+			int tipo= Integer.parseInt(request.getParameter("idUsuario"));
+			ArrayList<SolicitudCuenta> rep = new ArrayList<SolicitudCuenta>();
+			
+			for(SolicitudCuenta x : scue) {
+				if(Integer.parseInt(x.getDNI_Cliente())==tipo) {
+					rep.add(x);
+				}
+			}
+			
+			request.setAttribute("ListaSolicitudes",rep);
+			RequestDispatcher  rd = request.getRequestDispatcher("/ListaSolicitudesCuenta.jsp");
+			rd.forward(request, response);
+		}
+		
+		if(request.getParameter("btnAceptarSolicitud")!=null) {
+			SolicitudCuentaNegImpl scN = new SolicitudCuentaNegImpl();
+			UsuarioNegImpl usN = new UsuarioNegImpl(); 
+			SolicitudCuenta sc = new SolicitudCuenta(); 
+			Usuario user = new Usuario();
+			sc = scN.Read(Integer.parseInt(request.getParameter("Solicitud")));
+			user = usN.Read(sc.getDNI_Cliente());
+
+			boolean updateEsxitoso = scN.UpdateEstado(Integer.parseInt(request.getParameter("Solicitud")));
+			
+			request.setAttribute("update", updateEsxitoso);
+			request.setAttribute("User", user);
+			RequestDispatcher rd = request.getRequestDispatcher("/AsignarCuenta.jsp");
+			rd.forward(request, response);
 		}
 	}
 		
