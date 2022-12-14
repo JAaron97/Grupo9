@@ -38,7 +38,6 @@ user = (Usuario) session.getAttribute("Usuario");
             <li><a class="dropdown-item" href="Movimientos.jsp">Movimientos y Transferencias</a></li>
 	            <li><a class="dropdown-item" href="Prestamos.jsp">Prestamos</a></li>
 	            <li><hr class="dropdown-divider"></li>
-	            <li><a class="dropdown-item" href="#">Pedir cuenta bancaria</a></li>
 	            <li><a class="dropdown-item" href="InfoUsuario.jsp">Informacion de Usuario</a></li>
           </ul>
         </li>
@@ -46,7 +45,6 @@ user = (Usuario) session.getAttribute("Usuario");
     </div>
   </div>
 </nav>
-<!-- Encabezado, copiar y pegar en todos los jsp -->
 
 <div>
 <h1 style="text-align: left; margin: 2rem; font-family: Cambria,Georgia,serif">Prestamos</h1>

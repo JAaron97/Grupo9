@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import Entidad.Cuenta;
 import Entidad.Localidad;
+import Entidad.Movimiento;
 import Entidad.Nacionalidad;
 import Entidad.NumeroCuotas;
 import Entidad.SolicitudCuenta;
@@ -24,6 +25,7 @@ import Entidad.TipoCuenta;
 import Entidad.Usuario;
 import NegocioImpl.CuentaNegImpl;
 import NegocioImpl.LocalidadesNegImpl;
+import NegocioImpl.MovimientoNegImpl;
 import NegocioImpl.NacionalidadNegImpl;
 import NegocioImpl.NumeroCuotasNegImpl;
 import NegocioImpl.SolicitudCuentaNegImpl;
@@ -106,6 +108,24 @@ public class servletBanco extends HttpServlet {
 			 request.setAttribute("Filas", filas);
 			 RequestDispatcher rd = request.getRequestDispatcher("/InfoUsuario.jsp");
 			 rd.forward(request, response);
+		}
+		
+		if(request.getParameter("btnVerMovimientos")!=null) {
+			String numeroCuenta = request.getParameter("numeroCuenta");
+			MovimientoNegImpl mNeg = new MovimientoNegImpl();
+			ArrayList<Movimiento> listaMovimientos = new ArrayList<Movimiento>();
+			ArrayList<Movimiento> listaMovimientosCuenta = new ArrayList<Movimiento>();
+			listaMovimientos = mNeg.ReadAll();
+			
+			for(Movimiento m : listaMovimientos) {
+				if(m.getNumeroCuentaDestino().equals(numeroCuenta)) {
+					listaMovimientosCuenta.add(m);
+				}
+			}
+			
+			request.setAttribute("listaMovCuenta", listaMovimientosCuenta);
+			RequestDispatcher rd = request.getRequestDispatcher("/Movimientos.jsp");
+			rd.forward(request, response);
 		}
 	}
 

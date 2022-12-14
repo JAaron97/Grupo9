@@ -49,7 +49,7 @@ Usuario user2 = new Usuario();
           </a>
           <ul class="dropdown-menu">
             <li><a class="dropdown-item" href="AmblUsuarios.jsp">Ambl Usuarios</a></li>
-	        <li><a class="dropdown-item" href="AsignarCuentas.jsp">Asignar Cuentas</a></li>
+	        <li><a class="dropdown-item" href="AsignarCuentas.jsp">Ver cuentas y Solicitudes</a></li>
 	        <li><a class="dropdown-item" href="PrestamosAdmin.jsp">Aceptar/Rechazar Prestamos</a></li>
           </ul>
         </li>

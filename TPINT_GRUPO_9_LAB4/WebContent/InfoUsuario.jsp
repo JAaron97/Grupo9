@@ -75,6 +75,7 @@ listaCuenta = dC.ReadAll();
         			if(cu.getDNICliente().equals(user.getDNI())){
         		%>
         			<tr>
+        			<form action="servletBanco?numeroCuenta=<%=cu.getNumeroCuenta() %>" method="get">
         				<td>Numero de cuenta:</td>
         				<td><%=cu.getNumeroCuenta() %></td>
         			</tr>
@@ -91,7 +92,11 @@ listaCuenta = dC.ReadAll();
         				<td><%=cu.getSaldo()%></td>
         			</tr>
         			<tr>
+        				<td><input type="submit" name="btnVerMovimientos" value="Ver movimientos"></td>
+        			</tr>
+        			<tr>
         				<td><hr></td>
+        			</form>
         			</tr>
         		<%
         			}

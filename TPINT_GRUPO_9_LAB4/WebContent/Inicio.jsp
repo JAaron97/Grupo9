@@ -64,14 +64,13 @@ if(session.getAttribute("Usuario") != null){
 	            <li><a class="dropdown-item" href="IniciarSesion.jsp">Movimientos y Transferencias</a></li>
 	            <li><a class="dropdown-item" href="IniciarSesion.jsp">Prestamos</a></li>
 	            <li><hr class="dropdown-divider"></li>
-	            <li><a class="dropdown-item" href="IniciarSesion.jsp">Pedir cuenta bancaria</a></li>
 	            <li><a class="dropdown-item" href="IniciarSesion.jsp">Informacion de Usuario</a></li>
 				<%
 					}
 					else if(admin){
 				%>
 				 <li><a class="dropdown-item" href="AmblUsuarios.jsp">Ambl Usuarios</a></li>
-	            <li><a class="dropdown-item" href="ListaAsignarCuentas.jsp">Asignar Cuentas</a></li>
+	            <li><a class="dropdown-item" href="ListaAsignarCuentas.jsp">Ver cuentas y Solicitudes</a></li>
 	            <li><a class="dropdown-item" href="PrestamosAdmin.jsp">Aceptar/Rechazar Prestamos</a></li>
 				<%
 					}
@@ -80,7 +79,6 @@ if(session.getAttribute("Usuario") != null){
 				<li><a class="dropdown-item" href="Movimientos.jsp">Movimientos y Transferencias</a></li>
 	            <li><a class="dropdown-item" href="Prestamos.jsp">Prestamos</a></li>
 	            <li><hr class="dropdown-divider"></li>
-	            <li><a class="dropdown-item" href="#">Pedir cuenta bancaria</a></li>
 	            <li><a class="dropdown-item" href="InfoUsuario.jsp">Informacion de Usuario</a></li>
 				<%
 					}

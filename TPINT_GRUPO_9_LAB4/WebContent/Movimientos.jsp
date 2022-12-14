@@ -16,9 +16,9 @@
 <body>
 
 <%
-	ArrayList<Movimiento> listaMovimientos=null;
-	if(request.getAttribute("listaUsuarios")!=null){
-		listaMovimientos = (ArrayList<Movimiento>) request.getAttribute("listaUsuarios");
+	ArrayList<Movimiento> listaMovimientosCuenta=null;
+	if(request.getAttribute("listaMovCuenta")!=null){
+		listaMovimientosCuenta = (ArrayList<Movimiento>) request.getAttribute("listaMovCuenta");
 	}
 	
 	Usuario user = new Usuario();
@@ -47,8 +47,7 @@
 				<li><a class="dropdown-item" href="Movimientos.jsp">Movimientos y Transferencias</a></li>
 	            <li><a class="dropdown-item" href="Prestamos.jsp">Prestamos</a></li>
 	            <li><hr class="dropdown-divider"></li>
-	            <li><a class="dropdown-item" href="#">Pedir cuenta bancaria</a></li>
-	            <li><a class="dropdown-item" href="#">Informacion de Usuario</a></li>
+	            <li><a class="dropdown-item" href="InfoUsuario.jsp">Informacion de Usuario</a></li>
 	          </ul>
 	        </li>
 	      </ul>
@@ -66,16 +65,16 @@
 			<th>Cuenta destino</th>
 		</tr>
 		<%
-		if(listaMovimientos!=null)
-			for(Movimiento mov : listaMovimientos){
+		if(listaMovimientosCuenta!=null)
+			for(Movimiento mov : listaMovimientosCuenta){
 		%>
 		<tr>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
+			<td><%=mov.getID() %></td>
+			<td><%=mov.getFecha() %></td>
+			<td><%=mov.getTipoMovimiento() %></td>
+			<td><%=mov.getImporte() %></td>
+			<td><%=mov.getNumeroCuentaOrigen() %></td>
+			<td><%=mov.getNumeroCuentaDestino() %></td>
 		</tr>
 		<%
 			}

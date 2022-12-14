@@ -64,7 +64,7 @@ list =  (ArrayList<Usuario>) request.getAttribute("ListaIdUsuarios");
           </a>
           <ul class="dropdown-menu">
              <li><a class="dropdown-item" href="AmblUsuarios.jsp">Ambl Usuarios</a></li>
-	        <li><a class="dropdown-item" href="ListaAsignarCuentas.jsp">Asignar Cuentas</a></li>
+	        <li><a class="dropdown-item" href="ListaAsignarCuentas.jsp">Ver cuentas y Solicitudes</a></li>
 	        <li><a class="dropdown-item" href="PrestamosAdmin.jsp">Aceptar/Rechazar Prestamos</a></li>
           </ul>
         </li>

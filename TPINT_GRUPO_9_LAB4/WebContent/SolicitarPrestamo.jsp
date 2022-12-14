@@ -48,11 +48,9 @@ listaCuenta = dC.ReadAll();
 	            Más
 	          </a>
 	          <ul class="dropdown-menu">
-	          <!-- Aca no hay if en el dropdown ya que es un panel que solo le va a ver si estas logeado -->
 				<li><a class="dropdown-item" href="Movimientos.jsp">Movimientos y Transferencias</a></li>
 	            <li><a class="dropdown-item" href="Prestamos.jsp">Prestamos</a></li>
 	            <li><hr class="dropdown-divider"></li>
-	            <li><a class="dropdown-item" href="#">Pedir cuenta bancaria</a></li>
 	            <li><a class="dropdown-item" href="InfoUsuario.jsp">Informacion de Usuario</a></li>
 	          </ul>
 	        </li>
