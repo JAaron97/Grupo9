@@ -1,16 +1,28 @@
 package Main;
 
-import Entidad.Telefono;
+import java.time.LocalDate;
+import java.time.Period;
+import Entidad.Usuario;
+
+
+
 
 public class Principal {
 
 	public static void main(String[] args) {
 		
-		Telefono tel = new Telefono();
+		Usuario user = new Usuario();
 		
-		tel.setTelefono_1("12345678");
+		user.setMail("roma.com");
 		
-		System.out.println(tel.toString());
+		
+		 String ePattern = "^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$";
+         java.util.regex.Pattern p = java.util.regex.Pattern.compile(ePattern);
+         java.util.regex.Matcher m = p.matcher(user.getMail());
+         if(m.matches()) {
+        	 System.out.println("yyyyeaaaah");
+         }
+		
 		
 		
 	}

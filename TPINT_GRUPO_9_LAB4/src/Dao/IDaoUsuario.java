@@ -17,4 +17,6 @@ public interface IDaoUsuario {
 	public Usuario Read(String DNI);
 	
 	public boolean DniExist(String dni);
+	
+	public boolean CuilExist(String cuil);
 }

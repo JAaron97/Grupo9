@@ -34,6 +34,8 @@ public class DaoUsuario implements IDaoUsuario{
 	private static final String update = "UPDATE usuarios SET Nombre = ?, Apellido = ?, ID_Nacionalidades = ? , ID_Localidades = ?, CUIL = ? "
 			+ ", Sexo = ? , Fecha_Nacimiento = ? , Direccion = ? , Mail = ? , ID_Telefonos = ? , Password = ? , Tipo_user = ?  WHERE DNI = ? ";
 	
+	private static final String readcuil = "SELECT FROM usuarios WHERE CUIL = '?' ";
+	
 	private DaoLocalidad DL;
 	private DaoNacionalidad DN;
 	private DaoTelefono DT;
@@ -328,9 +330,35 @@ public class DaoUsuario implements IDaoUsuario{
 		}
 		
 		return exist;
-		
-		
-		
 	}
-
+	
+public boolean CuilExist(String cuil) {
+		
+		boolean exist = false;
+		
+		PreparedStatement statement;
+		Conexion conexion = Conexion.getConexion();
+		ResultSet resultset;
+		
+		try 
+		{
+			
+			statement = conexion.getSQLConexion().prepareStatement(readcuil);
+			statement.setString(1,cuil);
+			resultset = statement.executeQuery();
+			
+			while(resultset.next()) 
+			{
+				exist = true;
+			}
+			
+		}
+		catch (Exception e) 
+		{
+			e.printStackTrace();
+		}
+		
+		return exist;
+	}
+	
 }
