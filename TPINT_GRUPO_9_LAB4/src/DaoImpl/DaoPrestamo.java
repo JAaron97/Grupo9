@@ -22,6 +22,8 @@ public class DaoPrestamo implements IDaoPrestamo {
 	
 	private static final String  read = "SELECT * FROM prestamos WHERE ID = ?";
 	
+	private static final String readDNI = "SELECT * FROM prestamos WHERE DNI_Usuario =?";
+	
 	private static final String readall = "SELECT * FROM prestamos";
 	
 	private DaoSolicitudPrestamo DSP;
@@ -172,6 +174,35 @@ public boolean Insert(Prestamo prestamo) {
 		
 	}
 	
+	public ArrayList<Prestamo> readDNI(String DNI)
+	{
+		ArrayList<Prestamo> prestamos = new ArrayList<Prestamo>();
+		
+		PreparedStatement statement;
+		Conexion conexion = Conexion.getConexion();
+		ResultSet resultset;
+		
+		
+		try 
+		{
+			statement = conexion.getSQLConexion().prepareStatement(readDNI);
+			statement.setString(1, DNI);
+			resultset = statement.executeQuery();
+			
+			while(resultset.next()) 
+			{
+				prestamos.add(getPrestamo(resultset));
+			}
+			
+		}
+		catch (Exception e) 
+		{
+			e.printStackTrace();
+		}
+		
+		return prestamos;
+		
+	}
 	
 	private Prestamo getPrestamo(ResultSet resultset) throws SQLException 
 	{

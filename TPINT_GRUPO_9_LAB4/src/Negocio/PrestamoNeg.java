@@ -1,10 +1,10 @@
-package Dao;
+package Negocio;
 
 import java.util.ArrayList;
 
 import Entidad.Prestamo;
 
-public interface IDaoPrestamo {
+public interface PrestamoNeg {
 	
 	public boolean Insert(Prestamo prestamo);
 	

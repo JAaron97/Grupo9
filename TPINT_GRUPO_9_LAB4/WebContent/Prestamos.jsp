@@ -1,6 +1,9 @@
  	<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
     <%@ page import="Entidad.Usuario" %>
+    <%@ page import="NegocioImpl.PrestamoNegImpl" %>
+    <%@ page import="java.util.ArrayList" %>
+    <%@ page import="Entidad.Prestamo" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,6 +17,11 @@
 <%
 Usuario user = new Usuario();
 user = (Usuario) session.getAttribute("Usuario");
+
+PrestamoNegImpl pNeg = new PrestamoNegImpl();
+
+ArrayList<Prestamo> listaPrestamos = new ArrayList<Prestamo>();
+	listaPrestamos = pNeg.readDNI(user.getDNI());
 %>
 <!-- Encabezado, copiar y pegar en todos los jsp -->
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -45,37 +53,23 @@ user = (Usuario) session.getAttribute("Usuario");
     </div>
   </div>
 </nav>
-
-<div>
-<h1 style="text-align: left; margin: 2rem; font-family: Cambria,Georgia,serif">Prestamos</h1>
+<%
+for(Prestamo prest : listaPrestamos){
+%>
+<div class="card">
+  <h5 class="card-header"><%=prest.getFecha() %></h5>
+  <div class="card-body">
+    <h5 class="card-title"><%=prest.getImporteInteres()%></h5>
+    <p class="card-text"><%=prest.getCuentaDestinataria()%></p>
+    <a href="#" class="btn btn-primary">Pagar</a>
+  </div>
 </div>
-
+<% 
+}
+%>
 <div style="margin: 5rem ">
-
- <div class="card text-white bg-dark text-center my-3">
-                <div class="card-body"><p class="text-white m-0" style="text-align: left;"> <a href="#">#3123</a> $700.000 </p> </div>
-                
+	<a href="SolicitarPrestamo.jsp">Solicitar un nuevo prestamo</a>
 </div>
- <div class="card text-white bg-dark text-center my-3">
-                <div class="card-body"><p class="text-white m-0" style="text-align: left;"> <a href="#">#3124</a> $1.900.000 </p> </div>
-               
-</div>
- <div class="card text-white bg-dark text-center my-3">
-                <div class="card-body"><p class="text-white m-0" style="text-align: left;"> <a href="#">#3125</a> $900.000 </p> </div>
-   
-</div>
-
-</div>
-
-<div style="margin: 5rem ">
-
-	<input type="submit" value="Solicitar un nuevo prestamo" class="form-control mt-4" name="btnAgregar">
-
-</div>
-
-
-
-
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
 </body>
