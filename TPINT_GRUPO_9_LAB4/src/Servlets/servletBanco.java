@@ -29,6 +29,7 @@ import NegocioImpl.MovimientoNegImpl;
 import NegocioImpl.NacionalidadNegImpl;
 import NegocioImpl.NumeroCuotasNegImpl;
 import NegocioImpl.SolicitudCuentaNegImpl;
+import NegocioImpl.SolicitudPrestamoNegImpl;
 import NegocioImpl.TipoCuentaNegImpl;
 import NegocioImpl.UsuarioNegImpl;
 
@@ -326,7 +327,7 @@ public class servletBanco extends HttpServlet {
 				}
 			}
 			
-			request.setAttribute("ListaSolicitudes",rep);
+			request.setAttribute("listaSolicitudes",rep);
 			RequestDispatcher  rd = request.getRequestDispatcher("/ListaSolicitudesCuenta.jsp");
 			rd.forward(request, response);
 		}
@@ -339,10 +340,19 @@ public class servletBanco extends HttpServlet {
 			sc = scN.Read(Integer.parseInt(request.getParameter("Solicitud")));
 			user = usN.Read(sc.getDNI_Cliente());
 
-			boolean updateEsxitoso = scN.UpdateEstado(Integer.parseInt(request.getParameter("Solicitud")));
+			boolean updateExitoso = scN.UpdateEstado(Integer.parseInt(request.getParameter("Solicitud")));
 			
-			request.setAttribute("update", updateEsxitoso);
+			request.setAttribute("update", updateExitoso);
 			request.setAttribute("User", user);
+			RequestDispatcher rd = request.getRequestDispatcher("/");
+			rd.forward(request, response);
+		}
+		
+		if(request.getParameter("btnAceptarPrestamo")!=null) {
+			SolicitudPrestamoNegImpl scPN = new SolicitudPrestamoNegImpl();
+			
+			boolean updateExitoso = scPN.UpdateEstado(Integer.parseInt(request.getParameter("IDSolicitud")));		
+			request.setAttribute("update", updateExitoso);
 			RequestDispatcher rd = request.getRequestDispatcher("/AsignarCuenta.jsp");
 			rd.forward(request, response);
 		}

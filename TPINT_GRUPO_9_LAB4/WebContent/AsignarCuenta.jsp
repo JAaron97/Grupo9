@@ -62,7 +62,7 @@ if(request.getAttribute("update")!=null){
 	boolean update = (boolean)request.getAttribute("update");
 	if(update){
 		%>
-		<h2 class="text-center">SolicitudAceptada</h2>
+		<h2 class="text-center">Solicitud Aceptada</h2>
 		<% 
 	}
 }

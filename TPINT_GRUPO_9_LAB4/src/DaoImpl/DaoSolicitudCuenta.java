@@ -14,7 +14,7 @@ import Entidad.SolicitudCuenta;
 public class DaoSolicitudCuenta implements IDaoSolicitudCuenta {
 	private static final String insert = "INSERT INTO solicitudcuenta (ID, DNICliente, Fecha_Solicitud, Estado_Solicitud) VALUES (?, ?, ?, ?)";
 	
-	private static final String updateEstado= "UPDATE cuentas SET Estado_Solicitud = 1 WHERE DNICliente = ?";
+	private static final String updateEstado= "UPDATE solicitudcuenta SET Estado_Solicitud = 1 WHERE DNICliente = ?";
 	
 	private static final String  read = "SELECT * FROM solicitudcuenta WHERE ID = ?";
 

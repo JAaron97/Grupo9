@@ -18,7 +18,7 @@ public class DaoSolicitudPrestamo implements IDaoSolicitudPrestamo{
 	private static final String insert = "INSERT INTO solicitud_prestamo ( DNI_Usuario, Importe_Solicitado, ID_Numero_Cuotas, Cuenta_Destinataria, Fecha) " + 
 										 "VALUES (?, ?, ?, ?, ?)";
 	
-	private static final String update = "UPDATE solicitud_prestamo SET DNI_Usuario = ? , Importe_Solicitado = ? , ID_Numero_Cuotas = ?, Cuenta_Destinataria = ?, Fecha = ?, Estado = ? WHERE ID = ?";
+	private static final String updateEstado= "UPDATE cuentas SET Estado = 1 WHERE DNI_Usuario = ?";
 	
 	private static final String read= "SELECT * FROM solicitud_prestamo WHERE ID = ?";
 	
@@ -69,49 +69,39 @@ public boolean Insert(SolicitudPrestamo solicitud) {
 	}
 	
 	
-	public boolean Update(SolicitudPrestamo solicitud ) 
+public boolean UpdateEstado(int id) {
+	PreparedStatement statement;
+	Connection conexion = Conexion.getConexion().getSQLConexion();
+	
+	boolean isUpdateExito = false;
+	
+	try 
 	{
-		PreparedStatement statement;
-		Connection conexion = Conexion.getConexion().getSQLConexion();
-		
-		boolean isUpdateExito = false;
+		statement = conexion.prepareStatement(updateEstado);
+		statement.setInt(1, id);
+			
+		if(statement.executeUpdate() > 0)
+		{
+			conexion.commit();
+			isUpdateExito= true;
+		}
+			
+	}
+	catch (Exception e) 
+	{
+		e.printStackTrace();
 		
 		try 
 		{
-			statement = conexion.prepareStatement(update);
-			
-			statement.setString(1, solicitud.getDNICliente());
-			statement.setBigDecimal(2, solicitud.getImportePedido());
-			statement.setInt(3, solicitud.getNumeroCuotas().getID());
-			statement.setString(4, solicitud.getCuentaDestinataria());
-			statement.setDate(5, Date.valueOf(solicitud.getFecha()));
-			statement.setInt(6, solicitud.getEstado());
-			statement.setInt(7, solicitud.getID());
-			
-			if(statement.executeUpdate() > 0)
-			{
-				conexion.commit();
-				isUpdateExito = true;
-			}
-			
-			
-		}
-		catch (Exception e) 
+			conexion.rollback();
+		} 
+		catch (SQLException e1) 
 		{
-			e.printStackTrace();
-			
-			try 
-			{
-				conexion.rollback();
-			} 
-			catch (SQLException e1) 
-			{
-				e1.printStackTrace();
-			}
-			
-		}
-		return isUpdateExito;
+			e1.printStackTrace();
+		}			
 	}
+	return isUpdateExito;
+}
 	
 
 	public SolicitudPrestamo Read(int ID) 

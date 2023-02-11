@@ -77,20 +77,10 @@ ArrayList<SolicitudCuenta> listaSolicitudCuenta = new ArrayList<SolicitudCuenta>
 
 <table id="cliente">
 	<tr>
-		<th>DNI</th>
-		<th>Nombre</th>
-		<th>Apellido</th>
-		<th>ID Nacionalidad</th>
-		<th>ID Localidad</th>
-		<th>CUIL</th>
-		<th>Sexo</th>
-		<th>Fecha de Nacimiento</th>
-		<th>Direccion</th>
-		<th>Mail</th>
-		<th>ID Telefonos</th>
-		<th>Contraseña</th>
-		<th></th>
-		<th></th>
+		<th>ID</th>
+		<th>DNI Cliente</th>
+		<th>Fecha Solicitud</th>
+		<th>Estado</th>
 	</tr>
 	<%
 	for(SolicitudCuenta sc : listaSolicitudCuenta){
