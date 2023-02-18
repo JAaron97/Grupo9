@@ -113,7 +113,8 @@ listaLocalidades =  (ArrayList<Localidad>) request.getAttribute("Localidades");
 				<input type="number" name="telefono3" placeholder="Telefono 3"><br>
 				<input type="number" name="telefono4" placeholder="Telefono 4">
 			</p>
-			<p class="text-center"> <input type="submit" name="btnCrear" value="Crear"> </p> 			</form>
+			<p class="text-center"> <input type="submit" name="btnCrear" value="Crear"> </p>
+			</form>
 			
 <div> 
 	<%

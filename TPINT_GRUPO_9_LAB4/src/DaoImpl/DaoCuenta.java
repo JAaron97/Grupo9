@@ -17,7 +17,7 @@ import Entidad.TipoCuenta;
 
 public class DaoCuenta implements IDaoCuenta {
 	
-	private static final String read= "SELECT * FROM cuentas WHERE Numero_Cuenta = ? ";
+	private static final String readAllxDNI= "SELECT * FROM cuentas WHERE DNI_Usuario = ? ";
 	
 	private static final String readall= "SELECT * FROM cuentas ";
 	
@@ -178,9 +178,9 @@ public class DaoCuenta implements IDaoCuenta {
 		return cuentas;
 	}
 	
-	public Cuenta Read(String NumeroCuenta) 
+	public ArrayList<Cuenta> ReadAllxDNI(String DNIUsuario) 
 	{
-		Cuenta cuenta = null;
+		ArrayList<Cuenta> cuenta = new ArrayList<Cuenta>();
 		
 		PreparedStatement statement;
 		Conexion conexion = Conexion.getConexion();
@@ -188,13 +188,13 @@ public class DaoCuenta implements IDaoCuenta {
 		
 		try 
 		{
-			statement = conexion.getSQLConexion().prepareStatement(read);
-			statement.setString(1, NumeroCuenta);
+			statement = conexion.getSQLConexion().prepareStatement(readAllxDNI);
+			statement.setString(1, DNIUsuario);
 			resultset = statement.executeQuery();
 			
 			while(resultset.next()) 
 			{
-				cuenta = getCuenta(resultset);
+				cuenta.add(getCuenta(resultset));
 			}
 			
 		}

@@ -15,7 +15,7 @@ public interface IDaoCuenta {
 	
 	public ArrayList<Cuenta> ReadAll();
 	
-	public Cuenta Read(String NumeroCuenta);
+	public ArrayList<Cuenta> ReadAllxDNI(String DNIUsuario);
 	
 	
 	

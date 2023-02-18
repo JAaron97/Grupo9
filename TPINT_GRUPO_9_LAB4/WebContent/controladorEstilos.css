@@ -9,7 +9,7 @@ body{
 }
 
 .fondo{
-	height: 100vh;
+	height: 100hv;
 	width: 100%;
 	background-image: linear-gradient(white, black);
 	background-position: top;

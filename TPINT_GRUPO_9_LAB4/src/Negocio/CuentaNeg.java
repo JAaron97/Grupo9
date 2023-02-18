@@ -13,5 +13,5 @@ public boolean Insert(Cuenta cuenta);
 	
 	public ArrayList<Cuenta> ReadAll();
 	
-	public Cuenta Read(String NumeroCuenta);
+	public ArrayList<Cuenta> ReadAllxDNI(String DNIUsuario);
 }

@@ -26,8 +26,8 @@ ArrayList<NumeroCuotas> listaNumeroCuotas = new  ArrayList<NumeroCuotas>();
 listaNumeroCuotas = dNC.ReadAll();
 
 CuentaNegImpl dC = new CuentaNegImpl();
-ArrayList<Cuenta> listaCuenta = new  ArrayList<Cuenta>();
-listaCuenta = dC.ReadAll();
+ArrayList<Cuenta> listaCuentas = new  ArrayList<Cuenta>();
+listaCuentas = dC.ReadAllxDNI(user.getDNI());
 %>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <div class="container-fluid">
@@ -58,6 +58,54 @@ listaCuenta = dC.ReadAll();
     </div>
   </div>
 </nav>
+
+<form action="servletBanco" method="post">
+<div class="row">
+	<div class="col text-center">
+	<br>
+		<p>Cuenta Destino: 
+		<select name="selectCuenta">
+			<%
+			for(Cuenta cue : listaCuentas){
+			%>
+				<option><%=cue.getNumeroCuenta() %></option>
+			<%
+			}
+			%>
+		</select>
+		</p>
+		<p>Importe deseado: <input type="text" name="txtImporte"></p>
+		
+		<p>Numero de cuotas: 
+		<select name="NumCuotas">
+			<%
+			for(NumeroCuotas nCuo : listaNumeroCuotas){
+			%>
+			<option><%=nCuo.getDescripcion()%></option>
+			<%
+			}
+			%>
+		</select>
+		</p>
+		<p><input type="submit" name="btnSolPrestamo" value="Solicitar"></p>
+	</div>
+</div>
+</form>
+<%
+if(request.getAttribute("insert")!=null){
+	boolean insert = (boolean)request.getAttribute("insert");
+	if(insert){
+		%>
+		<h2 class="text-center">Solicitud enviada correctamente</h2>
+		<% 
+	}
+	else{
+		%>
+		<h2 class="text-center">no se pudo enviar la solicitud</h2>
+		<%
+	}
+}
+%>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
 </body>

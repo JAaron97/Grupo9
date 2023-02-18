@@ -295,8 +295,9 @@ public class servletBanco extends HttpServlet {
 			 rd.forward(request, response);
 		}
 		
-		if(request.getParameter("btnSolicitar")!=null) {
+		if(request.getParameter("btnSolPrestamo")!=null) {
 			SolicitudPrestamo sP = new SolicitudPrestamo();
+			SolicitudPrestamoNegImpl spN = new SolicitudPrestamoNegImpl();
 			Usuario u = new Usuario();
 			NumeroCuotasNegImpl negNC = new NumeroCuotasNegImpl();
 			ArrayList<NumeroCuotas> listaNumeroCuotas = null;
@@ -304,13 +305,20 @@ public class servletBanco extends HttpServlet {
 			u = (Usuario)request.getSession().getAttribute("Usuario");
 			int importe = Integer.valueOf(request.getParameter("txtImporte"));
 			
+		    
 			
 			sP.setDNICliente(u.getDNI());
 			sP.setImportePedido(BigDecimal.valueOf(importe));
-			sP.setCuentaDestinataria(request.getParameter("cuenta"));
+			sP.setCuentaDestinataria(request.getParameter("selectCuenta"));
 			sP.setNumeroCuotas(negNC.Read(getIdNumeroCuotas(listaNumeroCuotas, request)));
 			sP.setFecha(java.time.LocalDate.now());
 			
+			
+			boolean insertExitoso = spN.Insert(sP);
+			
+			request.setAttribute("insert", insertExitoso);
+			RequestDispatcher rd = request.getRequestDispatcher("/SolicitarPrestamo.jsp");
+			rd.forward(request, response);
 		}
 		
 		if(request.getParameter("btnVerSolicitudCuentas")!=null) {
@@ -344,7 +352,7 @@ public class servletBanco extends HttpServlet {
 			
 			request.setAttribute("update", updateExitoso);
 			request.setAttribute("User", user);
-			RequestDispatcher rd = request.getRequestDispatcher("/");
+			RequestDispatcher rd = request.getRequestDispatcher("/ListaSolicitudCuentas");
 			rd.forward(request, response);
 		}
 		
@@ -505,7 +513,7 @@ public class servletBanco extends HttpServlet {
 			if(user.getDNI().equals(request.getParameter("txtDNI")) && user.getPassword().equals(request.getParameter("txtPasswd"))) {
 				request.getSession().setAttribute("Usuario", user);
 				rd = request.getRequestDispatcher("/Inicio.jsp");
-			} 
+			}
 		}
 		
 		return rd;
@@ -593,7 +601,7 @@ public class servletBanco extends HttpServlet {
 	public int getIdNumeroCuotas(ArrayList<NumeroCuotas> listaNumeroCuotas, HttpServletRequest request) {
 		int idNC = 0;
 		for(NumeroCuotas nc : listaNumeroCuotas) {
-			if(nc.getDescripcion().equals(request.getParameter("Localidad"))) {
+			if(nc.getDescripcion().equals(request.getParameter("NumCuotas"))) {
 				idNC = nc.getID(); 
 			}
 		}

@@ -43,7 +43,6 @@ public boolean Insert(SolicitudPrestamo solicitud) {
 			statement.setInt(3, solicitud.getNumeroCuotas().getID());
 			statement.setString(4, solicitud.getCuentaDestinataria());
 			statement.setDate(5, Date.valueOf(solicitud.getFecha()));
-			statement.setInt(6, solicitud.getEstado());
 			
 			
 			if(statement.executeUpdate() > 0)

@@ -67,7 +67,7 @@ for(Prestamo prest : listaPrestamos){
 <% 
 }
 %>
-<div style="margin: 5rem ">
+<div style="margin: 5rem " class="text-center">
 	<a href="SolicitarPrestamo.jsp">Solicitar un nuevo prestamo</a>
 </div>
 
