@@ -131,8 +131,6 @@ if(session.getAttribute("Usuario") != null){
            <input type="submit" value=Continuar  name="btnContinuar" >
            </form>            <input type="submit" value=Volver  name="btnVolver" >
                 <h6 class="mt-4 mb-3"></h6>
-                    
-          
         	</div>
     	</div>
 	</div>

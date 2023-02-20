@@ -60,34 +60,36 @@ listaCuentas = dC.ReadAllxDNI(user.getDNI());
 </nav>
 
 <form action="servletBanco" method="post">
-<div class="row">
-	<div class="col text-center">
-	<br>
-		<p>Cuenta Destino: 
-		<select name="selectCuenta">
-			<%
-			for(Cuenta cue : listaCuentas){
-			%>
-				<option><%=cue.getNumeroCuenta() %></option>
-			<%
-			}
-			%>
-		</select>
-		</p>
-		<p>Importe deseado: <input type="text" name="txtImporte"></p>
-		
-		<p>Numero de cuotas: 
-		<select name="NumCuotas">
-			<%
-			for(NumeroCuotas nCuo : listaNumeroCuotas){
-			%>
-			<option><%=nCuo.getDescripcion()%></option>
-			<%
-			}
-			%>
-		</select>
-		</p>
-		<p><input type="submit" name="btnSolPrestamo" value="Solicitar"></p>
+<div class="container fondo">
+	<div class="row">
+		<div class="col text-center">
+		<br>
+			<p>Cuenta Destino: 
+			<select name="selectCuenta">
+				<%
+				for(Cuenta cue : listaCuentas){
+				%>
+					<option><%=cue.getNumeroCuenta() %></option>
+				<%
+				}
+				%>
+			</select>
+			</p>
+			<p>Importe deseado: <input type="text" name="txtImporte"></p>
+			
+			<p>Numero de cuotas: 
+			<select name="NumCuotas">
+				<%
+				for(NumeroCuotas nCuo : listaNumeroCuotas){
+				%>
+				<option><%=nCuo.getDescripcion()%></option>
+				<%
+				}
+				%>
+			</select>
+			</p>
+			<p><input type="submit" name="btnSolPrestamo" value="Solicitar"></p>
+		</div>
 	</div>
 </div>
 </form>

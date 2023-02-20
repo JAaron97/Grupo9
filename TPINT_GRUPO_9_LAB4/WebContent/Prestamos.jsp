@@ -9,6 +9,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css" href="controladorEstilos.css">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
 <meta charset="utf-8">
 <title>Prestamos</title>
@@ -53,24 +54,29 @@ ArrayList<Prestamo> listaPrestamos = new ArrayList<Prestamo>();
     </div>
   </div>
 </nav>
-<%
-for(Prestamo prest : listaPrestamos){
-%>
-<div class="card">
-  <h5 class="card-header"><%=prest.getFecha() %></h5>
-  <div class="card-body">
-    <h5 class="card-title"><%=prest.getImporteInteres()%></h5>
-    <p class="card-text"><%=prest.getCuentaDestinataria()%></p>
-    <a href="#" class="btn btn-primary">Pagar</a>
-  </div>
+<div class="containter fondo">
+	<div class="row">
+		<div class="col">
+			<%
+			for(Prestamo prest : listaPrestamos){
+			%>
+			<div class="card">
+			  <h5 class="card-header"><%=prest.getFecha() %></h5>
+			  <div class="card-body">
+			    <h5 class="card-title"><%=prest.getImporteInteres()%></h5>
+			    <p class="card-text"><%=prest.getCuentaDestinataria()%></p>
+			    <a href="#" class="btn btn-primary">Pagar</a>
+			  </div>
+			</div>
+			<% 
+			}
+			%>
+			<div style="margin: 5rem " class="text-center">
+				<a href="SolicitarPrestamo.jsp">Solicitar un nuevo prestamo</a>
+			</div>
+		</div>
+	</div>
 </div>
-<% 
-}
-%>
-<div style="margin: 5rem " class="text-center">
-	<a href="SolicitarPrestamo.jsp">Solicitar un nuevo prestamo</a>
-</div>
-
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
 </body>
 </html>

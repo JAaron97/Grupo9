@@ -47,11 +47,9 @@ listaCuenta = dC.ReadAll();
 	            Más
 	          </a>
 	          <ul class="dropdown-menu">
-	          <!-- Aca no hay if en el dropdown ya que es un panel que solo le va a ver si estas logeado -->
 				<li><a class="dropdown-item" href="Movimientos.jsp">Movimientos y Transferencias</a></li>
 	            <li><a class="dropdown-item" href="Prestamos.jsp">Prestamos</a></li>
 	            <li><hr class="dropdown-divider"></li>
-	            <li><a class="dropdown-item" href="#">Pedir cuenta bancaria</a></li>
 	            <li><a class="dropdown-item" href="InfoUsuario.jsp">Informacion de Usuario</a></li>
 	          </ul>
 	        </li>
@@ -67,52 +65,45 @@ listaCuenta = dC.ReadAll();
         </div>
 	</div>
 	<div class="row">
-    <div class="card mb-4 col-md-4 order-md-2">
-    	<div class="card-body">
-
-<table class="table user-view-table m-0">
-        		<tbody>
-        	
-        			<tr>
-        		
-        			
-        				<td>Numero de cuenta:</td>
-        				<td><%=cuen.getNumeroCuenta() %></td>
-        				
-        			</tr>
-        			<tr>
-        				<td>Tipo de Cuenta:</td>
-        				<td><%=cuen.getTipoCuenta().getDescripcion()%></td>
-        			</tr>
-        			<tr>
-        				<td>CBU:</td>
-        				<td><%=cuen.getCBU()%></td>
-        			</tr>
-        			<tr>
-        				<td>Saldo:</td>
-        				<td><%=cuen.getSaldo()%></td>
-        			</tr>
-        			<tr>
-        			<td>
-        				<form action="servletBanco" method="post" name="form">
-        			
-        			</td>
-        			<td>
-        			<input type="hidden" value=<%=cuen.getCBU()%> name="txtcbuOrigen">
-        			</form>
-        			</td>
-        			
-        			
-        			</tr>
-        			
-        		
-        		</tbody>
-        	</table>
-        	<form action="servletBanco" method="post" name="form">
-        			<input type="submit" value="Hacer una transferencia" name="BtnTransferencia">
-        			<input type="hidden" value=<%=cuen.getCBU()%> name="txtcbuOrigen">
-        			</form>
-        	
+	    <div class="card mb-4 col-md-4 order-md-2">
+	    	<div class="card-body">
+				<table class="table user-view-table m-0">
+					<tbody>
+						<tr>
+							<td>Numero de cuenta:</td>
+							<td><%=cuen.getNumeroCuenta() %></td>
+						</tr>
+						<tr>
+							<td>Tipo de Cuenta:</td>
+							<td><%=cuen.getTipoCuenta().getDescripcion()%></td>
+						</tr>
+						<tr>
+							<td>CBU:</td>
+							<td><%=cuen.getCBU()%></td>
+						</tr>
+						<tr>
+							<td>Saldo:</td>
+							<td><%=cuen.getSaldo()%></td>
+						</tr>
+						<tr>
+							<td>
+							<form action="servletBanco" method="post" name="form">
+							</td>
+							<td>
+							<input type="hidden" value=<%=cuen.getCBU()%> name="txtcbuOrigen">
+							</form>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+				<form action="servletBanco" method="post" name="form">
+					<input type="submit" value="Hacer una transferencia" name="BtnTransferencia">
+					<input type="hidden" value=<%=cuen.getCBU()%> name="txtcbuOrigen">
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
 
 
 </body>

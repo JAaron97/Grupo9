@@ -9,6 +9,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css" href="controladorEstilos.css">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
 <meta charset="utf-8">
 <title>Lista solicitudes prestamo</title>
@@ -50,55 +51,60 @@ ArrayList<SolicitudPrestamo> listaSolicitudPrestamo = new ArrayList<SolicitudPre
     </div>
   </div>
 </nav>
-
-<table id="cliente">
-	<tr>
-		<th>ID</th>
-		<th>DNI Cliente</th>
-		<th>Fecha Solicitud</th>
-		<th>Cuenta destinataria</th>
-		<th>Numero Cuotas</th>
-		<th>Importe</th>
-		<th>Estado</th>
-	</tr>
-	<%
-	for(SolicitudPrestamo sp : listaSolicitudPrestamo){
-	%>
-	<tr>
-	<form name="form" action="servletBanco?IDSolicitud=<%=sp.getID()%>" method="post">
-		<td><%=sp.getID() %></td>
-		<td><%=sp.getDNICliente() %></td>
-		<td><%=sp.getFecha() %></td>
-		<td><%=sp.getCuentaDestinataria() %></td>
-		<td><%=sp.getNumeroCuotas() %></td>
-		<td><%=sp.getImportePedido() %></td>
-		<%if(sp.getEstado()==0){ %>
-			<td>Sin Aceptar</td>
-			<td><input type="submit" name="btnAceptarPrestamo" value="Aceptar Prestamo"></td>
-		<%} else{ %>
-			<td>Aceptado</td>
-		<%} %>
-	</form>
-	</tr>
-	<%
-	}
-	%>
-</table>
-<%
-if(request.getAttribute("update")!=null){
-	boolean update = (boolean)request.getAttribute("update");
-	if(update){
-		%>
-		<h2 class="text-center">Solicitud Aceptada</h2>
-		<% 
-	}
-	else{
-		%>
-		<h2 class="text-center">Hubo un error al intentar aceptar la solicitud</h2>
-		<% 
-	}
-}
-%>
+<div class="containter fondo">
+	<div class="row">
+		<div class="col">
+			<table id="cliente">
+				<tr>
+					<th>ID</th>
+					<th>DNI Cliente</th>
+					<th>Fecha Solicitud</th>
+					<th>Cuenta destinataria</th>
+					<th>Numero Cuotas</th>
+					<th>Importe</th>
+					<th>Estado</th>
+				</tr>
+				<%
+				for(SolicitudPrestamo sp : listaSolicitudPrestamo){
+				%>
+				<tr>
+				<form name="form" action="servletBanco?IDSolicitud=<%=sp.getID()%>" method="post">
+					<td><%=sp.getID() %></td>
+					<td><%=sp.getDNICliente() %></td>
+					<td><%=sp.getFecha() %></td>
+					<td><%=sp.getCuentaDestinataria() %></td>
+					<td><%=sp.getNumeroCuotas() %></td>
+					<td><%=sp.getImportePedido() %></td>
+					<%if(sp.getEstado()==0){ %>
+						<td>Sin Aceptar</td>
+						<td><input type="submit" name="btnAceptarPrestamo" value="Aceptar Prestamo"></td>
+					<%} else{ %>
+						<td>Aceptado</td>
+					<%} %>
+				</form>
+				</tr>
+				<%
+				}
+				%>
+			</table>
+			<%
+			if(request.getAttribute("update")!=null){
+				boolean update = (boolean)request.getAttribute("update");
+				if(update){
+					%>
+					<h2 class="text-center">Solicitud Aceptada</h2>
+					<% 
+				}
+				else{
+					%>
+					<h2 class="text-center">Hubo un error al intentar aceptar la solicitud</h2>
+					<% 
+				}
+			}
+			%>
+		</div>
+	</div>
+</div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
 </body>
 </html>

@@ -11,6 +11,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <meta charset="utf-8">
+<link rel="stylesheet" type="text/css" href="controladorEstilos.css">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Crear Usuario</title>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
@@ -61,21 +62,15 @@ listaLocalidades =  (ArrayList<Localidad>) request.getAttribute("Localidades");
   </div>
 </nav>
 
-
-			
-			
-			<p class="text-center">
-			  
-				
-
-			</p>
+<div class="container fondo">
+	<div class="row">
+		<div class="col text-center">
 			<form action="servletBanco" method="post">
-			 	
-			<p class="text-center">Nombre: <input type="text" name="txtNombre"> </p>
-			<p class="text-center">Apellido: <input type="text" name="txtApellido"> </p>
-			<p class="text-center">Dni: <input type="number" name="txtDni"></p>
-			<p class="text-center">Contraseña: <input type="text" name="txtPassword"></p>
-			<p class="text-center">Nacionalidad:
+			<p>Nombre: <input type="text" name="txtNombre"> </p>
+			<p>Apellido: <input type="text" name="txtApellido"> </p>
+			<p>Dni: <input type="number" name="txtDni"></p>
+			<p>Contraseña: <input type="text" name="txtPassword"></p>
+			<p>Nacionalidad:
 				<select name="Nacionalidad">
 					    <%
 					    for(Nacionalidad nac : listaNacionalidades){
@@ -85,7 +80,7 @@ listaLocalidades =  (ArrayList<Localidad>) request.getAttribute("Localidades");
 					    }
 					    %>
 				</select></p>
-			<p class="text-center">Localidad:
+			<p>Localidad:
 				<select name="Localidad">
 					    <%
 					    for(Localidad loc : listaLocalidades){
@@ -95,8 +90,8 @@ listaLocalidades =  (ArrayList<Localidad>) request.getAttribute("Localidades");
 					    }
 					    %>
 				</select></p>
-			<p class="text-center">CUIL: <input type="text" name="txtCuil"></p>
-			<p class="text-center">Sexo: 
+			<p>CUIL: <input type="text" name="txtCuil"></p>
+			<p>Sexo: 
 				<select name="Sexo">
 					<option value="">Sexo</option>
 					<option value="masculino">Masculino</option>
@@ -104,18 +99,20 @@ listaLocalidades =  (ArrayList<Localidad>) request.getAttribute("Localidades");
 					<option value="otro">Otro</option>
 				</select>
 			</p>
-			<p class="text-center">Fecha de nacimiento: <input type="date" name="fechaNac"></p>
-			<p class="text-center">Calle: <input type="text" name="txtCalle"> Altura: <input type="text" name="txtAltura"></p>
-			<p class="text-center">Mail: <input type="email" placeholder="pedrogonzalez@gmail.com" name="mail"></p>
-			<p class="text-center">Telefonos: <br> 
+			<p>Fecha de nacimiento: <input type="date" name="fechaNac"></p>
+			<p>Calle: <input type="text" name="txtCalle"> Altura: <input type="text" name="txtAltura"></p>
+			<p>Mail: <input type="email" placeholder="pedrogonzalez@gmail.com" name="mail"></p>
+			<p>Telefonos: <br> 
 				<input type="number" name="telefono1" placeholder="Telefono 1"><br>
 				<input type="number" name="telefono2" placeholder="Telefono 2"><br>
 				<input type="number" name="telefono3" placeholder="Telefono 3"><br>
 				<input type="number" name="telefono4" placeholder="Telefono 4">
 			</p>
-			<p class="text-center"> <input type="submit" name="btnCrear" value="Crear"> </p>
+			<p> <input type="submit" name="btnCrear" value="Crear"> </p>
 			</form>
-			
+		</div>
+	</div>
+</div>			
 <div> 
 	<%
 			

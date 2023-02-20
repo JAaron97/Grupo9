@@ -110,7 +110,6 @@ list =  (ArrayList<Usuario>) request.getAttribute("ListaIdUsuarios");
 				<td><%=u.getPassword() %></td>
 				<td><%=u.getTipoUsuario()%></td>     
 			</tr>
-
 			<% 
 			} 
 			%>
