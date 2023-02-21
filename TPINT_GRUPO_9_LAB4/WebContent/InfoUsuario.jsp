@@ -11,11 +11,21 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
 <link rel="stylesheet" type="text/css" href="infouser.css">
-<link rel="stylesheet" type="text/css" href="controladorEstilos.css">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
 <meta charset="utf-8">
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
+<title>Información de usuario</title>
+<style>
+body{
+	width: 100%;
+	height: 100%;
+	background: rgb(34,193,195);
+	background: linear-gradient(0deg, rgba(34,193,195,1) 0%, rgba(177,45,253,1) 100%);
+	background-position: top;
+	background-size: cover;
+	background-repeat: no-repeat;
+}
+</style>
 </head>
 <body>
 <%
@@ -57,7 +67,7 @@ listaCuenta = dC.ReadAll();
 	  </div>
 	</nav>
 
-<div class="container bootdey flex-grow-1 container-p-y fondo">
+<div class="container bootdey flex-grow-1 container-p-y">
 	<div class="media align-items-center py-3 mb-3">
 		<div class="media-body ml-4">
         	<h2 class="font-weight-bold mb-0"><%= user.getNombre()%></h2>
@@ -68,6 +78,7 @@ listaCuenta = dC.ReadAll();
     	<div class="card-body">
         	<h6 class="mt-2 mb-3">Cuentas</h6>
         	
+        	<form action="servletBanco" method="post" name="form">
         	<table class="table user-view-table m-0">
         		<tbody>
         		<%
@@ -75,11 +86,8 @@ listaCuenta = dC.ReadAll();
         			if(cu.getDNICliente().equals(user.getDNI())){
         		%>
         			<tr>
-        		
-        			
         				<td>Numero de cuenta:</td>
         				<td><%=cu.getNumeroCuenta() %></td>
-        				
         			</tr>
         			<tr>
         				<td>Tipo de Cuenta:</td>
@@ -94,16 +102,10 @@ listaCuenta = dC.ReadAll();
         				<td><%=cu.getSaldo()%></td>
         			</tr>
         			<tr>
-        			<td>
-        				<form action="servletBanco" method="post" name="form">
-        			<input type="submit" value="Seleccionar cuenta" name="BtnCuenta">
-        			</td>
-        			<td>
-        			<input type="hidden" value=<%=cu.getCBU()%> name="txtcbuOrigen">
-        			</form>
-        			</td>
-        			
-        			
+	        			<td>
+		        			<input type="submit" value="Seleccionar cuenta" name="BtnCuenta">
+		        			<input type="hidden" value=<%=cu.getCBU()%> name="txtcbuOrigen">
+	        			</td>
         			</tr>
         			<tr>
         				<td><hr></td>
@@ -114,6 +116,7 @@ listaCuenta = dC.ReadAll();
         		%>
         		</tbody>
         	</table>
+        	</form>		
 			<%
 				if(request.getAttribute("Filas") != null){
 					boolean filas = false;
@@ -136,10 +139,10 @@ listaCuenta = dC.ReadAll();
         </div>
         <hr class="border-light m-0">
         </div>
-        	<div class="card col-md-8 order-md-1">
+        <div class="card col-md-8 order-md-1">
             <hr class="border-light m-0">
             <div class="card-body">
-                <h6 class="mt-2 mb-3">Personal info</h6>
+                <h6 class="mt-2 mb-3">Información Personal</h6>
                 
             	<table class="table user-view-table m-0">
                 	<tbody>

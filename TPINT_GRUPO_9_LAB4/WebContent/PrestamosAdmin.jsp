@@ -28,7 +28,7 @@ th, td {
 tr:hover {background-color: coral;}
 </style>
 </head>
-<body>
+<body class="fondo">
 <%
 Usuario user = new Usuario();
 user = (Usuario) session.getAttribute("Usuario");
@@ -65,7 +65,7 @@ ArrayList<SolicitudPrestamo> listaSolicitudPrestamo = new ArrayList<SolicitudPre
     </div>
   </div>
 </nav>
-<div class="containter fondo">
+<div class="containter">
 	<div class="row">
 		<div class="col">
 			<table id="cliente">
@@ -92,9 +92,14 @@ ArrayList<SolicitudPrestamo> listaSolicitudPrestamo = new ArrayList<SolicitudPre
 					<%if(sp.getEstado()==0){ %>
 						<td>Sin Aceptar</td>
 						<td><input type="submit" name="btnAceptarPrestamo" value="Aceptar Prestamo"></td>
-					<%} else{ %>
+					<%
+					} 
+					else{ 
+					%>
 						<td>Aceptado</td>
-					<%} %>
+					<%
+					} 
+					%>
 				</form>
 				</tr>
 				<%

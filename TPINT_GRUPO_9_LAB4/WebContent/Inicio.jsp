@@ -101,7 +101,7 @@ if(session.getAttribute("Usuario") != null){
 		<div class="row">
 			<div class="col">
 				<br>
-				<h1 style=font-size:150px class="text-center text-dark">Comencemos</h1><br>
+				<h1 style=font-size:150px class="text-center text-dark">Bienvenido/a</h1><br>
 			</div>
 		</div>
 		<%
@@ -112,8 +112,8 @@ if(session.getAttribute("Usuario") != null){
 				<div class="card border-primary mb-3 text-bg-dark mb-3" style="width: 18rem;">
 	  			<img src="transferencias.jpg" class="card-img-top" alt="...">
 	  				<div class="card-body">
-						<h5 class="card-title">Movimientos y Tranferencias</h5>
-						<p class="card-text">Revise los ultimos movimientos de su/s cuentas, y reciba o envie transferencias de dinero.</p>
+						<h5 class="card-title">Movimientos</h5>
+						<p class="card-text">Revise los ultimos movimientos de su/s cuentas</p>
 						<%
 						if(!sesionIniciada){
 						%>
@@ -122,7 +122,7 @@ if(session.getAttribute("Usuario") != null){
 							}
 							else{
 						%>
-						<a href="Movimientos.jsp" class="btn btn-primary">Mov. y transferencias</a>
+						<a href="Movimientos.jsp" class="btn btn-primary">Ultimos movimientos</a>
 						<%
 							}
 						%>

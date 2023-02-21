@@ -52,7 +52,7 @@
 
 <link href="signin.css" rel="stylesheet">
 </head>
-<body class="text-center">
+<body class="text-center fondo">
 	<main class="form-signin w-100 m-auto">
 			<form action="servletBanco" method="post">
 			<h1 class="h3 mb-3 fw-normal ">Inicie Sesión</h1>
