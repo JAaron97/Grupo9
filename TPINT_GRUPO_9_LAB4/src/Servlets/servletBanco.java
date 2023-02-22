@@ -128,6 +128,90 @@ public class servletBanco extends HttpServlet {
 			RequestDispatcher rd = request.getRequestDispatcher("/Movimientos.jsp");
 			rd.forward(request, response);
 		}
+		
+		if(request.getParameter("btnBuscar")!=null) {
+			CuentaNegImpl nC = new CuentaNegImpl();
+			ArrayList<Cuenta> cuenta = new ArrayList<Cuenta>();
+			cuenta = (ArrayList<Cuenta>)nC.ReadAll();
+			
+			String aux = request.getParameter("txtCbu").toString();
+			for (Cuenta cuent:cuenta){
+				if(cuent.getCBU().equals(aux)){
+					
+					UsuarioNegImpl nU = new UsuarioNegImpl();
+					ArrayList<Usuario> usuarios = new ArrayList<Usuario>();
+					usuarios = (ArrayList<Usuario>) nU.readAll();
+					for(Usuario user : usuarios) {
+						if(user.getDNI().equals(cuent.getDNICliente())) {
+							request.getSession().setAttribute("UsuarioTranferir", user);
+							request.getSession().setAttribute("Cuentadestino", cuent);
+							RequestDispatcher rd = request.getRequestDispatcher("/TransferiraCuenta.jsp");
+							rd.forward(request, response);
+							
+						}
+					}
+				}
+				
+			}
+			
+		}
+		
+if(request.getParameter("btnContinuar")!=null){
+			
+			
+			//Probamos si genera el movimiento
+				
+				
+				MovimientoNegImpl negM = new MovimientoNegImpl();
+				
+				CuentaNegImpl negC= new CuentaNegImpl();
+				ArrayList<Cuenta> Cuentas = new ArrayList<Cuenta>();
+				Cuentas=negC.ReadAll();
+				Movimiento mov = new Movimiento();
+				Cuenta user = new Cuenta();
+				Cuenta Destino = new Cuenta();
+				String cbu = request.getParameter("txtcbuOrigen").toString();
+				String cbudestino = request.getParameter("txtCbu").toString();
+				
+				for(Cuenta aux2:Cuentas) {
+					if(aux2.getCBU().equals(cbu)) {
+						
+						user=aux2;		
+					}
+					if(aux2.getCBU().equals(cbudestino)) {
+						Destino=aux2;
+					}
+					
+				}
+				
+				String valor =request.getParameter("txtMonto").toString();
+				mov.setID("7");
+				mov.setFecha(LocalDate.now());
+				mov.getTipoMovimiento().setID(4);
+				mov.setImporte(BigDecimal.valueOf(Double.valueOf(valor)));
+				mov.setNumeroCuentaOrigen(user.getNumeroCuenta());
+				mov.setNumeroCuentaDestino(Destino.getNumeroCuenta());
+				
+				
+				
+				 boolean filas = false;
+				
+					 filas = negM.Insert(mov);
+				 
+				 
+				 request.setAttribute("Filas", filas);
+				 RequestDispatcher rd = request.getRequestDispatcher("/TerminarTransferencia.jsp");
+				 rd.forward(request, response);
+			
+				
+			
+				
+				
+				
+			}
+			
+		
+
 	}
 
 
@@ -448,62 +532,7 @@ public class servletBanco extends HttpServlet {
 			
 		}
 		
-		if(request.getParameter("btnContinuar")!=null){
-			
-			
-			//Probamos si genera el movimiento
-				
-				
-				MovimientoNegImpl negM = new MovimientoNegImpl();
-				
-				CuentaNegImpl negC= new CuentaNegImpl();
-				ArrayList<Cuenta> Cuentas = new ArrayList<Cuenta>();
-				Cuentas=negC.ReadAll();
-				Movimiento mov = new Movimiento();
-				Cuenta user = new Cuenta();
-				Cuenta Destino = new Cuenta();
-				String cbu = request.getParameter("txtcbuOrigen").toString();
-				String cbudestino = request.getParameter("txtCbu").toString();
-				
-				for(Cuenta aux2:Cuentas) {
-					if(aux2.getCBU().equals(cbu)) {
-						
-						user=aux2;		
-					}
-					if(aux2.getCBU().equals(cbudestino)) {
-						Destino=aux2;
-					}
-					
-				}
-				
-				String valor =request.getParameter("txtMonto").toString();
-				mov.setID("7");
-				mov.setFecha(LocalDate.now());
-				mov.getTipoMovimiento().setID(4);
-				mov.setImporte(BigDecimal.valueOf(Double.valueOf(valor)));
-				mov.setNumeroCuentaOrigen(user.getNumeroCuenta());
-				mov.setNumeroCuentaDestino(Destino.getNumeroCuenta());
-				
-				
-				
-				 boolean filas = false;
-				
-					 filas = negM.Insert(mov);
-				 
-				 
-				 request.setAttribute("Filas", filas);
-				 RequestDispatcher rd = request.getRequestDispatcher("/TerminarTransferencia.jsp");
-				 rd.forward(request, response);
-			
-				
-			
-				
-				
-				
-			}
-			
 		
-
 		
 	}
 		
