@@ -11,4 +11,6 @@ public interface MovimientoNeg {
 	public Movimiento Read(String id);
 	
 	public ArrayList<Movimiento> ReadAll();
+	
+	public ArrayList<Movimiento> readDNI(String DNI);
 }

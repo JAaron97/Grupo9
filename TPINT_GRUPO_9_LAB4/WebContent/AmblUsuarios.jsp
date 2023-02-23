@@ -16,7 +16,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Listar Usuario</title>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
-
+<style>
+body{
+overflow: hidden;
+}
+</style>
 </head>
 <body>
 
@@ -74,20 +78,16 @@ list =  (ArrayList<Usuario>) request.getAttribute("ListaIdUsuarios");
   </div>
 </nav>
 
-<div class="containter fondo">
+<div class="containter fondo text-center">
 	<div class="row">
-		<div class="col">	
+		<div class="col-sm-2 mx-auto">	
+			<br>
 			<div class="card border-primary mb-3 text-bg-dark mb-3" style="width: 18rem;">
-				<p ><a href="servletBanco?param=add"> Agregar Usuario</a></p>
-				<p>
-				<a href="servletBanco?param=list"> listar Usuarios</a>
-				</p>
-				<p>
-				<a href="servletBanco?param=eliminar">Eliminar Usuarios </a>
-				</p>
-				<p>
-				<a href="servletBanco?param=modificar">Modificar Usuarios </a>
-				</p>
+				<p></p>
+				<p><a class="btn btn-primary" href="servletBanco?param=add"> Agregar Usuario</a></p>
+				<p><a class="btn btn-primary" href="servletBanco?param=list"> listar Usuarios</a></p>
+				<p><a class="btn btn-primary" href="servletBanco?param=eliminar">Eliminar Usuarios </a></p>
+				<p><a class="btn btn-primary" href="servletBanco?param=modificar">Modificar Usuarios </a></p>
 			</div>
 		</div>
 	</div>

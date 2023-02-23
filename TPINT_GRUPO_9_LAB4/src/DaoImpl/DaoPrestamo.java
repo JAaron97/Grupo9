@@ -23,7 +23,7 @@ public class DaoPrestamo implements IDaoPrestamo {
 	
 	private static final String  read = "SELECT * FROM prestamos WHERE ID = ?";
 	
-	private static final String readDNI = "SELECT * FROM prestamos WHERE DNI_Usuario =?";
+	private static final String readDNI = "SELECT * FROM prestamos WHERE DNI_Usuario = ?";
 	
 	private static final String readall = "SELECT * FROM prestamos";
 	

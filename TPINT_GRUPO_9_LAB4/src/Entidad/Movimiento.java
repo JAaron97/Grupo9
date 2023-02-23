@@ -7,6 +7,7 @@ public class Movimiento {
 	
 		private String ID;
 		private LocalDate Fecha;
+		private String DNIUsuario;
 		private TipoMovimiento TipoMovimiento;
 		private BigDecimal Importe;
 		private String NumeroCuentaOrigen;
@@ -14,10 +15,11 @@ public class Movimiento {
 		
 		public Movimiento() {}
 		
-		public Movimiento(String id, LocalDate fecha, TipoMovimiento tipomovimiento, BigDecimal importe, String numerocuentaorigen, String numerocuentadestino) {
+		public Movimiento(String id, LocalDate fecha, String dniusuario, TipoMovimiento tipomovimiento, BigDecimal importe, String numerocuentaorigen, String numerocuentadestino) {
 			
 			this.ID = id;
 			this.Fecha = fecha;
+			this.DNIUsuario = dniusuario;
 			this.TipoMovimiento = tipomovimiento;
 			this.Importe = importe;
 			this.NumeroCuentaOrigen = numerocuentaorigen;
@@ -40,11 +42,17 @@ public class Movimiento {
 			return Fecha;
 		}
 
+		public String getDNIUsuario() {
+			return DNIUsuario;
+		}
+
+		public void setDNIUsuario(String dNIUsuario) {
+			DNIUsuario = dNIUsuario;
+		}
 
 		public void setFecha(LocalDate fecha) {
 			Fecha = fecha;
 		}
-
 
 		public TipoMovimiento getTipoMovimiento() {
 			return TipoMovimiento;

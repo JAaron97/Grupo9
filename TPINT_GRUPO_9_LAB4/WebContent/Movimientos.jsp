@@ -3,6 +3,7 @@
     <%@ page import="Entidad.Movimiento"%>
     <%@ page import="java.util.ArrayList"%>
     <%@ page import="Entidad.Usuario" %>
+    <%@ page import="NegocioImpl.MovimientoNegImpl" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -30,13 +31,14 @@ tr:hover {background-color: coral;}
 <body>
 
 <%
-	ArrayList<Movimiento> listaMovimientosCuenta=null;
-	if(request.getAttribute("listaMovCuenta")!=null){
-		listaMovimientosCuenta = (ArrayList<Movimiento>) request.getAttribute("listaMovCuenta");
-	}
 	
 	Usuario user = new Usuario();
 	user = (Usuario) session.getAttribute("Usuario");
+	
+	MovimientoNegImpl pNeg = new MovimientoNegImpl();
+
+	ArrayList<Movimiento> listaMovimientos = new ArrayList<Movimiento>();
+		listaMovimientos = pNeg.readDNI(user.getDNI());
 %>
 
 	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -79,8 +81,7 @@ tr:hover {background-color: coral;}
 			<th>Cuenta destino</th>
 		</tr>
 		<%
-		if(listaMovimientosCuenta!=null)
-			for(Movimiento mov : listaMovimientosCuenta){
+		for(Movimiento mov : listaMovimientos){
 		%>
 		<tr>
 			<td><%=mov.getID() %></td>

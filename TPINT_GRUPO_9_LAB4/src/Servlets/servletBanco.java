@@ -5,7 +5,6 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Random;
-import java.math.BigDecimal;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -14,7 +13,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.sun.org.apache.bcel.internal.generic.NEW;
 
 import Entidad.Cuenta;
 import Entidad.Localidad;
@@ -164,67 +162,59 @@ public class servletBanco extends HttpServlet {
 		}
 		
 		if(request.getParameter("btnContinuar")!=null){
-			
-			
 			//Probamos si genera el movimiento
-			
-	
-	TipoMovimientoNegImpl negTm = new 	TipoMovimientoNegImpl();
-	ArrayList<TipoMovimiento> listaTipoMovimiento = null;
-	listaTipoMovimiento = negTm.ReadAll();
+			TipoMovimientoNegImpl negTm = new 	TipoMovimientoNegImpl();
+			Usuario user = new Usuario();
+			user = (Usuario) request.getSession().getAttribute("Usuario");
 
-				MovimientoNegImpl negM = new MovimientoNegImpl();
-				CuentaNegImpl negC= new CuentaNegImpl();
-				ArrayList<Cuenta> Cuentas = new ArrayList<Cuenta>();
+			MovimientoNegImpl negM = new MovimientoNegImpl();
+			CuentaNegImpl negC = new CuentaNegImpl();
+			ArrayList<Cuenta> Cuentas = new ArrayList<Cuenta>();
+			
+			Cuentas=negC.ReadAll();
+			Movimiento mov = new Movimiento();
+			Cuenta Origen = new Cuenta();
+			Cuenta Destino = new Cuenta();
+			String cbu = request.getParameter("txtcbuOrigen").toString();
+			String cbudestino = request.getParameter("txtCbu").toString();
 				
-				Cuentas=negC.ReadAll();
-				Movimiento mov = new Movimiento();
-				Cuenta user = new Cuenta();
-				Cuenta Destino = new Cuenta();
-				String cbu = request.getParameter("txtcbuOrigen").toString();
-				String cbudestino = request.getParameter("txtCbu").toString();
-				
-				for(Cuenta aux2:Cuentas) {
-					if(aux2.getCBU().equals(cbu)) {
-						
-						user=aux2;		
-					}
-					if(aux2.getCBU().equals(cbudestino)) {
-						Destino=aux2;
-					}
-					
+			for(Cuenta aux2:Cuentas) {
+				if(aux2.getCBU().equals(cbu)) {			
+					Origen=aux2;		
+				}
+				if(aux2.getCBU().equals(cbudestino)) {
+					Destino=aux2;
 				}
 				
-		
-				String valor =request.getParameter("txtMonto").toString();
-				mov.setID("7");
-				mov.setFecha(LocalDate.now());
-				
-				mov.setTipoMovimiento(negTm.Read(4));
-				mov.setImporte(BigDecimal.valueOf(Double.valueOf(valor)));
-				mov.setNumeroCuentaOrigen(user.getNumeroCuenta());
-				mov.setNumeroCuentaDestino(Destino.getNumeroCuenta());
-				
-				
-				
-				boolean filas = false;
-				
-					 filas = negM.Insert(mov);
-				 
-				 
-				 request.setAttribute("Filas", filas);
-				 RequestDispatcher rd = request.getRequestDispatcher("/TerminarTransferencia.jsp");
-				 rd.forward(request, response);
-			
-				
-			
-				
-				
-				
 			}
+				
 			
-		
-
+			int valor = Integer.valueOf(request.getParameter("txtMonto").toString());
+			mov.setFecha(LocalDate.now());
+			mov.setDNIUsuario(user.getDNI());
+			mov.setTipoMovimiento(negTm.Read(4));
+			mov.setImporte(BigDecimal.valueOf(valor));
+			mov.setNumeroCuentaOrigen(Origen.getNumeroCuenta());
+			mov.setNumeroCuentaDestino(Destino.getNumeroCuenta());
+			
+			BigDecimal nuevoSaldoOrigen = Origen.getSaldo().subtract(BigDecimal.valueOf(valor));
+			Origen.setSaldo(nuevoSaldoOrigen);
+			boolean saldoActualizadoOrigen = negC.Update(Origen);
+			
+			BigDecimal nuevoSaldoDestino = Destino.getSaldo().add(BigDecimal.valueOf(valor));
+			Destino.setSaldo(nuevoSaldoDestino);
+			boolean saldoActualizadoDestino = negC.Update(Destino);
+			
+			boolean filas = false;		
+			filas = negM.Insert(mov);
+				 
+				 
+			request.setAttribute("Filas", filas);
+			request.setAttribute("saldoActualizadoOrigen", saldoActualizadoOrigen);
+			request.setAttribute("saldoActualizadoDestino", saldoActualizadoDestino);
+			RequestDispatcher rd = request.getRequestDispatcher("/TerminarTransferencia.jsp");
+			rd.forward(request, response);
+		}
 	}
 
 

@@ -24,4 +24,9 @@ public class MovimientoNegImpl implements MovimientoNeg{
 		return dM.ReadAll();
 	}
 
+	@Override
+	public ArrayList<Movimiento> readDNI(String DNI) {
+		return dM.readDNI(DNI);
+	}
+
 }

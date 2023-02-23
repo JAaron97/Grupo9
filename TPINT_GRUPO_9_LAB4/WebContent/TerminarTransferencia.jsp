@@ -56,20 +56,20 @@
 	
 <div> 
 	      <%
-			
 			if(request.getAttribute("Filas")!=null){
-			boolean filas = false;
-			filas = (Boolean)request.getAttribute("Filas");
-			if(filas){
-			%>
-			<p class="text-center">Movimiento con exito</p>
-			<%
-			}
-			else{
-			%>
-			<p class="text-center">No se pudo hacer el movimiento</p>
-			<%
-			}
+				boolean filas = (Boolean)request.getAttribute("Filas");
+				boolean saldoActualizadoOrigen = (boolean)request.getAttribute("saldoActualizadoOrigen");
+				boolean saldoActualizadoDestino = (boolean)request.getAttribute("saldoActualizadoDestino");
+				if(filas&&saldoActualizadoOrigen&&saldoActualizadoDestino){
+					%>
+					<p class="text-center">Movimiento con exito</p>
+					<%
+				}
+				else{
+					%>
+					<p class="text-center">No se pudo hacer el movimiento</p>
+					<%
+				}
 			}
 			%>
 

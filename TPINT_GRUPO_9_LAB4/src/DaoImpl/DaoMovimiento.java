@@ -10,14 +10,17 @@ import java.util.ArrayList;
 
 import Dao.IDaoMovimiento;
 import Entidad.Movimiento;
+import Entidad.Prestamo;
 import Entidad.TipoMovimiento;
 
 public class DaoMovimiento implements IDaoMovimiento {
 	
-	private static final String insert = "INSERT INTO movimientos (ID, Fecha, ID_Tipo_Movimiento, Importe, Cuenta_Origen, Cuenta_Destino) " + 
-										" VALUES (? , ?, ?, ?, ?, ?)";
+	private static final String insert = "INSERT INTO movimientos (ID, Fecha, DNI_Usuario, ID_Tipo_Movimiento, Importe, Cuenta_Origen, Cuenta_Destino) " + 
+										" VALUES (?, ?, ?, ?, ?, ?, ?)";
 	
 	private static final String read = "SELECT * FROM movimientos WHERE ID = ?";
+	
+	private static final String readDNI = "SELECT * FROM movimientos WHERE DNI_Usuario = ?";
 	
 	private static final String readall = "SELECT * FROM movimientos";
 	
@@ -39,10 +42,11 @@ public class DaoMovimiento implements IDaoMovimiento {
 			
 			statement.setString(1,movimiento.getID());
 			statement.setDate(2,Date.valueOf(movimiento.getFecha()));
-			statement.setInt(3,movimiento.getTipoMovimiento().getID());
-			statement.setBigDecimal(4,movimiento.getImporte());
-			statement.setString(5,movimiento.getNumeroCuentaOrigen());
-			statement.setString(6,movimiento.getNumeroCuentaDestino());
+			statement.setString(3, movimiento.getDNIUsuario());
+			statement.setInt(4,movimiento.getTipoMovimiento().getID());
+			statement.setBigDecimal(5,movimiento.getImporte());
+			statement.setString(6,movimiento.getNumeroCuentaOrigen());
+			statement.setString(7,movimiento.getNumeroCuentaDestino());
 			
 			if(statement.executeUpdate() > 0) 
 			{
@@ -73,6 +77,35 @@ public class DaoMovimiento implements IDaoMovimiento {
 		return isInsertExito;
 	}
 	
+	public ArrayList<Movimiento> readDNI(String DNI)
+	{
+		ArrayList<Movimiento> Movimientos = new ArrayList<Movimiento>();
+		
+		PreparedStatement statement;
+		Conexion conexion = Conexion.getConexion();
+		ResultSet resultset;
+		
+		
+		try 
+		{
+			statement = conexion.getSQLConexion().prepareStatement(readDNI);
+			statement.setString(1, DNI);
+			resultset = statement.executeQuery();
+			
+			while(resultset.next()) 
+			{
+				Movimientos.add(getMovimiento(resultset));
+			}
+			
+		}
+		catch (Exception e) 
+		{
+			e.printStackTrace();
+		}
+		
+		return Movimientos;
+		
+	}
 	
 	public Movimiento Read(String id) {
 		
@@ -140,13 +173,14 @@ public class DaoMovimiento implements IDaoMovimiento {
 	private Movimiento getMovimiento(ResultSet resultset) throws SQLException
 	{
 		String id = resultset.getString("ID");
+		String dni = resultset.getString("DNI_Usuario");
 		LocalDate Fecha =  resultset.getDate("Fecha").toLocalDate();
 		TipoMovimiento TipoMovi = getTipoMovimiento(resultset.getInt("ID_Tipo_Movimiento"));
 		BigDecimal Importe = resultset.getBigDecimal("Importe");
 		String CuentaOrigen = resultset.getString("Cuenta_Origen");
 		String CuentaDestino = resultset.getString("Cuenta_Destino");
 		
-		return new Movimiento(id, Fecha, TipoMovi, Importe, CuentaOrigen, CuentaDestino);
+		return new Movimiento(id, Fecha, dni, TipoMovi, Importe, CuentaOrigen, CuentaDestino);
 		
 		
 	}

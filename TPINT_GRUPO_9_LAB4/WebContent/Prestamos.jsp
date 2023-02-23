@@ -65,7 +65,6 @@ ArrayList<Prestamo> listaPrestamos = new ArrayList<Prestamo>();
 			  <div class="card-body">
 			    <h5 class="card-title"><%=prest.getImporteInteres()%></h5>
 			    <p class="card-text"><%=prest.getCuentaDestinataria()%></p>
-			    <a href="#" class="btn btn-primary">Pagar</a>
 			  </div>
 			</div>
 			<% 

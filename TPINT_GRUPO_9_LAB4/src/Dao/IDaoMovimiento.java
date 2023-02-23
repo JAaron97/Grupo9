@@ -12,4 +12,6 @@ public interface IDaoMovimiento {
 	public Movimiento Read(String id);
 	
 	public ArrayList<Movimiento> ReadAll();
+	
+	public ArrayList<Movimiento> readDNI(String DNI);
 }

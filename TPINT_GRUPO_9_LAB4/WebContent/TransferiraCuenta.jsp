@@ -15,8 +15,19 @@
 <meta charset="utf-8">
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
+<style>
+.fondo{
+	width: 100%;
+	height: 100hv;
+	background: rgb(34,193,195);
+	background: linear-gradient(0deg, rgba(34,193,195,1) 0%, rgba(177,45,253,1) 100%);
+	background-position: top;
+	background-size: cover;
+	background-repeat: no-repeat;
+}
+</style>
 </head>
-<body>
+<body class="fondo">
 <%
 Usuario user = new Usuario();
 user = (Usuario) session.getAttribute("UsuarioTranferir");
@@ -62,11 +73,9 @@ if(session.getAttribute("Usuario") != null){
 	            Más
 	          </a>
 	          <ul class="dropdown-menu">
-	          <!-- Aca no hay if en el dropdown ya que es un panel que solo le va a ver si estas logeado -->
 				<li><a class="dropdown-item" href="Movimientos.jsp">Movimientos y Transferencias</a></li>
 	            <li><a class="dropdown-item" href="Prestamos.jsp">Prestamos</a></li>
 	            <li><hr class="dropdown-divider"></li>
-	            <li><a class="dropdown-item" href="#">Pedir cuenta bancaria</a></li>
 	            <li><a class="dropdown-item" href="InfoUsuario.jsp">Informacion de Usuario</a></li>
 	          </ul>
 	        </li>

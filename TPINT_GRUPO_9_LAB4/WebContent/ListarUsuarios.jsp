@@ -12,12 +12,28 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <meta charset="utf-8">
+<link rel="stylesheet" type="text/css" href="controladorEstilos.css">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Listar Usuario</title>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+<style>
+body{
+overflow: hidden;
+}
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
 
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+</style>
 </head>
-<body>
+<body class="fondo">
 
 <%
 Usuario user = new Usuario();
@@ -67,18 +83,21 @@ list =  (ArrayList<Usuario>) request.getAttribute("ListaIdUsuarios");
 			<form action="servletBanco" method="post">
 			<p class="text-center">
 			<select name="ddlId">
-			<option value="0">--Seleccionar--</option>
-					    <%
-					    for( Usuario u : list){
-					    %>
-					    <option value="<%=u.getDNI()%>"><%=u.getDNI()%></option>
-					    <%
-					    }
-					    %>
-				</select>  <input type="submit" name ="btnFiltrar" value="Filtrar">
-				</form>
-				<br>
-				
+				<option value="0">--Seleccionar--</option>
+						    <%
+						    for( Usuario u : list){
+						    %>
+						    <option value="<%=u.getDNI()%>"><%=u.getDNI()%></option>
+						    <%
+						    }
+						    %>
+			</select>  <input type="submit" name ="btnFiltrar" value="Filtrar">
+			</form>
+			<br>
+		</div>	
+	</div>
+	<div class="row">
+		<div class="col-sm-8 mx-auto">	
 			<table border="1">
 			<tr> 
 				<th>DNI</th>  

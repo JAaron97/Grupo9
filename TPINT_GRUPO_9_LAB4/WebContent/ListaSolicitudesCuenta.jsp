@@ -10,6 +10,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<link rel="stylesheet" type="text/css" href="controladorEstilos.css">
 <title>Insert title here</title>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
 <style>
@@ -24,7 +25,6 @@
   padding: 8px;
 }
 
-#cliente tr:nth-child(even){background-color: #f2f2f2;}
 
 #cliente tr:hover {background-color: #ddd;}
 
@@ -37,7 +37,7 @@
 }
 </style>
 </head>
-<body>
+<body class="fondo">
 <%
 Usuario user = new Usuario();
 user = (Usuario) session.getAttribute("Usuario");
@@ -66,7 +66,7 @@ ArrayList<SolicitudCuenta> listaSolicitudCuenta = new ArrayList<SolicitudCuenta>
           </a>
           <ul class="dropdown-menu">
              <li><a class="dropdown-item" href="AmblUsuarios.jsp">Ambl Usuarios</a></li>
-	        <li><a class="dropdown-item" href="AsignarCuentas.jsp">Ver cuentas y Solicitudes</a></li>
+	        <li><a class="dropdown-item" href="ListaAsignarCuentas.jsp">Ver cuentas y Solicitudes</a></li>
 	        <li><a class="dropdown-item" href="PrestamosAdmin.jsp">Aceptar/Rechazar Prestamos</a></li>
           </ul>
         </li>

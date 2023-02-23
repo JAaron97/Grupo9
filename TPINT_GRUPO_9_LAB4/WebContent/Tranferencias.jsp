@@ -14,7 +14,7 @@
 <meta charset="utf-8">
 <title>Transferencias</title>
 </head>
-<body>
+<body class="fondo">
 
 <%
 
@@ -57,10 +57,15 @@ user = (Usuario) session.getAttribute("Usuario");
 	</nav>
 	
 	<form method="get" action="servletBanco">
-	
-	<input type="text" placeholder="CBU" name="txtCbu" required>
-	
-	 <input type="submit" value ="Buscar" name="btnBuscar">
+	<div class="container">
+		<div class="row">
+			<div class = "col">
+				<br>
+				<p><input type="text" placeholder="CBU" name="txtCbu" required></p>
+				<p><input type="submit" value ="Buscar" name="btnBuscar"></p>
+			</div>
+		</div>
+	</div>
 	</form>
 	
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
