@@ -87,7 +87,7 @@ if(session.getAttribute("Usuario") != null){
             
             <div class="card-body">
                 <h6 class="mt-2 mb-3">Personal info</h6>
-                
+                <form action="servletBanco" method="get">
             	<table class="table user-view-table m-0">
                 	<tbody>
                 	<tr>
@@ -126,7 +126,7 @@ if(session.getAttribute("Usuario") != null){
                     
                   	</tbody>
                 </table>
-                <form action="servletBanco" method="get">
+                
                 <input type="text" placeholder="Ingrese Monto" name ="txtMonto">
            <input type="submit" value=Continuar  name="btnContinuar" >
            </form>            <input type="submit" value=Volver  name="btnVolver" >

@@ -62,7 +62,7 @@
 			filas = (Boolean)request.getAttribute("Filas");
 			if(filas){
 			%>
-			<p class="text-center">Movimiento con exito+</p>
+			<p class="text-center">Movimiento con exito</p>
 			<%
 			}
 			else{

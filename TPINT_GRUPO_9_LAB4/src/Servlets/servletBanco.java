@@ -13,6 +13,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.sun.org.apache.bcel.internal.generic.NEW;
+
 import Entidad.Cuenta;
 import Entidad.Localidad;
 import Entidad.Movimiento;
@@ -22,6 +24,7 @@ import Entidad.SolicitudCuenta;
 import Entidad.SolicitudPrestamo;
 import Entidad.Telefono;
 import Entidad.TipoCuenta;
+import Entidad.TipoMovimiento;
 import Entidad.Usuario;
 import NegocioImpl.CuentaNegImpl;
 import NegocioImpl.LocalidadesNegImpl;
@@ -31,6 +34,7 @@ import NegocioImpl.NumeroCuotasNegImpl;
 import NegocioImpl.SolicitudCuentaNegImpl;
 import NegocioImpl.SolicitudPrestamoNegImpl;
 import NegocioImpl.TipoCuentaNegImpl;
+import NegocioImpl.TipoMovimientoNegImpl;
 import NegocioImpl.UsuarioNegImpl;
 
 @WebServlet("/servletBanco")
@@ -160,12 +164,16 @@ if(request.getParameter("btnContinuar")!=null){
 			
 			
 			//Probamos si genera el movimiento
-				
-				
+			
+	
+	TipoMovimientoNegImpl negTm = new 	TipoMovimientoNegImpl();
+	ArrayList<TipoMovimiento> listaTipoMovimiento = null;
+	listaTipoMovimiento = negTm.ReadAll();
+
 				MovimientoNegImpl negM = new MovimientoNegImpl();
-				
 				CuentaNegImpl negC= new CuentaNegImpl();
 				ArrayList<Cuenta> Cuentas = new ArrayList<Cuenta>();
+				
 				Cuentas=negC.ReadAll();
 				Movimiento mov = new Movimiento();
 				Cuenta user = new Cuenta();
@@ -184,10 +192,12 @@ if(request.getParameter("btnContinuar")!=null){
 					
 				}
 				
+		
 				String valor =request.getParameter("txtMonto").toString();
 				mov.setID("7");
 				mov.setFecha(LocalDate.now());
-				mov.getTipoMovimiento().setID(4);
+				
+				mov.setTipoMovimiento(negTm.Read(4));
 				mov.setImporte(BigDecimal.valueOf(Double.valueOf(valor)));
 				mov.setNumeroCuentaOrigen(user.getNumeroCuenta());
 				mov.setNumeroCuentaDestino(Destino.getNumeroCuenta());
@@ -663,4 +673,15 @@ if(request.getParameter("btnContinuar")!=null){
 		
 		return tel;
 	}
+	
+	public int getIdTipodemovmiento(ArrayList<TipoMovimiento> listatipomovimientos, HttpServletRequest request) {
+        int idNC = 0;
+        for(TipoMovimiento tm : listatipomovimientos) {
+            if(tm.getDescripcion().equals("Descripcion")) {
+                idNC = tm.getID(); 
+            }
+        }
+        
+        return idNC;
+    }
 }
