@@ -16,6 +16,9 @@
 	float: none; 
 	margin-bottom: 10px; 
 }
+body{
+overflow: hidden;
+}
 </style>
 </head>
 <body>

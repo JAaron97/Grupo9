@@ -5,6 +5,7 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Random;
+import java.math.BigDecimal;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -20,6 +21,7 @@ import Entidad.Localidad;
 import Entidad.Movimiento;
 import Entidad.Nacionalidad;
 import Entidad.NumeroCuotas;
+import Entidad.Prestamo;
 import Entidad.SolicitudCuenta;
 import Entidad.SolicitudPrestamo;
 import Entidad.Telefono;
@@ -31,6 +33,7 @@ import NegocioImpl.LocalidadesNegImpl;
 import NegocioImpl.MovimientoNegImpl;
 import NegocioImpl.NacionalidadNegImpl;
 import NegocioImpl.NumeroCuotasNegImpl;
+import NegocioImpl.PrestamoNegImpl;
 import NegocioImpl.SolicitudCuentaNegImpl;
 import NegocioImpl.SolicitudPrestamoNegImpl;
 import NegocioImpl.TipoCuentaNegImpl;
@@ -160,7 +163,7 @@ public class servletBanco extends HttpServlet {
 			
 		}
 		
-if(request.getParameter("btnContinuar")!=null){
+		if(request.getParameter("btnContinuar")!=null){
 			
 			
 			//Probamos si genera el movimiento
@@ -204,7 +207,7 @@ if(request.getParameter("btnContinuar")!=null){
 				
 				
 				
-				 boolean filas = false;
+				boolean filas = false;
 				
 					 filas = negM.Insert(mov);
 				 
@@ -398,15 +401,13 @@ if(request.getParameter("btnContinuar")!=null){
 			listaNumeroCuotas = negNC.ReadAll();
 			u = (Usuario)request.getSession().getAttribute("Usuario");
 			int importe = Integer.valueOf(request.getParameter("txtImporte"));
-			
-		    
+			    
 			
 			sP.setDNICliente(u.getDNI());
 			sP.setImportePedido(BigDecimal.valueOf(importe));
 			sP.setCuentaDestinataria(request.getParameter("selectCuenta"));
 			sP.setNumeroCuotas(negNC.Read(getIdNumeroCuotas(listaNumeroCuotas, request)));
 			sP.setFecha(java.time.LocalDate.now());
-			
 			
 			boolean insertExitoso = spN.Insert(sP);
 			
@@ -452,10 +453,39 @@ if(request.getParameter("btnContinuar")!=null){
 		
 		if(request.getParameter("btnAceptarPrestamo")!=null) {
 			SolicitudPrestamoNegImpl scPN = new SolicitudPrestamoNegImpl();
+			CuentaNegImpl cN = new CuentaNegImpl();
+			PrestamoNegImpl pN = new PrestamoNegImpl();
+			Cuenta c = new Cuenta();
+			Prestamo p = new Prestamo();
+			SolicitudPrestamo sp = new SolicitudPrestamo();
+			NumeroCuotasNegImpl negNC = new NumeroCuotasNegImpl();
+			ArrayList<NumeroCuotas> listaNumeroCuotas = null;
+			listaNumeroCuotas = negNC.ReadAll();
 			
-			boolean updateExitoso = scPN.UpdateEstado(Integer.parseInt(request.getParameter("IDSolicitud")));		
+			sp = scPN.Read(Integer.parseInt(request.getParameter("IDSolicitud")));
+			
+			p.setCuentaDestinataria(sp.getCuentaDestinataria());
+			p.setDNICliente(sp.getDNICliente());
+			p.setFecha(sp.getFecha());
+			p.setSolicitudPrestamo(sp);
+			p.setImporteInteres(sp.getImportePedido());
+			p.setNumeroCuotas(negNC.Read(getIdNumeroCuotas(listaNumeroCuotas, request)));
+			boolean insertPrestamoexitoso = pN.Insert(p);
+			
+			c = cN.Read(sp.getCuentaDestinataria());
+			
+			
+			BigDecimal nuevoSaldo = c.getSaldo().add(sp.getImportePedido());
+			c.setSaldo(nuevoSaldo);
+			boolean saldoActualizado = cN.Update(c);
+			
+			
+			boolean updateExitoso = scPN.UpdateEstado(Integer.parseInt(request.getParameter("IDSolicitud")));	
+			
 			request.setAttribute("update", updateExitoso);
-			RequestDispatcher rd = request.getRequestDispatcher("/AsignarCuenta.jsp");
+			request.setAttribute("insertPrestamo", insertPrestamoexitoso);
+			request.setAttribute("saldoActualizado", saldoActualizado);
+			RequestDispatcher rd = request.getRequestDispatcher("/PrestamosAdmin.jsp");
 			rd.forward(request, response);
 		}
 		

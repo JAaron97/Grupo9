@@ -10,13 +10,14 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 
 import Dao.IDaoPrestamo;
+import Entidad.NumeroCuotas;
 import Entidad.Prestamo;
 import Entidad.SolicitudPrestamo;
 
 public class DaoPrestamo implements IDaoPrestamo {
 	
-	private static final String insert = "INSERT INTO prestamos (DNI_Usuario, ID_Solicitud_Prestamo, Cuenta_Destinataria, Fecha, Importe_Interes) " + 
-										 " VALUES (?, ?, ?, ?, ?)";
+	private static final String insert = "INSERT INTO prestamos (DNI_Usuario, ID_Solicitud_Prestamo, Cuenta_Destinataria, Fecha, Importe_Interes, ID_Numero_Cuotas) " + 
+										 " VALUES (?, ?, ?, ?, ?, ?)";
 	
 	private static final String update = "UPDATE prestamos SET DNI_Usuario = ? , ID_Solicitud_Prestamo = ?, Cuenta_Destinataria = ?, Fecha = ? , Importe_Interes = ? WHERE ID = ?";
 	
@@ -28,9 +29,11 @@ public class DaoPrestamo implements IDaoPrestamo {
 	
 	private DaoSolicitudPrestamo DSP;
 	
+	private DaoNumeroCuotas DNC;
 	
 	
-public boolean Insert(Prestamo prestamo) {
+	
+	public boolean Insert(Prestamo prestamo) {
 		
 		PreparedStatement statement;
 		Connection conexion = Conexion.getConexion().getSQLConexion();
@@ -46,6 +49,7 @@ public boolean Insert(Prestamo prestamo) {
 			statement.setString(3,prestamo.getCuentaDestinataria());
 			statement.setDate(4,Date.valueOf(prestamo.getFecha()));
 			statement.setBigDecimal(5,prestamo.getImporteInteres());
+			statement.setInt(6, prestamo.getNumeroCuotas().getID());
 			
 			
 			
@@ -212,8 +216,9 @@ public boolean Insert(Prestamo prestamo) {
 		String cuenta = resultset.getString("Cuenta_Destiinataria");
 		LocalDate fecha = resultset.getDate("Fecha").toLocalDate();
 		BigDecimal importe  = resultset.getBigDecimal("Importe_Interes");
+		NumeroCuotas nc = DNC.Read(resultset.getInt("ID_Numero_Cuotas"));
 		
-		return new Prestamo(id, dni, soli, cuenta, fecha, importe);
+		return new Prestamo(id, dni, nc, soli, cuenta, fecha, importe);
 	}
 	
 	private SolicitudPrestamo getSolicitudPrestamo(int id) 

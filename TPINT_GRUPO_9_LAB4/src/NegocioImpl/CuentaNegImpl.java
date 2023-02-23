@@ -31,8 +31,13 @@ public class CuentaNegImpl implements CuentaNeg {
 	}
 
 	@Override
-	public ArrayList<Cuenta> ReadAllxDNI(String DNIUsuario) {
-		return dC.ReadAllxDNI(DNIUsuario);
+	public ArrayList<Cuenta> readAllxDNI(String DNIUsuario) {
+		return dC.readAllxDNI(DNIUsuario);
+	}
+
+	@Override
+	public Cuenta Read(String numeroCuenta) {
+		return dC.Read(numeroCuenta);
 	}
 
 }

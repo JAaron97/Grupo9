@@ -18,7 +18,7 @@ public class DaoSolicitudPrestamo implements IDaoSolicitudPrestamo{
 	private static final String insert = "INSERT INTO solicitud_prestamo ( DNI_Usuario, Importe_Solicitado, ID_Numero_Cuotas, Cuenta_Destinataria, Fecha) " + 
 										 "VALUES (?, ?, ?, ?, ?)";
 	
-	private static final String updateEstado= "UPDATE cuentas SET Estado = 1 WHERE DNI_Usuario = ?";
+	private static final String updateEstado= "UPDATE solicitud_prestamo SET Estado = 1 WHERE ID = ?";
 	
 	private static final String read= "SELECT * FROM solicitud_prestamo WHERE ID = ?";
 	

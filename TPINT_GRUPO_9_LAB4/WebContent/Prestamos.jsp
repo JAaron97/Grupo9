@@ -72,7 +72,7 @@ ArrayList<Prestamo> listaPrestamos = new ArrayList<Prestamo>();
 			}
 			%>
 			<div style="margin: 5rem " class="text-center">
-				<a href="SolicitarPrestamo.jsp">Solicitar un nuevo prestamo</a>
+				<a class="btn btn-primary" href="SolicitarPrestamo.jsp" role="button">Solicitar un nuevo prestamo</a>
 			</div>
 		</div>
 	</div>

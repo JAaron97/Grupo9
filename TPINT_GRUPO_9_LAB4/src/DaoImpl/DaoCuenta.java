@@ -21,12 +21,12 @@ public class DaoCuenta implements IDaoCuenta {
 	
 	private static final String readall= "SELECT * FROM cuentas ";
 	
+	private static final String readxNC= "SELECT * FROM cuentas WHERE Numero_Cuenta = ? ";
+	
 	private static final String insert= "INSERT INTO cuentas (Numero_Cuenta, DNI_Usuario, Fecha_Creacion, ID_Tipo_Cuenta, CBU, Saldo) "
 										+ " VALUES (?, ?, ?, ?, ?, ?)";
 	
-	private static final String update= "UPDATE cuentas SET "
-										+ "DNI_Usuario = ?, Fecha_Creacion = ?, ID_Tipo_Cuenta = ?, CBU = ?, Saldo = ?"
-										+ " WHERE  Numero_Cuenta = ? ";
+	private static final String update= "UPDATE cuentas SET ID_Tipo_Cuenta = ?, Saldo = ? WHERE  Numero_Cuenta = ? ";
 	
 	private static final String delete= "DELETE * FROM cuentas WHERE Numero_Cuenta = ?";
 	
@@ -44,13 +44,10 @@ public class DaoCuenta implements IDaoCuenta {
 		{
 			statement = conexion.prepareStatement(update);
 			
-			statement.setString(1, cuenta.getDNICliente());
-			statement.setDate(2,java.sql.Date.valueOf(cuenta.getFechaCreacion()));
-			statement.setInt(3, cuenta.getTipoCuenta().getID());
-			statement.setString(4, cuenta.getCBU());
-			statement.setBigDecimal(5, cuenta.getSaldo());
+			statement.setInt(1, cuenta.getTipoCuenta().getID());
+			statement.setBigDecimal(2, cuenta.getSaldo());
 			
-			statement.setString(6, cuenta.getNumeroCuenta());
+			statement.setString(3, cuenta.getNumeroCuenta());
 			
 			if(statement.executeUpdate() > 0)
 			{
@@ -74,6 +71,34 @@ public class DaoCuenta implements IDaoCuenta {
 			
 		}
 		return isUpdateExito;
+	}
+	
+	public Cuenta Read(String numeroCuenta) {
+		
+		Cuenta Cuenta = null;
+		
+			PreparedStatement statement;
+			Conexion conexion = Conexion.getConexion();
+			ResultSet resultset;
+			
+			try 
+			{
+				statement = conexion.getSQLConexion().prepareStatement(readxNC);
+				statement.setString(1, numeroCuenta);
+				resultset = statement.executeQuery();
+				
+				while(resultset.next()) 
+				{
+					Cuenta = getCuenta(resultset);
+				}
+			}
+			catch (Exception e) 
+			{
+				e.printStackTrace();
+			}
+			
+			return Cuenta;
+		
 	}
 	
 	public boolean Insert(Cuenta cuenta) {
@@ -178,7 +203,7 @@ public class DaoCuenta implements IDaoCuenta {
 		return cuentas;
 	}
 	
-	public ArrayList<Cuenta> ReadAllxDNI(String DNIUsuario) 
+	public ArrayList<Cuenta> readAllxDNI(String DNIUsuario) 
 	{
 		ArrayList<Cuenta> cuenta = new ArrayList<Cuenta>();
 		

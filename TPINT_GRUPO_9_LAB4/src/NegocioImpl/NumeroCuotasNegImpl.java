@@ -9,7 +9,7 @@ import Negocio.NumeroCuotasNeg;
 
 public class NumeroCuotasNegImpl implements NumeroCuotasNeg {
 
-	IDaoNumeroCuotas DNC = new DaoNumeroCuotas();
+	DaoNumeroCuotas DNC = new DaoNumeroCuotas();
 	
 	public NumeroCuotas Read(int ID) 
 	{

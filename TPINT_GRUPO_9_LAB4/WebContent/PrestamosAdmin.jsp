@@ -87,7 +87,7 @@ ArrayList<SolicitudPrestamo> listaSolicitudPrestamo = new ArrayList<SolicitudPre
 					<td><%=sp.getDNICliente() %></td>
 					<td><%=sp.getFecha() %></td>
 					<td><%=sp.getCuentaDestinataria() %></td>
-					<td><%=sp.getNumeroCuotas() %></td>
+					<td><%=sp.getNumeroCuotas().getDescripcion() %><input type="hidden" value="<%=sp.getNumeroCuotas().getDescripcion() %>" name="NumCuotas"></td>
 					<td><%=sp.getImportePedido() %></td>
 					<%if(sp.getEstado()==0){ %>
 						<td>Sin Aceptar</td>
@@ -109,7 +109,9 @@ ArrayList<SolicitudPrestamo> listaSolicitudPrestamo = new ArrayList<SolicitudPre
 			<%
 			if(request.getAttribute("update")!=null){
 				boolean update = (boolean)request.getAttribute("update");
-				if(update){
+				boolean insertPrestamo = (boolean)request.getAttribute("insertPrestamo");
+				boolean saldoActualizado = (boolean)request.getAttribute("saldoActualizado");
+				if(update&&insertPrestamo&&saldoActualizado){
 					%>
 					<h2 class="text-center">Solicitud Aceptada</h2>
 					<% 

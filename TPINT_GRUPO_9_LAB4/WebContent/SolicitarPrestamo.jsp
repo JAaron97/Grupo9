@@ -16,7 +16,7 @@
 <meta charset="utf-8">
 <title>Solicitar Prestamo</title>
 </head>
-<body>
+<body class="fondo">
 	<%
 Usuario user = new Usuario();
 user = (Usuario) session.getAttribute("Usuario");
@@ -27,7 +27,7 @@ listaNumeroCuotas = dNC.ReadAll();
 
 CuentaNegImpl dC = new CuentaNegImpl();
 ArrayList<Cuenta> listaCuentas = new  ArrayList<Cuenta>();
-listaCuentas = dC.ReadAllxDNI(user.getDNI());
+listaCuentas = dC.readAllxDNI(user.getDNI());
 %>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <div class="container-fluid">
@@ -60,7 +60,7 @@ listaCuentas = dC.ReadAllxDNI(user.getDNI());
 </nav>
 
 <form action="servletBanco" method="post">
-<div class="container fondo">
+<div class="container">
 	<div class="row">
 		<div class="col text-center">
 		<br>

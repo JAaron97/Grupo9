@@ -11,15 +11,17 @@ public class Prestamo {
 	private String CuentaDestinataria;
 	private LocalDate Fecha;
 	private BigDecimal ImporteInteres;
+	private NumeroCuotas NumeroCuotas;
 	
+	public Prestamo() {}
 	
-	
-	public Prestamo(int id,String dnicliente, SolicitudPrestamo solicitudprestamo, String cuentadestinataria,LocalDate fecha, BigDecimal importeinteres) {
+	public Prestamo(int id,String dnicliente, NumeroCuotas NumeroCuotas, SolicitudPrestamo solicitudprestamo, String cuentadestinataria,LocalDate fecha, BigDecimal importeinteres) {
 		
 		
 		this.ID = id;
 		this.DNICliente = dnicliente;
 		this.SolicitudPrestamo = solicitudprestamo;
+		this.NumeroCuotas = NumeroCuotas;
 		this.CuentaDestinataria = cuentadestinataria;
 		this.Fecha = fecha;
 		this.ImporteInteres = importeinteres;
@@ -98,7 +100,13 @@ public class Prestamo {
 		ImporteInteres = importeInteres;
 	}
 
+	public NumeroCuotas getNumeroCuotas() {
+		return NumeroCuotas;
+	}
 
+	public void setNumeroCuotas(NumeroCuotas numeroCuotas) {
+		NumeroCuotas = numeroCuotas;
+	}
 
 	@Override
 	public String toString() {
