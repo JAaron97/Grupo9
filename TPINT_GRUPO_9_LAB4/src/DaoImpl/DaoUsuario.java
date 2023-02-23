@@ -29,12 +29,12 @@ public class DaoUsuario implements IDaoUsuario{
 	
 	private static final String readall = "SELECT * FROM usuarios";
 	
-	private static final String read = "SELECT FROM usuarios WHERE DNI = '?' ";
+	private static final String read = "SELECT * FROM usuarios WHERE DNI = ? ";
 	
 	private static final String update = "UPDATE usuarios SET Nombre = ?, Apellido = ?, ID_Nacionalidades = ? , ID_Localidades = ?, CUIL = ? "
 			+ ", Sexo = ? , Fecha_Nacimiento = ? , Direccion = ? , Mail = ? , ID_Telefonos = ? , Password = ? , Tipo_user = ?  WHERE DNI = ? ";
 	
-	private static final String readcuil = "SELECT FROM usuarios WHERE CUIL = '?' ";
+	private static final String readcuil = "SELECT FROM usuarios WHERE CUIL = ? ";
 	
 	private DaoLocalidad DL;
 	private DaoNacionalidad DN;
@@ -80,7 +80,7 @@ public class DaoUsuario implements IDaoUsuario{
 		{
 			
 			statement = conexion.getSQLConexion().prepareStatement(read);
-			statement.setString(1,DNI);
+			statement.setString(1 ,DNI);
 			resultset = statement.executeQuery();
 			
 			while(resultset.next()) 

@@ -437,7 +437,7 @@ public class servletBanco extends HttpServlet {
 			
 			request.setAttribute("update", updateExitoso);
 			request.setAttribute("User", user);
-			RequestDispatcher rd = request.getRequestDispatcher("/ListaSolicitudCuentas");
+			RequestDispatcher rd = request.getRequestDispatcher("/ListaSolicitudesCuenta.jsp");
 			rd.forward(request, response);
 		}
 		
