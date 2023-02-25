@@ -78,7 +78,7 @@ listaCuenta = dC.ReadAll();
     	<div class="card-body">
         	<h6 class="mt-2 mb-3">Cuentas</h6>
         	
-        	<form action="servletBanco" method="post" name="form">
+        	
         	<table class="table user-view-table m-0">
         		<tbody>
         		<%
@@ -86,8 +86,11 @@ listaCuenta = dC.ReadAll();
         			if(cu.getDNICliente().equals(user.getDNI())){
         		%>
         			<tr>
+        		
+        			
         				<td>Numero de cuenta:</td>
         				<td><%=cu.getNumeroCuenta() %></td>
+        				
         			</tr>
         			<tr>
         				<td>Tipo de Cuenta:</td>
@@ -102,10 +105,16 @@ listaCuenta = dC.ReadAll();
         				<td><%=cu.getSaldo()%></td>
         			</tr>
         			<tr>
-	        			<td>
-		        			<input type="submit" value="Seleccionar cuenta" name="BtnCuenta">
-		        			<input type="hidden" value=<%=cu.getCBU()%> name="txtcbuOrigen">
-	        			</td>
+        			<td>
+        				<form action="servletBanco" method="post" name="form">
+        			<input type="submit" value="Seleccionar cuenta" name="BtnCuenta">
+        			</td>
+        			<td>
+        			<input type="hidden" value=<%=cu.getCBU()%> name="txtcbuOrigen">
+        			</form>
+        			</td>
+        			
+        			
         			</tr>
         			<tr>
         				<td><hr></td>
@@ -116,7 +125,7 @@ listaCuenta = dC.ReadAll();
         		%>
         		</tbody>
         	</table>
-        	</form>		
+        	
 			<%
 				if(request.getAttribute("Filas") != null){
 					boolean filas = false;
