@@ -120,7 +120,7 @@ listaLocalidades =  (ArrayList<Localidad>) request.getAttribute("Localidades");
 			if(request.getAttribute("cantFilas")!=null){
 			boolean filas = false;
 			filas = (Boolean)request.getAttribute("cantFilas");
-			if(filas){
+			if(!filas){
 			%>
 			<p class="text-center">Cliente creado correctamente</p>
 			<%

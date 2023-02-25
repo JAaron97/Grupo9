@@ -351,7 +351,7 @@ public class servletBanco extends HttpServlet {
 			boolean filas = negU.insert(user);
 			
 			request.setAttribute("cantFilas", filas);
-			RequestDispatcher rd = request.getRequestDispatcher("/CrearUsuario.jsp");
+			RequestDispatcher rd = request.getRequestDispatcher("/FinalizarCraeacionUsuario.jsp");
 			rd.forward(request, response);
 		}
 		
@@ -635,10 +635,10 @@ public class servletBanco extends HttpServlet {
 	
 	public String getSexo(HttpServletRequest request) {
 		String sexo = null;
-		if(request.getParameter("Sexo")=="masculino") {
+		if(request.getParameter("Sexo")=="Masculino") {
 			sexo="M";
 		}
-		else if(request.getParameter("Sexo")=="femenino") {
+		else if(request.getParameter("Sexo")=="Femenino") {
 			sexo="F";
 		}
 		else {
