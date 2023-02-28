@@ -432,8 +432,8 @@ public class servletBanco extends HttpServlet {
 			Usuario user = new Usuario();
 			sc = scN.Read(Integer.parseInt(request.getParameter("Solicitud")));
 			user = usN.Read(sc.getDNI_Cliente());
-
-			boolean updateExitoso = scN.UpdateEstado(Integer.parseInt(request.getParameter("Solicitud")));
+///chusmear aca
+			boolean updateExitoso = scN.UpdateEstado(Integer.parseInt(user.getDNI()));
 			
 			request.setAttribute("update", updateExitoso);
 			request.setAttribute("User", user);
