@@ -23,12 +23,12 @@ public class DaoCuenta implements IDaoCuenta {
 	
 	private static final String readxNC= "SELECT * FROM cuentas WHERE Numero_Cuenta = ? ";
 	
-	private static final String insert= "INSERT INTO cuentas (Numero_Cuenta, DNI_Usuario, Fecha_Creacion, ID_Tipo_Cuenta, CBU, Saldo) "
-										+ " VALUES (?, ?, ?, ?, ?, ?)";
+	private static final String insert= "INSERT INTO cuentas (Numero_Cuenta, DNI_Usuario, Fecha_Creacion, ID_Tipo_Cuenta, CBU, Saldo, Estado) "
+										+ " VALUES (?, ?, ?, ?, ?, ?, ?)";
 	
 	private static final String update= "UPDATE cuentas SET ID_Tipo_Cuenta = ?, Saldo = ? WHERE  Numero_Cuenta = ? ";
 	
-	private static final String delete= "DELETE * FROM cuentas WHERE Numero_Cuenta = ?";
+	private static final String delete= "UPDATE cuentas SET Estado = 1 WHERE DNI_Usuario = ?";
 	
 	private DaoTipoCuenta DTC;
 	
@@ -118,6 +118,7 @@ public class DaoCuenta implements IDaoCuenta {
 			statement.setInt(4, cuenta.getTipoCuenta().getID());
 			statement.setString(5,cuenta.getCBU());
 			statement.setBigDecimal(6, cuenta.getSaldo());
+			statement.setInt(7, cuenta.getEstado());
 			
 			if(statement.executeUpdate() > 0)
 			{
@@ -141,7 +142,7 @@ public class DaoCuenta implements IDaoCuenta {
 		return isInsertExito;
 	}
 	
-	public boolean Delete(String NumeroCuenta) 
+	public boolean Delete(String DNI) 
 	{
 		PreparedStatement statement;
 		Connection conexion = Conexion.getConexion().getSQLConexion();
@@ -150,15 +151,14 @@ public class DaoCuenta implements IDaoCuenta {
 		
 		try 
 		{
-				statement = conexion.prepareStatement(delete);
-				statement.setString(1, NumeroCuenta);
-				
-				if(statement.executeUpdate() > 0)
-				{
-					conexion.commit();
-					isDeleteExito= true;
-				}
-				
+			statement = conexion.prepareStatement(delete);
+			statement.setString(1, DNI);
+			
+			if(statement.executeUpdate() > 0)
+			{
+				conexion.commit();
+				isDeleteExito= true;
+			}
 		}
 		catch (Exception e) 
 		{
@@ -242,8 +242,9 @@ public class DaoCuenta implements IDaoCuenta {
 		TipoCuenta tipocuenta = getTipoCuenta(resultset.getInt("ID_Tipo_Cuenta"));
 		String cbu = resultset.getString("CBU");
 		BigDecimal saldo = resultset.getBigDecimal("Saldo");
+		int estado = resultset.getInt("Estado");
 		
-		return new Cuenta(numerocuenta, dniusuario, fecha, tipocuenta, cbu, saldo);
+		return new Cuenta(numerocuenta, dniusuario, fecha, tipocuenta, cbu, saldo, estado);
 	}
 	
 	private TipoCuenta getTipoCuenta(int id) {

@@ -67,7 +67,7 @@ list =  (ArrayList<Usuario>) request.getAttribute("ListaIdUsuarios");
           </a>
           <ul class="dropdown-menu">
             <li><a class="dropdown-item" href="AmblUsuarios.jsp">Ambl Usuarios</a></li>
-	        <li><a class="dropdown-item" href="AsignarCuentas.jsp">Ver cuentas y Solicitudes</a></li>
+	        <li><a class="dropdown-item" href="ListaAsignarCuentas.jsp">Ver cuentas y Solicitudes</a></li>
 	        <li><a class="dropdown-item" href="PrestamosAdmin.jsp">Aceptar/Rechazar Prestamos</a></li>
           </ul>
         </li>
@@ -113,8 +113,8 @@ list =  (ArrayList<Usuario>) request.getAttribute("ListaIdUsuarios");
 				<th>Tipo_user </th>
 			</tr>
 			<% 
-				for( Usuario u : listaUsuarios) 
-				{
+				for( Usuario u : listaUsuarios){
+					if(u.getEstado() == 0){
 			%>
 			<tr>  
 				<td><%=u.getDNI()%> </td>
@@ -130,6 +130,7 @@ list =  (ArrayList<Usuario>) request.getAttribute("ListaIdUsuarios");
 				<td><%=u.getTipoUsuario()%></td>     
 			</tr>
 			<% 
+					}
 			} 
 			%>
 		</table> 	

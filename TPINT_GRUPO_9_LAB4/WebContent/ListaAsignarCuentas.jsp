@@ -93,6 +93,7 @@ ArrayList<Usuario> listaUsuarios = new ArrayList<Usuario>();
 	</tr>
 	<%
 	for(Usuario u : listaUsuarios){
+		if(u.getEstado() == 0){
 	%>
 	<tr>
 	<form name="form" action="servletBanco?idUsuario=<%=u.getDNI()%>" method="post">
@@ -113,6 +114,7 @@ ArrayList<Usuario> listaUsuarios = new ArrayList<Usuario>();
 		</form>
 	</tr>
 	<%
+		}
 	}
 	%>
 </table>

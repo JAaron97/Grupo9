@@ -9,7 +9,7 @@ public boolean Insert(Cuenta cuenta);
 	
 	public boolean Update(Cuenta cuenta);
 	
-	public boolean Delete(String NumeroCuenta);
+	public boolean Delete(String DNI);
 	
 	public ArrayList<Cuenta> ReadAll();
 	

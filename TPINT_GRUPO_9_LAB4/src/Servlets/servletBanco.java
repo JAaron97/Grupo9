@@ -325,20 +325,20 @@ public class servletBanco extends HttpServlet {
 			UsuarioNegImpl nU = new UsuarioNegImpl();
 			ArrayList<Usuario> usuarios = new ArrayList<Usuario>();
 			usuarios = (ArrayList<Usuario>) nU.readAll();
-			String aux = request.getParameter("idUsuario").toString();
-			System.out.println(aux);
+			CuentaNegImpl cN = new CuentaNegImpl();
 			for(Usuario user : usuarios) {
 				if(user.getDNI().equals(request.getParameter("idUsuario")) ) {
 					nU.Delete(user);
+					cN.Delete(user.getDNI());
 				}
 			}
 			
-		     ArrayList<Usuario> lista= usuarios;
-				request.setAttribute("listaUsu", lista);
+			usuarios = (ArrayList<Usuario>) nU.readAll();
+		    ArrayList<Usuario> lista= usuarios;
+			request.setAttribute("listaUsu", lista);
 				
-				RequestDispatcher  rd = request.getRequestDispatcher("/EliminarUsuarios.jsp");
-		        rd.forward(request, response);
-			
+			RequestDispatcher  rd = request.getRequestDispatcher("/EliminarUsuarios.jsp");
+		    rd.forward(request, response);
 		}
 		
 		if(request.getParameter("btnCrear")!=null) {
@@ -629,6 +629,7 @@ public class servletBanco extends HttpServlet {
 		user.setTelefono(cargarTelefonos(tel, request));
 		user.setPassword(request.getParameter("txtPassword"));
 		user.setTipoUsuario(0);
+		user.setEstado(0);
 		
 		return user;
 	}

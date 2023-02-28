@@ -73,7 +73,7 @@ if(session.getAttribute("Usuario") != null){
 	            Más
 	          </a>
 	          <ul class="dropdown-menu">
-				<li><a class="dropdown-item" href="Movimientos.jsp">Movimientos y Transferencias</a></li>
+				<li><a class="dropdown-item" href="Movimientos.jsp">Movimientos</a></li>
 	            <li><a class="dropdown-item" href="Prestamos.jsp">Prestamos</a></li>
 	            <li><hr class="dropdown-divider"></li>
 	            <li><a class="dropdown-item" href="InfoUsuario.jsp">Informacion de Usuario</a></li>

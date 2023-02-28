@@ -34,6 +34,34 @@ public class Nacionalidad {
 		return ID + " - " + Descripcion;
 	}
 
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((Descripcion == null) ? 0 : Descripcion.hashCode());
+		result = prime * result + ID;
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Nacionalidad other = (Nacionalidad) obj;
+		if (Descripcion == null) {
+			if (other.Descripcion != null)
+				return false;
+		} else if (!Descripcion.equals(other.Descripcion))
+			return false;
+		if (ID != other.ID)
+			return false;
+		return true;
+	}
+
 	
 	
 	

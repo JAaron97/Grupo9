@@ -23,9 +23,9 @@ import Entidad.Usuario;
 public class DaoUsuario implements IDaoUsuario{
 	
 	private static final String insert = "INSERT INTO usuarios(DNI, Nombre, Apellido, ID_Nacionalidades, ID_Localidades, CUIL, Sexo,"
-			+ " Fecha_Nacimiento, Direccion, Mail, ID_Telefonos, Password, Tipo_user) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+			+ " Fecha_Nacimiento, Direccion, Mail, ID_Telefonos, Password, Tipo_user, Estado) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 	
-	private static final String delete = "DELETE FROM usuarios WHERE DNI = ? ";
+	private static final String delete = "UPDATE usuarios SET Estado = 1 WHERE DNI = ?";
 	
 	private static final String readall = "SELECT * FROM usuarios";
 	
@@ -125,6 +125,7 @@ public class DaoUsuario implements IDaoUsuario{
 			statement.setInt(11, id_tel);
 			statement.setString(12,User.getPassword());
 			statement.setInt(13,User.getTipoUsuario());
+			statement.setInt(14, User.getEstado());
 			
 			if(statement.executeUpdate() > 0 )
 			{
@@ -260,7 +261,9 @@ public class DaoUsuario implements IDaoUsuario{
 		
 		int Tipo_Usuario = resultSet.getInt("Tipo_user");
 		
-		return new Usuario(DNI, Nombre, Apellido, Nacionalidad, Localidad, CUIL, Sexo, Nacimiento, Direccion, Mail, Telefono, Password, Tipo_Usuario);
+		int estado = resultSet.getInt("Estado");
+		
+		return new Usuario(DNI, Nombre, Apellido, Nacionalidad, Localidad, CUIL, Sexo, Nacimiento, Direccion, Mail, Telefono, Password, estado, Tipo_Usuario);
 		 
 	}
 	

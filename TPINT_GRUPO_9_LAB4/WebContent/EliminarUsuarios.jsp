@@ -83,7 +83,7 @@ ArrayList<Usuario> list = new  ArrayList<Usuario>();
           </a>
           <ul class="dropdown-menu">
           <li><a class="dropdown-item" href="AmblUsuarios.jsp">Ambl Usuarios</a></li>
-	        <li><a class="dropdown-item" href="AsignarCuentas.jsp">Ver cuentas y Solicitudes</a></li>
+	        <li><a class="dropdown-item" href="ListaAsignarCuentas.jsp">Ver cuentas y Solicitudes</a></li>
 	        <li><a class="dropdown-item" href="PrestamosAdmin.jsp">Aceptar/Rechazar Prestamos</a></li>
           </ul>
         </li>
@@ -112,8 +112,8 @@ ArrayList<Usuario> list = new  ArrayList<Usuario>();
 					<th></th>
 				</tr>
 				<% 
-					for( Usuario u : listaUsuarios) 
-					{
+					for( Usuario u : listaUsuarios) {
+						if(u.getEstado() == 0){
 				%>
 				<tr>  
 					<form name="formulario" action="servletBanco?idUsuario=<%=u.getDNI()%>" method="post">
@@ -131,7 +131,9 @@ ArrayList<Usuario> list = new  ArrayList<Usuario>();
 				     <td> <input type="submit" name="btnEliminar2" value="Eliminar"> </td>  
 		   			</form>     
 				</tr>
-				<%  } 
+				<%  
+						}
+				} 
 	 			%>
 			</table> 	
 			<% 

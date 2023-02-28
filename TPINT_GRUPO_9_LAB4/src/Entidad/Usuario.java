@@ -17,6 +17,7 @@ public class Usuario {
 		private String Mail;
 		private Telefono Telefono;
 		private String Password;
+		private int Estado;
 		private int TipoUsuario;
 		
 	public Usuario() {}
@@ -24,7 +25,7 @@ public class Usuario {
 	public Usuario(String dni, String nombre, String apellido,
 			Nacionalidad nacionalidad, Localidad localidad, String cuil,
 			String sexo, LocalDate nacimiento, String direccion, String mail,
-			Telefono telefono,String password,int tipo_usuario) {
+			Telefono telefono,String password, int estado, int tipo_usuario) {
 			
 		
 		this.DNI = dni;
@@ -40,6 +41,7 @@ public class Usuario {
 		this.Telefono = telefono;
 		this.Password = password;
 		this.TipoUsuario = tipo_usuario;
+		this.Estado = estado;
 			
 	}
 	
@@ -198,9 +200,15 @@ public class Usuario {
 	public void setTipoUsuario(int tipo_Usuario) {
 		TipoUsuario = tipo_Usuario;
 	}
-	
-	
-	
+
+	public int getEstado() {
+		return Estado;
+	}
+
+	public void setEstado(int estado) {
+		Estado = estado;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -209,6 +217,7 @@ public class Usuario {
 		result = prime * result + ((CUIL == null) ? 0 : CUIL.hashCode());
 		result = prime * result + ((DNI == null) ? 0 : DNI.hashCode());
 		result = prime * result + ((Direccion == null) ? 0 : Direccion.hashCode());
+		result = prime * result + Estado;
 		result = prime * result + ((Localidad == null) ? 0 : Localidad.hashCode());
 		result = prime * result + ((Mail == null) ? 0 : Mail.hashCode());
 		result = prime * result + ((Nacimiento == null) ? 0 : Nacimiento.hashCode());
@@ -220,8 +229,6 @@ public class Usuario {
 		result = prime * result + TipoUsuario;
 		return result;
 	}
-
-
 
 	@Override
 	public boolean equals(Object obj) {
@@ -251,6 +258,8 @@ public class Usuario {
 			if (other.Direccion != null)
 				return false;
 		} else if (!Direccion.equals(other.Direccion))
+			return false;
+		if (Estado != other.Estado)
 			return false;
 		if (Localidad == null) {
 			if (other.Localidad != null)
@@ -296,22 +305,4 @@ public class Usuario {
 			return false;
 		return true;
 	}
-
-
-
-	@Override
-	public String toString() {
-		return DNI + "-" + Nombre + "-" + Apellido + "-" + Nacionalidad + "-" + Localidad + "-" + CUIL + "-" + Sexo + "-" + Nacimiento + "-" + Direccion + "-" + Mail + "-" + Telefono + "-" + Password + "-" + TipoUsuario;
-	}
-
-
-
-	
-	
-	
-	
-	
-	
-	
-
 }

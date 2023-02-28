@@ -21,8 +21,8 @@ public class CuentaNegImpl implements CuentaNeg {
 	}
 
 	@Override
-	public boolean Delete(String NumeroCuenta) {
-		return dC.Delete(NumeroCuenta);
+	public boolean Delete(String DNI) {
+		return dC.Delete(DNI);
 	}
 
 	@Override

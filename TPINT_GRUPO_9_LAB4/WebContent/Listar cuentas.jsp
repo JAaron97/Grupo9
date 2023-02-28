@@ -69,7 +69,7 @@ list =  (ArrayList<Cuenta>) request.getAttribute("Listacuentas");
           </a>
           <ul class="dropdown-menu">
              <li><a class="dropdown-item" href="AmblUsuarios.jsp">Ambl Usuarios</a></li>
-	        <li><a class="dropdown-item" href="AsignarCuentas.jsp">Ver cuentas y Solicitudes</a></li>
+	        <li><a class="dropdown-item" href="ListaAsignarCuentas.jsp">Ver cuentas y Solicitudes</a></li>
 	        <li><a class="dropdown-item" href="PrestamosAdmin.jsp">Aceptar/Rechazar Prestamos</a></li>
           </ul>
         </li>
@@ -89,6 +89,7 @@ list =  (ArrayList<Cuenta>) request.getAttribute("Listacuentas");
 	</tr>
 	<% 
 	for( Cuenta c : list){
+		if(c.getEstado()==0){
 	%>
 	<tr>  
 		<td><%=c.getNumeroCuenta()%> </td>
@@ -99,6 +100,7 @@ list =  (ArrayList<Cuenta>) request.getAttribute("Listacuentas");
 		<td><%=c.getSaldo()%></td> 
 	</tr>
 	<% 
+		}
 	} 
 	%>
 </table> 

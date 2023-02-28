@@ -36,9 +36,8 @@ public class UsuarioNegImpl implements UsuarioNeg{
 
 
 	@Override
-	public boolean Delete(Usuario Usuario) {
-		// TODO Auto-generated method stub
-		return daoUser.Delete(Usuario);
+	public boolean Delete(Usuario usuario) {
+		return daoUser.Delete(usuario);
 	}
 
 	

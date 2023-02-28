@@ -11,10 +11,11 @@ public class Cuenta {
 	private TipoCuenta TipoCuenta;
 	private String CBU;
 	private BigDecimal Saldo;
+	private int Estado;
 	
 	public Cuenta() {}
 	
-	public Cuenta(String numerocuenta ,String dnicliente ,LocalDate fechacreacion, TipoCuenta tipocuenta, String cbu , BigDecimal saldo) {
+	public Cuenta(String numerocuenta ,String dnicliente ,LocalDate fechacreacion, TipoCuenta tipocuenta, String cbu , BigDecimal saldo, int estado) {
 		
 		this.NumeroCuenta = numerocuenta;
 		this.DNICliente = dnicliente;
@@ -22,7 +23,7 @@ public class Cuenta {
 		this.TipoCuenta = tipocuenta;
 		this.CBU = cbu;
 		this.Saldo = saldo;
-		
+		this.Estado = estado;
 	}
 
 	public String getNumeroCuenta() {
@@ -77,12 +78,12 @@ public class Cuenta {
 	public String toString() {
 		return NumeroCuenta + " - " + DNICliente + " - " + FechaCreacion + " - " + TipoCuenta + " - " + CBU + " - " + Saldo;
 	}
-	
-	
-	
-	
-	
-	
-	
 
+	public int getEstado() {
+		return Estado;
+	}
+
+	public void setEstado(int estado) {
+		Estado = estado;
+	}
 }

@@ -71,7 +71,7 @@ if(session.getAttribute("Usuario") != null){
 	            <%
 					if(!sesionIniciada){
 				%>
-	            <li><a class="dropdown-item" href="IniciarSesion.jsp">Movimientos y Transferencias</a></li>
+	            <li><a class="dropdown-item" href="IniciarSesion.jsp">Movimientos</a></li>
 	            <li><a class="dropdown-item" href="IniciarSesion.jsp">Prestamos</a></li>
 	            <li><hr class="dropdown-divider"></li>
 	            <li><a class="dropdown-item" href="IniciarSesion.jsp">Informacion de Usuario</a></li>
@@ -86,7 +86,7 @@ if(session.getAttribute("Usuario") != null){
 					}
 					else{
 				%>
-				<li><a class="dropdown-item" href="Movimientos.jsp">Movimientos y Transferencias</a></li>
+				<li><a class="dropdown-item" href="Movimientos.jsp">Movimientos</a></li>
 	            <li><a class="dropdown-item" href="Prestamos.jsp">Prestamos</a></li>
 	            <li><hr class="dropdown-divider"></li>
 	            <li><a class="dropdown-item" href="InfoUsuario.jsp">Informacion de Usuario</a></li>
