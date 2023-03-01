@@ -31,6 +31,17 @@ body{
 <%
 Usuario user = new Usuario();
 user = (Usuario) session.getAttribute("Usuario");
+String usersex="";
+
+if(user.getSexo().equals("0")){
+	usersex = "Masculino";
+}
+if(user.getSexo().equals("1")){
+	usersex = "Femenino";
+}
+if(user.getSexo().equals("2")){
+	usersex = "Sin Genero";
+}
 
 CuentaNegImpl dC = new CuentaNegImpl();
 ArrayList<Cuenta> listaCuenta = new  ArrayList<Cuenta>();
@@ -189,7 +200,7 @@ listaCuenta = dC.ReadAll();
                     	</tr>
                     	<tr>
                     		<td>Sexo:</td>
-                    		<td><%= user.getSexo() %></td>
+                    		<td><%= usersex %></td>
                     	</tr>
                     	<tr>
                     		<td>Direccion:</td>

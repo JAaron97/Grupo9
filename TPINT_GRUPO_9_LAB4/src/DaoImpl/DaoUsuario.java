@@ -267,6 +267,8 @@ public class DaoUsuario implements IDaoUsuario{
 		 
 	}
 	
+	
+	
 	private Nacionalidad getNacionalidad(int id) {
 		
 		this.DN = new DaoNacionalidad();

@@ -637,13 +637,13 @@ public class servletBanco extends HttpServlet {
 	public String getSexo(HttpServletRequest request) {
 		String sexo = null;
 		if(request.getParameter("Sexo")=="Masculino") {
-			sexo="M";
+			sexo="0";
 		}
 		else if(request.getParameter("Sexo")=="Femenino") {
-			sexo="F";
+			sexo="1";
 		}
 		else {
-			sexo="X";
+			sexo="2";
 		}
 		return sexo;
 	}
