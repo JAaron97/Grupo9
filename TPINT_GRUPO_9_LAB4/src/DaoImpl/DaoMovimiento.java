@@ -10,7 +10,6 @@ import java.util.ArrayList;
 
 import Dao.IDaoMovimiento;
 import Entidad.Movimiento;
-import Entidad.Prestamo;
 import Entidad.TipoMovimiento;
 
 public class DaoMovimiento implements IDaoMovimiento {

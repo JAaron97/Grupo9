@@ -1,8 +1,6 @@
 package NegocioImpl;
 
 import java.util.ArrayList;
-
-import Dao.IDaoNumeroCuotas;
 import DaoImpl.DaoNumeroCuotas;
 import Entidad.NumeroCuotas;
 import Negocio.NumeroCuotasNeg;
