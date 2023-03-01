@@ -1,30 +1,31 @@
 
-INSERT INTO `provincias` (`id`, `Descripcion`) VALUES
+INSERT INTO `Provincias` (`Descripcion`) VALUES
+('Buenos Aires'),
+('Buenos Aires-GBA'),
+('Capital Federal'),
+('Catamarca'),
+('Chaco'),
+('Chubut'),
+('Córdoba'),
+('Corrientes'),
+('Entre Ríos'),
+('Formosa'),
+('Jujuy'),
+('La Pampa'),
+('La Rioja'),
+('Mendoza'),
+('Misiones'),
+('Neuquén'),
+('Río Negro'),
+('Salta'),
+('San Juan'),
+('San Luis'),
+('Santa Cruz'),
+('Santa Fe'),
+('Santiago del Estero'),
+('Tierra del Fuego'),
+('Tucumán');
 
-(2, 'Buenos Aires-GBA'),
-(3, 'Capital Federal'),
-(4, 'Catamarca'),
-(5, 'Chaco'),
-(6, 'Chubut'),
-(7, 'Córdoba'),
-(8, 'Corrientes'),
-(9, 'Entre Ríos'),
-(10, 'Formosa'),
-(11, 'Jujuy'),
-(12, 'La Pampa'),
-(13, 'La Rioja'),
-(14, 'Mendoza'),
-(15, 'Misiones'),
-(16, 'Neuquén'),
-(17, 'Río Negro'),
-(18, 'Salta'),
-(19, 'San Juan'),
-(20, 'San Luis'),
-(21, 'Santa Cruz'),
-(22, 'Santa Fe'),
-(23, 'Santiago del Estero'),
-(24, 'Tierra del Fuego'),
-(25, 'Tucumán');
 
 
 INSERT INTO `Localidades` (`ID_Provincia`, `Descripcion`) VALUES
@@ -2100,7 +2101,7 @@ INSERT INTO `Localidades` (`ID_Provincia`, `Descripcion`) VALUES
 (22, 'Oliveros'),
 (22, 'Palacios'),
 (22, 'Pavón'),
-(22, 'Pavón Arriba'),
+(22, 'Pavón Arriba');
 (22, 'Pedro Gómez Cello'),
 (22, 'Pérez'),
 (22, 'Peyrano'),
@@ -2412,44 +2413,44 @@ INSERT INTO `Localidades` (`ID_Provincia`, `Descripcion`) VALUES
 (25, 'Yerba Buena (S)');
 
 
-INSERT INTO `nacionalidades` (`id`, `Descripcion`) VALUES
+INSERT INTO 'Nacionalidades' ('Descripcion') VALUES
 
-(1,'Afganistán'),
-(2,'Albania'),
-(3,'Alemania'),
-(4,'Andorra'),
-(5,'Angola'),
-(6,'Antigua y Barbuda'),
-(7,'Arabia Saudita'),
-(8,'Argelia'),
-(9,'Argentina'),
-(10,'Armenia'),
-(11,'Aruba'),
-(12,'Australia'),
-(13,'Austria'),
-(14,'Azerbaiyán'),
-(15,'Bahamas'),
-(16,'Bangladés'),
-(17,'Barbados'),
-(18,'Baréin'),
-(19,'Bélgica'),
-(20,'Belice'),
-(21,'Benín'),
-(22,'Bielorrusia'),
-(23,'Birmania'),
-(24,'Bolivia'),
-(25,'Bosnia y Herzegovina'),
-(26,'Botsuana'),
-(27,'Brasil'),
-(28,'Brunéi'),
-(29,'Bulgaria'),
-(30,'Burkina Faso'),
-(31,'Burundi'),
-(32,'Bután'),
-(33,'Cabo Verde'),
-(34,'Camboya'),
-(35,'Camerún'),
-(36,'Canadá'),
+('Afganistán'),
+('Albania'),
+('Alemania'),
+('Andorra'),
+('Angola'),
+('Antigua y Barbuda'),
+('Arabia Saudita'),
+('Argelia'),
+('Argentina'),
+('Armenia'),
+('Aruba'),
+('Australia'),
+('Austria'),
+('Azerbaiyán'),
+('Bahamas'),
+('Bangladés'),
+('Barbados'),
+('Baréin'),
+('Bélgica'),
+('Belice'),
+('Benín'),
+('Bielorrusia'),
+('Birmania'),
+('Bolivia'),
+('Bosnia y Herzegovina'),
+('Botsuana'),
+('Brasil'),
+('Brunéi'),
+('Bulgaria'),
+('Burkina Faso'),
+('Burundi'),
+('Bután'),
+('Cabo Verde'),
+('Camboya'),
+('Camerún'),
+('Canadá'),
 ('Catar'),
 ('Chad'),
 ('Chile'),
@@ -2615,23 +2616,21 @@ INSERT INTO `nacionalidades` (`id`, `Descripcion`) VALUES
 ('Yibuti');
 
 
-INSERT INTO `tipo_cuentas`  (`Descripcion`) VALUES
+INSERT INTO 'Tipo_Cuentas' ('Descripcion') VALUES
 ('Caja de ahorro'),
 ('Cuenta corriente');
 
-INSERT INTO `tipo_movimientos` (`Descripcion`) VALUES
+INSERT INTO 'Tipo_Movimientos' ('Descripcion') VALUES
 ('Alta de cuenta'),
 ('Alta de un préstamo'),
 ('Pago de préstamo'),
 ('Transferencia');
 
 
-INSERT INTO `Numero_Cuotas`(`Descripcion`) VALUES
+INSERT INTO 'Numero_Cuotas' ('Descripcion') VALUES
 ('6 Cuotas'),
 ('12 Cuotas'),
 ('18 Cuotas'),
 ('24 Cuotas');
 
-INSERT INTO `telefonos` (`telefono_1`, `telefono_2`, `telefono_3`, `telefono_4`) VALUES(123,123445, 774361, 73918); 
 
-INSERT INTO `usuarios` (`DNI`,`nombre`,`apellido`,`ID_nacionalidades`,`id_localidades`,`cuil`,`sexo`,`fecha_nacimiento`,`direccion`,`mail`,`id_telefonos`,`password`,`tipo_user`) VAlUES('12345', 'Jose', 'Gauna', '9', '177', '54321', '0', '2003-04-22', 'Libertad', 'blablabla@gmail.com', '1', 'password', '1')
