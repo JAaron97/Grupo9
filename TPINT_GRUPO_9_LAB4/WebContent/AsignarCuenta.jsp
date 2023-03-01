@@ -15,7 +15,7 @@
 <title>Asignar Cuenta</title>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
 </head>
-<body>
+<body class="fondo">
 <%
 Usuario user = new Usuario();
 TipoCuenta tCuenta = new TipoCuenta();
@@ -69,7 +69,7 @@ if(request.getAttribute("update")!=null){
 }
 %>
 
-<div class="container fondo">
+<div class="container">
 	<div class="row">
 		<div class="col">
 			<form action="servletBanco" method="post">

@@ -61,10 +61,11 @@ ArrayList<Prestamo> listaPrestamos = new ArrayList<Prestamo>();
 			for(Prestamo prest : listaPrestamos){
 			%>
 			<div class="card">
-			  <h5 class="card-header"><%=prest.getFecha() %></h5>
+			  <h5 class="card-header">Fecha: <%=prest.getFecha() %></h5>
 			  <div class="card-body">
-			    <h5 class="card-title"><%=prest.getImporteInteres()%></h5>
-			    <p class="card-text"><%=prest.getCuentaDestinataria()%></p>
+			    <h5 class="card-title">Importe: <%=prest.getImporteInteres()%></h5>
+			    <p class="card-text">Numero de cuenta: <%=prest.getCuentaDestinataria()%></p>
+			    <p class="card-text"><input type="submit" name="btnPagar" value="Pagar"></p>
 			  </div>
 			</div>
 			<% 

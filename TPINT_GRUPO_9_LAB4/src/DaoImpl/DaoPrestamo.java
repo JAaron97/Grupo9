@@ -213,10 +213,10 @@ public class DaoPrestamo implements IDaoPrestamo {
 		int id  = resultset.getInt("ID");
 		String dni = resultset.getString("DNI_Usuario");
 		SolicitudPrestamo soli = getSolicitudPrestamo(resultset.getInt("ID_Solicitud_Prestamo"));
-		String cuenta = resultset.getString("Cuenta_Destiinataria");
+		String cuenta = resultset.getString("Cuenta_Destinataria");
 		LocalDate fecha = resultset.getDate("Fecha").toLocalDate();
 		BigDecimal importe  = resultset.getBigDecimal("Importe_Interes");
-		NumeroCuotas nc = DNC.Read(resultset.getInt("ID_Numero_Cuotas"));
+		NumeroCuotas nc = getNumeroCuotas(resultset.getInt("ID_Numero_Cuotas"));
 		
 		return new Prestamo(id, dni, nc, soli, cuenta, fecha, importe);
 	}
@@ -229,5 +229,11 @@ public class DaoPrestamo implements IDaoPrestamo {
 		
 		
 	}
-
+	
+	private NumeroCuotas getNumeroCuotas(int id) {
+		
+		this.DNC = new DaoNumeroCuotas();
+		
+		return DNC.Read(id);
+	}
 }
