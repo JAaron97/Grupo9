@@ -2101,7 +2101,7 @@ INSERT INTO `Localidades` (`ID_Provincia`, `Descripcion`) VALUES
 (22, 'Oliveros'),
 (22, 'Palacios'),
 (22, 'Pavón'),
-(22, 'Pavón Arriba');
+(22, 'Pavón Arriba'),
 (22, 'Pedro Gómez Cello'),
 (22, 'Pérez'),
 (22, 'Peyrano'),
@@ -2413,7 +2413,7 @@ INSERT INTO `Localidades` (`ID_Provincia`, `Descripcion`) VALUES
 (25, 'Yerba Buena (S)');
 
 
-INSERT INTO 'Nacionalidades' ('Descripcion') VALUES
+INSERT INTO `Nacionalidades` (`Descripcion`) VALUES
 
 ('Afganistán'),
 ('Albania'),
@@ -2616,21 +2616,21 @@ INSERT INTO 'Nacionalidades' ('Descripcion') VALUES
 ('Yibuti');
 
 
-INSERT INTO 'Tipo_Cuentas' ('Descripcion') VALUES
+INSERT INTO `Tipo_Cuentas` (`Descripcion`) VALUES
 ('Caja de ahorro'),
 ('Cuenta corriente');
 
-INSERT INTO 'Tipo_Movimientos' ('Descripcion') VALUES
+INSERT INTO `Tipo_Movimientos` (`Descripcion`) VALUES
 ('Alta de cuenta'),
 ('Alta de un préstamo'),
 ('Pago de préstamo'),
 ('Transferencia');
 
 
-INSERT INTO 'Numero_Cuotas' ('Descripcion') VALUES
+INSERT INTO `Numero_Cuotas` (`Descripcion`) VALUES
 ('6 Cuotas'),
 ('12 Cuotas'),
 ('18 Cuotas'),
-('24 Cuotas');
+('24 Cuotas');telefonos
 
 
