@@ -918,14 +918,14 @@ public class servletBanco extends HttpServlet {
 	}
 	
 	public String getSexo(HttpServletRequest request) {
-		String sexo = null;
-		if(request.getParameter("Sexo")=="Masculino") {
+		String sexo = null ;
+		if(request.getParameter("Sexo").equals("masculino")) {
 			sexo="0";
 		}
-		else if(request.getParameter("Sexo")=="Femenino") {
+		else if(request.getParameter("Sexo").equals("femenino")) {
 			sexo="1";
 		}
-		else {
+		else{
 			sexo="2";
 		}
 		return sexo;
