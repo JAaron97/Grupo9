@@ -91,18 +91,24 @@ ArrayList<Prestamo> listaPrestamos = new ArrayList<Prestamo>();
 				boolean filasmov = (boolean)request.getAttribute("FilasMovimiento");
 				boolean saldoAct = (boolean)request.getAttribute("saldoActualizado");
 				boolean cuoPag = (boolean)request.getAttribute("cuoPagActualizadas");
-				boolean estado = (boolean)request.getAttribute("estadoActualizado");
 				boolean insertCuota= (boolean)request.getAttribute("insertCuota");
 				if(filasmov&&saldoAct&&cuoPag&&request.getAttribute("estadoActualizado")==null){
 					%>
 					<h2 class="text-center">Cuota pagada exitosamente</h2>
 					<%
 				}
-				else if(filasmov&&saldoAct&&cuoPag&&estado){
+			}
+			if(request.getAttribute("FilasMovimiento")!=null&&request.getAttribute("saldoActualizado")!=null&&request.getAttribute("cuoPagActualizadas")!=null&&request.getAttribute("insertCuota")!=null&&request.getAttribute("estadoActualizado")!=null){
+				boolean filasmov = (boolean)request.getAttribute("FilasMovimiento");
+				boolean saldoAct = (boolean)request.getAttribute("saldoActualizado");
+				boolean estado = (boolean)request.getAttribute("estadoActualizado");
+				boolean cuoPag = (boolean)request.getAttribute("cuoPagActualizadas");
+				boolean insertCuota= (boolean)request.getAttribute("insertCuota");
+				if(filasmov&&saldoAct&&cuoPag&&request.getAttribute("estadoActualizado")==null){
 					%>
 					<h2 class="text-center">Prestamo pagado exitosamente</h2>
 					<%
-				}
+				}	
 			}
 			%>
 			<div style="margin: 5rem " class="text-center">

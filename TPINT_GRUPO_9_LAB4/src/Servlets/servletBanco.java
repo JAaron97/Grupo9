@@ -744,7 +744,12 @@ public class servletBanco extends HttpServlet {
 					request.setAttribute("saldoActualizado", saldoActualizado2);
 					request.setAttribute("cuoPagActualizadas", cuoPagActualizadas);
 					RequestDispatcher rd = request.getRequestDispatcher("/Prestamos.jsp");
+					try {
 					rd.forward(request, response);
+					}
+					catch(NullPointerException e) {
+						e.printStackTrace();
+					}
 				}
 				else {
 					boolean estadoActualizado = pN.UpdateEstado(p.getID());
