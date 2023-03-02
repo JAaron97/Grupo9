@@ -90,11 +90,14 @@ ArrayList<SolicitudCuenta> listaSolicitudCuenta = new ArrayList<SolicitudCuenta>
 		<td><%=sc.getID() %></td>
 		<td><%=sc.getDNI_Cliente() %></td>
 		<td><%=sc.getFechaSolicitud() %></td>
-		<td><%=sc.getEstadoSolicitud() %></td>
+		<%if(sc.getEstadoSolicitud()==1) {%>
+		<td>Aceptado</td>
+		<%} else{ %>
 		<td><input type="submit" name="btnAceptarSolicitud" value="Aceptar solicitud"></td>
 	</form>
 	</tr>
 	<%
+	}
 	}
 	%>
 </table>

@@ -13,7 +13,7 @@ public class Conexion {
 		try
 		{
 			Class.forName("com.mysql.jdbc.Driver");
-			this.connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/tpint_grupo_x_lab4?useUnicode=yes&characterEncoding=UTF-8&useSSL=false","root","root");
+			this.connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/tpint_grupo_x_lab4?useUnicode=yes&characterEncoding=UTF-8&useSSL=false","root","Root");
 			this.connection.setAutoCommit(false);
 		}
 		catch(Exception e)

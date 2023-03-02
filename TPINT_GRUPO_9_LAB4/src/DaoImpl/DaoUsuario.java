@@ -158,23 +158,41 @@ public class DaoUsuario implements IDaoUsuario{
 	{
 		PreparedStatement statement;
 		Connection conexion = Conexion.getConexion().getSQLConexion();
-		boolean isdeleteExitoso = false;
+		boolean isUpdateExito = false;
 		try 
 		{
+			
 			statement = conexion.prepareStatement(delete);
-			statement.setString(1, usuario.getDNI());
-			if(statement.executeUpdate() > 0)
+			
+			statement.setString(1,usuario.getDNI());
+			
+			
+			if(statement.executeUpdate() > 0 )
 			{
 				conexion.commit();
-				isdeleteExitoso = true;
+				isUpdateExito = true;
 			}
-		} 
-		catch (SQLException e) 
+			
+			
+		}
+		catch (Exception e) 
 		{
 			e.printStackTrace();
+			
+			try 
+			{
+				conexion.rollback();
+			} 
+			catch (SQLException e1) 
+			{
+				e1.printStackTrace();
+			}
 		}
-		return isdeleteExitoso;
+		
+		return isUpdateExito;
 	}
+	
+	
 	
 	public boolean Update(Usuario user) 
 	{

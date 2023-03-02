@@ -86,9 +86,11 @@ list =  (ArrayList<Usuario>) request.getAttribute("ListaIdUsuarios");
 				<option value="0">--Seleccionar--</option>
 						    <%
 						    for( Usuario u : list){
+						    	if(u.getTipoUsuario()==0){
 						    %>
 						    <option value="<%=u.getDNI()%>"><%=u.getDNI()%></option>
 						    <%
+						    }
 						    }
 						    %>
 			</select>  <input type="submit" name ="btnFiltrar" value="Filtrar">
