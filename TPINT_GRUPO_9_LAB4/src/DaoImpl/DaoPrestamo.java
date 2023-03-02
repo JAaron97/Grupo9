@@ -21,6 +21,10 @@ public class DaoPrestamo implements IDaoPrestamo {
 	
 	private static final String update = "UPDATE prestamos SET DNI_Usuario = ? , ID_Solicitud_Prestamo = ?, Cuenta_Destinataria = ?, Fecha = ? , Importe_Interes = ? WHERE ID = ?";
 	
+	private static final String updateCuotasPagadas = "UPDATE prestamos SET Cuotas_Pagadas = ? WHERE ID = ?";
+	
+	private static final String updateEstado = "UPDATE prestamos SET Estado = 1 WHERE ID = ?";
+	
 	private static final String  read = "SELECT * FROM prestamos WHERE ID = ?";
 	
 	private static final String readDNI = "SELECT * FROM prestamos WHERE DNI_Usuario = ?";
@@ -94,6 +98,85 @@ public class DaoPrestamo implements IDaoPrestamo {
 			statement.setBigDecimal(5,prestamo.getImporteInteres());
 			
 			statement.setInt(6,prestamo.getID());
+			
+			if(statement.executeUpdate() > 0)
+			{
+				conexion.commit();
+				isUpdateExito = true;
+			}
+			
+			
+		}
+		catch (Exception e) 
+		{
+			e.printStackTrace();
+			
+			try 
+			{
+				conexion.rollback();
+			} 
+			catch (SQLException e1) 
+			{
+				e1.printStackTrace();
+			}
+			
+		}
+		return isUpdateExito;
+		
+	}
+	
+	public boolean UpdateCuotasPagadas(int cuotasPagadas, int ID) 
+	{
+		PreparedStatement statement;
+		Connection conexion = Conexion.getConexion().getSQLConexion();
+		
+		boolean isUpdateExito = false;
+		
+		try 
+		{
+			statement = conexion.prepareStatement(updateCuotasPagadas);
+			
+			statement.setInt(1, cuotasPagadas);
+			statement.setInt(2, ID);
+			
+			if(statement.executeUpdate() > 0)
+			{
+				conexion.commit();
+				isUpdateExito = true;
+			}
+			
+			
+		}
+		catch (Exception e) 
+		{
+			e.printStackTrace();
+			
+			try 
+			{
+				conexion.rollback();
+			} 
+			catch (SQLException e1) 
+			{
+				e1.printStackTrace();
+			}
+			
+		}
+		return isUpdateExito;
+		
+	}
+	
+	public boolean UpdateEstado(int id) 
+	{
+		PreparedStatement statement;
+		Connection conexion = Conexion.getConexion().getSQLConexion();
+		
+		boolean isUpdateExito = false;
+		
+		try 
+		{
+			statement = conexion.prepareStatement(updateEstado);
+			
+			statement.setInt(1, id);
 			
 			if(statement.executeUpdate() > 0)
 			{
@@ -217,8 +300,10 @@ public class DaoPrestamo implements IDaoPrestamo {
 		LocalDate fecha = resultset.getDate("Fecha").toLocalDate();
 		BigDecimal importe  = resultset.getBigDecimal("Importe_Interes");
 		NumeroCuotas nc = getNumeroCuotas(resultset.getInt("ID_Numero_Cuotas"));
+		int estado = resultset.getInt("Estado");
+		int cuop = resultset.getInt("Cuotas_Pagadas");
 		
-		return new Prestamo(id, dni, nc, soli, cuenta, fecha, importe);
+		return new Prestamo(id, dni, nc, soli, cuenta, fecha, importe, cuop, estado);
 	}
 	
 	private SolicitudPrestamo getSolicitudPrestamo(int id) 

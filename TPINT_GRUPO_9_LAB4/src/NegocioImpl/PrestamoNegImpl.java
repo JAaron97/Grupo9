@@ -34,5 +34,12 @@ public class PrestamoNegImpl implements PrestamoNeg{
 	public ArrayList<Prestamo> readDNI(String DNI) {
 		return dP.readDNI(DNI);
 	}
-
+	
+	public boolean UpdateCuotasPagadas(int cuotasPagadas, int ID) {
+		return dP.UpdateCuotasPagadas(cuotasPagadas, ID);
+	}
+	
+	public boolean UpdateEstado(int id) {
+		return dP.UpdateEstado(id);
+	}
 }

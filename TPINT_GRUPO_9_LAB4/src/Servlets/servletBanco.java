@@ -2,6 +2,7 @@ package Servlets;
 
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Random;
@@ -15,6 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 
 
 import Entidad.Cuenta;
+import Entidad.Cuota;
 import Entidad.Localidad;
 import Entidad.Movimiento;
 import Entidad.Nacionalidad;
@@ -27,6 +29,7 @@ import Entidad.TipoCuenta;
 import Entidad.TipoMovimiento;
 import Entidad.Usuario;
 import NegocioImpl.CuentaNegImpl;
+import NegocioImpl.CuotaNegImpl;
 import NegocioImpl.LocalidadesNegImpl;
 import NegocioImpl.MovimientoNegImpl;
 import NegocioImpl.NacionalidadNegImpl;
@@ -536,6 +539,7 @@ public class servletBanco extends HttpServlet {
 			}
 	
 		}
+		
 		if(request.getParameter("btnBuscar")!=null) {
 			CuentaNegImpl nC = new CuentaNegImpl();
 			ArrayList<Cuenta> cuenta = new ArrayList<Cuenta>();
@@ -558,13 +562,287 @@ public class servletBanco extends HttpServlet {
 						}
 					}
 				}
-				
 			}
-			
 		}
 		
-		
-		
+		if(request.getParameter("btnPagar")!=null) {
+			PrestamoNegImpl pN = new PrestamoNegImpl();
+			MovimientoNegImpl mN = new MovimientoNegImpl();
+			TipoMovimientoNegImpl tmN = new TipoMovimientoNegImpl();
+			Movimiento mov = new Movimiento();
+			Cuota cuo = new Cuota();
+			CuotaNegImpl cuoN = new CuotaNegImpl();
+			CuentaNegImpl cN = new CuentaNegImpl();
+			Cuenta c = new Cuenta();
+			Prestamo p = new Prestamo();
+			
+			p = pN.Read(Integer.parseInt(request.getParameter("idPrestamo")));
+			c = cN.Read(p.getCuentaDestinataria());
+			
+			int idcuo = p.getNumeroCuotas().getID();
+			/*
+			pagarPrestamo(request, response, idcuo, cuo, cuoN, pN, mN, tmN, mov, cN, c, p);
+			*/
+			switch(idcuo) {
+			case 1:
+				BigDecimal cuota = p.getImporteInteres().divide(BigDecimal.valueOf(6), RoundingMode.HALF_EVEN);
+				BigDecimal nuevoSaldo = c.getSaldo().subtract(cuota);
+				c.setSaldo(nuevoSaldo);
+				boolean saldoActualizado = cN.Update(c);
+				
+				
+				if(p.getCuotasPagadas()<5){
+					int cantidad = p.getCuotasPagadas()+1;
+					p.setCuotasPagadas(cantidad);
+					boolean cuoPagActualizadas = pN.UpdateCuotasPagadas(cantidad, p.getID());
+					mov.setFecha(LocalDate.now());
+					mov.setDNIUsuario(p.getDNICliente());
+					mov.setTipoMovimiento(tmN.Read(3));
+					mov.setImporte(cuota);
+					mov.setNumeroCuentaOrigen(p.getCuentaDestinataria());
+					mov.setNumeroCuentaDestino("0000");
+					boolean filasmov = false;		
+					filasmov = mN.Insert(mov);
+					
+					cuo.setIDPrestamo(p.getID());
+					cuo.setFecha(LocalDate.now());
+					cuo.setImporte(cuota);
+					cuo.setEstadoPago(1);
+					boolean insertCuota = false;
+					insertCuota = cuoN.Insert(cuo);
+						 
+					request.setAttribute("insertCuota", insertCuota);
+					request.setAttribute("FilasMovimiento", filasmov);
+					request.setAttribute("saldoActualizado", saldoActualizado);
+					request.setAttribute("cuoPagActualizadas", cuoPagActualizadas);
+					RequestDispatcher rd = request.getRequestDispatcher("/Prestamos.jsp");
+					rd.forward(request, response);
+				}
+				else {
+					boolean estadoActualizado = pN.UpdateEstado(p.getID());
+					int cantidad = p.getCuotasPagadas()+1;
+					p.setCuotasPagadas(cantidad);
+					boolean cuoPagActualizadas = pN.UpdateCuotasPagadas(cantidad, p.getID());
+					mov.setFecha(LocalDate.now());
+					mov.setDNIUsuario(p.getDNICliente());
+					mov.setTipoMovimiento(tmN.Read(3));
+					mov.setImporte(cuota);
+					mov.setNumeroCuentaOrigen(p.getCuentaDestinataria());
+					mov.setNumeroCuentaDestino("0000");
+					boolean filas = false;		
+					filas = mN.Insert(mov);
+					
+					cuo.setIDPrestamo(p.getID());
+					cuo.setFecha(LocalDate.now());
+					cuo.setImporte(cuota);
+					cuo.setEstadoPago(1);
+					boolean insertCuota = false;
+					insertCuota = cuoN.Insert(cuo);
+						 
+					request.setAttribute("insertCuota", insertCuota);	 	 
+					request.setAttribute("FilasMovimiento", filas);
+					request.setAttribute("saldoActualizado", saldoActualizado);
+					request.setAttribute("cuoPagActualizadas", cuoPagActualizadas);
+					request.setAttribute("estadoActualizado", estadoActualizado);
+					RequestDispatcher rd = request.getRequestDispatcher("/Prestamos.jsp");
+					rd.forward(request, response);
+				}
+				
+				break;
+			case 2:
+				BigDecimal cuota1 = p.getImporteInteres().divide(BigDecimal.valueOf(12), RoundingMode.HALF_EVEN);
+				BigDecimal nuevoSaldo1 = c.getSaldo().subtract(cuota1);
+				c.setSaldo(nuevoSaldo1);
+				boolean saldoActualizado1 = cN.Update(c);
+				
+				if(p.getCuotasPagadas()<11){
+					int cantidad = p.getCuotasPagadas()+1;
+					p.setCuotasPagadas(cantidad);
+					boolean cuoPagActualizadas = pN.UpdateCuotasPagadas(cantidad, p.getID());
+					mov.setFecha(LocalDate.now());
+					mov.setDNIUsuario(p.getDNICliente());
+					mov.setTipoMovimiento(tmN.Read(3));
+					mov.setImporte(cuota1);
+					mov.setNumeroCuentaOrigen(p.getCuentaDestinataria());
+					mov.setNumeroCuentaDestino("0000");
+					boolean filas = false;		
+					filas = mN.Insert(mov);
+					
+					cuo.setIDPrestamo(p.getID());
+					cuo.setFecha(LocalDate.now());
+					cuo.setImporte(cuota1);
+					cuo.setEstadoPago(1);
+					boolean insertCuota = false;
+					insertCuota = cuoN.Insert(cuo);
+						 
+					request.setAttribute("insertCuota", insertCuota);	 				 
+					request.setAttribute("FilasMovimiento", filas);
+					request.setAttribute("saldoActualizado", saldoActualizado1);
+					request.setAttribute("cuoPagActualizadas", cuoPagActualizadas);
+					RequestDispatcher rd = request.getRequestDispatcher("/Prestamos.jsp");
+					rd.forward(request, response);
+				}
+				else {
+					boolean estadoActualizado = pN.UpdateEstado(p.getID());
+					int cantidad = p.getCuotasPagadas()+1;
+					p.setCuotasPagadas(cantidad);
+					boolean cuoPagActualizadas = pN.UpdateCuotasPagadas(cantidad, p.getID());
+					mov.setFecha(LocalDate.now());
+					mov.setDNIUsuario(p.getDNICliente());
+					mov.setTipoMovimiento(tmN.Read(3));
+					mov.setImporte(cuota1);
+					mov.setNumeroCuentaOrigen(p.getCuentaDestinataria());
+					mov.setNumeroCuentaDestino("0000");
+					boolean filas = false;		
+					filas = mN.Insert(mov);
+					
+					cuo.setIDPrestamo(p.getID());
+					cuo.setFecha(LocalDate.now());
+					cuo.setImporte(cuota1);
+					cuo.setEstadoPago(1);
+					boolean insertCuota = false;
+					insertCuota = cuoN.Insert(cuo);
+						 
+					request.setAttribute("insertCuota", insertCuota); 
+					request.setAttribute("FilasMovimiento", filas);
+					request.setAttribute("saldoActualizado", saldoActualizado1);
+					request.setAttribute("cuoPagActualizadas", cuoPagActualizadas);
+					request.setAttribute("estadoActualizado", estadoActualizado);
+					RequestDispatcher rd = request.getRequestDispatcher("/Prestamos.jsp");
+					rd.forward(request, response);
+				}
+				
+				break;
+			case 3:
+				BigDecimal cuota2 = p.getImporteInteres().divide(BigDecimal.valueOf(18), RoundingMode.HALF_EVEN);
+				BigDecimal nuevoSaldo2 = c.getSaldo().subtract(cuota2);
+				c.setSaldo(nuevoSaldo2);
+				boolean saldoActualizado2 = cN.Update(c);
+				
+				if(p.getCuotasPagadas()<17){
+					int cantidad = p.getCuotasPagadas()+1;
+					p.setCuotasPagadas(cantidad);
+					boolean cuoPagActualizadas = pN.UpdateCuotasPagadas(cantidad, p.getID());
+					mov.setFecha(LocalDate.now());
+					mov.setDNIUsuario(p.getDNICliente());
+					mov.setTipoMovimiento(tmN.Read(3));
+					mov.setImporte(cuota2);
+					mov.setNumeroCuentaOrigen(p.getCuentaDestinataria());
+					mov.setNumeroCuentaDestino("0000");
+					boolean filas = false;		
+					filas = mN.Insert(mov);
+					
+					cuo.setIDPrestamo(p.getID());
+					cuo.setFecha(LocalDate.now());
+					cuo.setImporte(cuota2);
+					cuo.setEstadoPago(1);
+					boolean insertCuota = false;
+					insertCuota = cuoN.Insert(cuo);
+						 
+					request.setAttribute("insertCuota", insertCuota);	 	 
+					request.setAttribute("FilasMovimiento", filas);
+					request.setAttribute("saldoActualizado", saldoActualizado2);
+					request.setAttribute("cuoPagActualizadas", cuoPagActualizadas);
+					RequestDispatcher rd = request.getRequestDispatcher("/Prestamos.jsp");
+					rd.forward(request, response);
+				}
+				else {
+					boolean estadoActualizado = pN.UpdateEstado(p.getID());
+					int cantidad = p.getCuotasPagadas()+1;
+					p.setCuotasPagadas(cantidad);
+					boolean cuoPagActualizadas = pN.UpdateCuotasPagadas(cantidad, p.getID());
+					mov.setFecha(LocalDate.now());
+					mov.setDNIUsuario(p.getDNICliente());
+					mov.setTipoMovimiento(tmN.Read(3));
+					mov.setImporte(cuota2);
+					mov.setNumeroCuentaOrigen(p.getCuentaDestinataria());
+					mov.setNumeroCuentaDestino("0000");
+					boolean filas = false;		
+					filas = mN.Insert(mov);
+					
+					cuo.setIDPrestamo(p.getID());
+					cuo.setFecha(LocalDate.now());
+					cuo.setImporte(cuota2);
+					cuo.setEstadoPago(1);
+					boolean insertCuota = false;
+					insertCuota = cuoN.Insert(cuo);
+						 
+					request.setAttribute("insertCuota", insertCuota);	  
+					request.setAttribute("FilasMovimiento", filas);
+					request.setAttribute("saldoActualizado", saldoActualizado2);
+					request.setAttribute("cuoPagActualizadas", cuoPagActualizadas);
+					request.setAttribute("estadoActualizado", estadoActualizado);
+					RequestDispatcher rd = request.getRequestDispatcher("/Prestamos.jsp");
+					rd.forward(request, response);
+				}
+				
+				break;
+			case 4:
+				BigDecimal cuota3 = p.getImporteInteres().divide(BigDecimal.valueOf(24), RoundingMode.HALF_EVEN);
+				BigDecimal nuevoSaldo3 = c.getSaldo().subtract(cuota3);
+				c.setSaldo(nuevoSaldo3);
+				boolean saldoActualizado3 = cN.Update(c);
+				
+				if(p.getCuotasPagadas()<23){
+					int cantidad = p.getCuotasPagadas()+1;
+					p.setCuotasPagadas(cantidad);
+					boolean cuoPagActualizadas = pN.UpdateCuotasPagadas(cantidad, p.getID());
+					mov.setFecha(LocalDate.now());
+					mov.setDNIUsuario(p.getDNICliente());
+					mov.setTipoMovimiento(tmN.Read(3));
+					mov.setImporte(cuota3);
+					mov.setNumeroCuentaOrigen(p.getCuentaDestinataria());
+					mov.setNumeroCuentaDestino("0000");
+					boolean filas = false;		
+					filas = mN.Insert(mov);
+					
+					cuo.setIDPrestamo(p.getID());
+					cuo.setFecha(LocalDate.now());
+					cuo.setImporte(cuota3);
+					cuo.setEstadoPago(1);
+					boolean insertCuota = false;
+					insertCuota = cuoN.Insert(cuo);
+						 
+					request.setAttribute("insertCuota", insertCuota);	 	 
+					request.setAttribute("FilasMovimiento", filas);
+					request.setAttribute("saldoActualizado", saldoActualizado3);
+					request.setAttribute("cuoPagActualizadas", cuoPagActualizadas);
+					RequestDispatcher rd = request.getRequestDispatcher("/Prestamos.jsp");
+					rd.forward(request, response);
+				}
+				else {
+					boolean estadoActualizado = pN.UpdateEstado(p.getID());
+					int cantidad = p.getCuotasPagadas()+1;
+					p.setCuotasPagadas(cantidad);
+					boolean cuoPagActualizadas = pN.UpdateCuotasPagadas(cantidad, p.getID());
+					mov.setFecha(LocalDate.now());
+					mov.setDNIUsuario(p.getDNICliente());
+					mov.setTipoMovimiento(tmN.Read(3));
+					mov.setImporte(cuota3);
+					mov.setNumeroCuentaOrigen(p.getCuentaDestinataria());
+					mov.setNumeroCuentaDestino("0000");
+					boolean filas = false;		
+					filas = mN.Insert(mov);
+					
+					cuo.setIDPrestamo(p.getID());
+					cuo.setFecha(LocalDate.now());
+					cuo.setImporte(cuota3);
+					cuo.setEstadoPago(1);
+					boolean insertCuota = false;
+					insertCuota = cuoN.Insert(cuo);
+						 
+					request.setAttribute("insertCuota", insertCuota);	 	 
+					request.setAttribute("FilasMovimiento", filas);
+					request.setAttribute("saldoActualizado", saldoActualizado3);
+					request.setAttribute("cuoPagActualizadas", cuoPagActualizadas);
+					request.setAttribute("estadoActualizado", estadoActualizado);
+					RequestDispatcher rd = request.getRequestDispatcher("/Prestamos.jsp");
+					rd.forward(request, response);
+				}
+				
+				break;
+			}
+		}
 	}
 		
 	public RequestDispatcher loginUsuario( ArrayList<Usuario> usuarios , HttpServletRequest request) {
@@ -707,3 +985,267 @@ public class servletBanco extends HttpServlet {
         return idNC;
     }
 }
+	/*
+	public void pagarPrestamo(HttpServletRequest request, HttpServletResponse response, int idcuo, Cuota cuo, CuotaNegImpl cuoN, PrestamoNegImpl pN, MovimientoNegImpl mN, TipoMovimientoNegImpl tmN, Movimiento mov, CuentaNegImpl cN, Cuenta c, Prestamo p) throws ServletException, IOException{
+		switch(idcuo) {
+		case 1:
+			BigDecimal cuota = p.getImporteInteres().divide(BigDecimal.valueOf(6), RoundingMode.HALF_EVEN);
+			BigDecimal nuevoSaldo = c.getSaldo().subtract(cuota);
+			c.setSaldo(nuevoSaldo);
+			boolean saldoActualizado = cN.Update(c);
+			
+			
+			if(p.getCuotasPagadas()<5){
+				int cantidad = p.getCuotasPagadas()+1;
+				p.setCuotasPagadas(cantidad);
+				boolean cuoPagActualizadas = pN.UpdateCuotasPagadas(cantidad, p.getID());
+				mov.setFecha(LocalDate.now());
+				mov.setDNIUsuario(p.getDNICliente());
+				mov.setTipoMovimiento(tmN.Read(3));
+				mov.setImporte(cuota);
+				mov.setNumeroCuentaOrigen(p.getCuentaDestinataria());
+				mov.setNumeroCuentaDestino("0000");
+				boolean filasmov = false;		
+				filasmov = mN.Insert(mov);
+				
+				cuo.setIDPrestamo(p.getID());
+				cuo.setFecha(LocalDate.now());
+				cuo.setImporte(cuota);
+				cuo.setEstadoPago(1);
+				boolean insertCuota = false;
+				insertCuota = cuoN.Insert(cuo);
+					 
+				request.setAttribute("insertCuota", insertCuota);
+				request.setAttribute("FilasMovimiento", filasmov);
+				request.setAttribute("saldoActualizado", saldoActualizado);
+				request.setAttribute("cuoPagActualizadas", cuoPagActualizadas);
+				RequestDispatcher rd = request.getRequestDispatcher("/Prestamos.jsp");
+				rd.forward(request, response);
+			}
+			else {
+				boolean estadoActualizado = pN.UpdateEstado(p.getID());
+				int cantidad = p.getCuotasPagadas()+1;
+				p.setCuotasPagadas(cantidad);
+				boolean cuoPagActualizadas = pN.UpdateCuotasPagadas(cantidad, p.getID());
+				mov.setFecha(LocalDate.now());
+				mov.setDNIUsuario(p.getDNICliente());
+				mov.setTipoMovimiento(tmN.Read(3));
+				mov.setImporte(cuota);
+				mov.setNumeroCuentaOrigen(p.getCuentaDestinataria());
+				mov.setNumeroCuentaDestino("0000");
+				boolean filas = false;		
+				filas = mN.Insert(mov);
+				
+				cuo.setIDPrestamo(p.getID());
+				cuo.setFecha(LocalDate.now());
+				cuo.setImporte(cuota);
+				cuo.setEstadoPago(1);
+				boolean insertCuota = false;
+				insertCuota = cuoN.Insert(cuo);
+					 
+				request.setAttribute("insertCuota", insertCuota);	 	 
+				request.setAttribute("FilasMovimiento", filas);
+				request.setAttribute("saldoActualizado", saldoActualizado);
+				request.setAttribute("cuoPagActualizadas", cuoPagActualizadas);
+				request.setAttribute("estadoActualizado", estadoActualizado);
+				RequestDispatcher rd = request.getRequestDispatcher("/Prestamos.jsp");
+				rd.forward(request, response);
+			}
+			
+			break;
+		case 2:
+			BigDecimal cuota1 = p.getImporteInteres().divide(BigDecimal.valueOf(12), RoundingMode.HALF_EVEN);
+			BigDecimal nuevoSaldo1 = c.getSaldo().subtract(cuota1);
+			c.setSaldo(nuevoSaldo1);
+			boolean saldoActualizado1 = cN.Update(c);
+			
+			if(p.getCuotasPagadas()<11){
+				int cantidad = p.getCuotasPagadas()+1;
+				p.setCuotasPagadas(cantidad);
+				boolean cuoPagActualizadas = pN.UpdateCuotasPagadas(cantidad, p.getID());
+				mov.setFecha(LocalDate.now());
+				mov.setDNIUsuario(p.getDNICliente());
+				mov.setTipoMovimiento(tmN.Read(3));
+				mov.setImporte(cuota1);
+				mov.setNumeroCuentaOrigen(p.getCuentaDestinataria());
+				mov.setNumeroCuentaDestino("0000");
+				boolean filas = false;		
+				filas = mN.Insert(mov);
+				
+				cuo.setIDPrestamo(p.getID());
+				cuo.setFecha(LocalDate.now());
+				cuo.setImporte(cuota1);
+				cuo.setEstadoPago(1);
+				boolean insertCuota = false;
+				insertCuota = cuoN.Insert(cuo);
+					 
+				request.setAttribute("insertCuota", insertCuota);	 				 
+				request.setAttribute("FilasMovimiento", filas);
+				request.setAttribute("saldoActualizado", saldoActualizado1);
+				request.setAttribute("cuoPagActualizadas", cuoPagActualizadas);
+				RequestDispatcher rd = request.getRequestDispatcher("/Prestamos.jsp");
+				rd.forward(request, response);
+			}
+			else {
+				boolean estadoActualizado = pN.UpdateEstado(p.getID());
+				int cantidad = p.getCuotasPagadas()+1;
+				p.setCuotasPagadas(cantidad);
+				boolean cuoPagActualizadas = pN.UpdateCuotasPagadas(cantidad, p.getID());
+				mov.setFecha(LocalDate.now());
+				mov.setDNIUsuario(p.getDNICliente());
+				mov.setTipoMovimiento(tmN.Read(3));
+				mov.setImporte(cuota1);
+				mov.setNumeroCuentaOrigen(p.getCuentaDestinataria());
+				mov.setNumeroCuentaDestino("0000");
+				boolean filas = false;		
+				filas = mN.Insert(mov);
+				
+				cuo.setIDPrestamo(p.getID());
+				cuo.setFecha(LocalDate.now());
+				cuo.setImporte(cuota1);
+				cuo.setEstadoPago(1);
+				boolean insertCuota = false;
+				insertCuota = cuoN.Insert(cuo);
+					 
+				request.setAttribute("insertCuota", insertCuota); 
+				request.setAttribute("FilasMovimiento", filas);
+				request.setAttribute("saldoActualizado", saldoActualizado1);
+				request.setAttribute("cuoPagActualizadas", cuoPagActualizadas);
+				request.setAttribute("estadoActualizado", estadoActualizado);
+				RequestDispatcher rd = request.getRequestDispatcher("/Prestamos.jsp");
+				rd.forward(request, response);
+			}
+			
+			break;
+		case 3:
+			BigDecimal cuota2 = p.getImporteInteres().divide(BigDecimal.valueOf(18), RoundingMode.HALF_EVEN);
+			BigDecimal nuevoSaldo2 = c.getSaldo().subtract(cuota2);
+			c.setSaldo(nuevoSaldo2);
+			boolean saldoActualizado2 = cN.Update(c);
+			
+			if(p.getCuotasPagadas()<17){
+				int cantidad = p.getCuotasPagadas()+1;
+				p.setCuotasPagadas(cantidad);
+				boolean cuoPagActualizadas = pN.UpdateCuotasPagadas(cantidad, p.getID());
+				mov.setFecha(LocalDate.now());
+				mov.setDNIUsuario(p.getDNICliente());
+				mov.setTipoMovimiento(tmN.Read(3));
+				mov.setImporte(cuota2);
+				mov.setNumeroCuentaOrigen(p.getCuentaDestinataria());
+				mov.setNumeroCuentaDestino("0000");
+				boolean filas = false;		
+				filas = mN.Insert(mov);
+				
+				cuo.setIDPrestamo(p.getID());
+				cuo.setFecha(LocalDate.now());
+				cuo.setImporte(cuota2);
+				cuo.setEstadoPago(1);
+				boolean insertCuota = false;
+				insertCuota = cuoN.Insert(cuo);
+					 
+				request.setAttribute("insertCuota", insertCuota);	 	 
+				request.setAttribute("FilasMovimiento", filas);
+				request.setAttribute("saldoActualizado", saldoActualizado2);
+				request.setAttribute("cuoPagActualizadas", cuoPagActualizadas);
+				RequestDispatcher rd = request.getRequestDispatcher("/Prestamos.jsp");
+				rd.forward(request, response);
+			}
+			else {
+				boolean estadoActualizado = pN.UpdateEstado(p.getID());
+				int cantidad = p.getCuotasPagadas()+1;
+				p.setCuotasPagadas(cantidad);
+				boolean cuoPagActualizadas = pN.UpdateCuotasPagadas(cantidad, p.getID());
+				mov.setFecha(LocalDate.now());
+				mov.setDNIUsuario(p.getDNICliente());
+				mov.setTipoMovimiento(tmN.Read(3));
+				mov.setImporte(cuota2);
+				mov.setNumeroCuentaOrigen(p.getCuentaDestinataria());
+				mov.setNumeroCuentaDestino("0000");
+				boolean filas = false;		
+				filas = mN.Insert(mov);
+				
+				cuo.setIDPrestamo(p.getID());
+				cuo.setFecha(LocalDate.now());
+				cuo.setImporte(cuota2);
+				cuo.setEstadoPago(1);
+				boolean insertCuota = false;
+				insertCuota = cuoN.Insert(cuo);
+					 
+				request.setAttribute("insertCuota", insertCuota);	  
+				request.setAttribute("FilasMovimiento", filas);
+				request.setAttribute("saldoActualizado", saldoActualizado2);
+				request.setAttribute("cuoPagActualizadas", cuoPagActualizadas);
+				request.setAttribute("estadoActualizado", estadoActualizado);
+				RequestDispatcher rd = request.getRequestDispatcher("/Prestamos.jsp");
+				rd.forward(request, response);
+			}
+			
+			break;
+		case 4:
+			BigDecimal cuota3 = p.getImporteInteres().divide(BigDecimal.valueOf(24), RoundingMode.HALF_EVEN);
+			BigDecimal nuevoSaldo3 = c.getSaldo().subtract(cuota3);
+			c.setSaldo(nuevoSaldo3);
+			boolean saldoActualizado3 = cN.Update(c);
+			
+			if(p.getCuotasPagadas()<23){
+				int cantidad = p.getCuotasPagadas()+1;
+				p.setCuotasPagadas(cantidad);
+				boolean cuoPagActualizadas = pN.UpdateCuotasPagadas(cantidad, p.getID());
+				mov.setFecha(LocalDate.now());
+				mov.setDNIUsuario(p.getDNICliente());
+				mov.setTipoMovimiento(tmN.Read(3));
+				mov.setImporte(cuota3);
+				mov.setNumeroCuentaOrigen(p.getCuentaDestinataria());
+				mov.setNumeroCuentaDestino("0000");
+				boolean filas = false;		
+				filas = mN.Insert(mov);
+				
+				cuo.setIDPrestamo(p.getID());
+				cuo.setFecha(LocalDate.now());
+				cuo.setImporte(cuota3);
+				cuo.setEstadoPago(1);
+				boolean insertCuota = false;
+				insertCuota = cuoN.Insert(cuo);
+					 
+				request.setAttribute("insertCuota", insertCuota);	 	 
+				request.setAttribute("FilasMovimiento", filas);
+				request.setAttribute("saldoActualizado", saldoActualizado3);
+				request.setAttribute("cuoPagActualizadas", cuoPagActualizadas);
+				RequestDispatcher rd = request.getRequestDispatcher("/Prestamos.jsp");
+				rd.forward(request, response);
+			}
+			else {
+				boolean estadoActualizado = pN.UpdateEstado(p.getID());
+				int cantidad = p.getCuotasPagadas()+1;
+				p.setCuotasPagadas(cantidad);
+				boolean cuoPagActualizadas = pN.UpdateCuotasPagadas(cantidad, p.getID());
+				mov.setFecha(LocalDate.now());
+				mov.setDNIUsuario(p.getDNICliente());
+				mov.setTipoMovimiento(tmN.Read(3));
+				mov.setImporte(cuota3);
+				mov.setNumeroCuentaOrigen(p.getCuentaDestinataria());
+				mov.setNumeroCuentaDestino("0000");
+				boolean filas = false;		
+				filas = mN.Insert(mov);
+				
+				cuo.setIDPrestamo(p.getID());
+				cuo.setFecha(LocalDate.now());
+				cuo.setImporte(cuota3);
+				cuo.setEstadoPago(1);
+				boolean insertCuota = false;
+				insertCuota = cuoN.Insert(cuo);
+					 
+				request.setAttribute("insertCuota", insertCuota);	 	 
+				request.setAttribute("FilasMovimiento", filas);
+				request.setAttribute("saldoActualizado", saldoActualizado3);
+				request.setAttribute("cuoPagActualizadas", cuoPagActualizadas);
+				request.setAttribute("estadoActualizado", estadoActualizado);
+				RequestDispatcher rd = request.getRequestDispatcher("/Prestamos.jsp");
+				rd.forward(request, response);
+			}
+			
+			break;
+		}
+	}
+}
+*/

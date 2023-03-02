@@ -56,19 +56,53 @@ ArrayList<Prestamo> listaPrestamos = new ArrayList<Prestamo>();
 </nav>
 <div class="containter fondo">
 	<div class="row">
-		<div class="col">
+		<div class="col-sm-4 mx-auto">
 			<%
 			for(Prestamo prest : listaPrestamos){
 			%>
-			<div class="card">
-			  <h5 class="card-header">Fecha: <%=prest.getFecha() %></h5>
-			  <div class="card-body">
-			    <h5 class="card-title">Importe: <%=prest.getImporteInteres()%></h5>
-			    <p class="card-text">Numero de cuenta: <%=prest.getCuentaDestinataria()%></p>
-			    <p class="card-text"><input type="submit" name="btnPagar" value="Pagar"></p>
-			  </div>
+			<form method="post" action="servletBanco?idPrestamo=<%=prest.getID() %>">
+			<div class="card mb-3" style="width: 40rem;">
+				<h5 class="card-header">Fecha: <%=prest.getFecha() %></h5>
+				<div class="card-body">
+					<h5 class="card-title">Importe: <%=prest.getImporteInteres()%></h5>
+					<p class="card-text">Numero de cuenta: <%=prest.getCuentaDestinataria()%></p>
+					<p class="card-text">Cantidad de cuotas <%=prest.getNumeroCuotas().getDescripcion() %></p>
+					<%
+					if(prest.getEstado()==0){
+					%>
+						<p class="card-text">Cuotas Pagadas: <%=prest.getCuotasPagadas() %></p>
+						<p class="card-text text-center"><input type="submit" name="btnPagar" value="Pagar"></p>
+					<%
+					}
+					else{
+					%>
+						<p class="card-text">Prestamo Pagado</p>
+					<%
+					}
+					%>
+				</div>
 			</div>
+			</form>
 			<% 
+			}
+			%>
+			<%
+			if(request.getAttribute("FilasMovimiento")!=null&&request.getAttribute("saldoActualizado")!=null&&request.getAttribute("cuoPagActualizadas")!=null&&request.getAttribute("insertCuota")!=null){
+				boolean filasmov = (boolean)request.getAttribute("FilasMovimiento");
+				boolean saldoAct = (boolean)request.getAttribute("saldoActualizado");
+				boolean cuoPag = (boolean)request.getAttribute("cuoPagActualizadas");
+				boolean estado = (boolean)request.getAttribute("estadoActualizado");
+				boolean insertCuota= (boolean)request.getAttribute("insertCuota");
+				if(filasmov&&saldoAct&&cuoPag&&request.getAttribute("estadoActualizado")==null){
+					%>
+					<h2 class="text-center">Cuota pagada exitosamente</h2>
+					<%
+				}
+				else if(filasmov&&saldoAct&&cuoPag&&estado){
+					%>
+					<h2 class="text-center">Prestamo pagado exitosamente</h2>
+					<%
+				}
 			}
 			%>
 			<div style="margin: 5rem " class="text-center">

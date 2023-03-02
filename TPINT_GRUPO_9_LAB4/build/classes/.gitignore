@@ -1,7 +1,7 @@
-/Servlets/
-/Entidad/
-/NegocioImpl/
-/DaoImpl/
-/Negocio/
 /Dao/
+/DaoImpl/
+/Entidad/
 /Main/
+/Negocio/
+/NegocioImpl/
+/Servlets/

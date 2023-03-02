@@ -11,6 +11,7 @@ public class Cuota {
 	private int EstadoPago;
 	private LocalDate Fecha;
 	
+	public Cuota() {}
 	
 	public Cuota(int id, int idprestamo, BigDecimal importe, int estadopago,LocalDate fecha) {
 		
