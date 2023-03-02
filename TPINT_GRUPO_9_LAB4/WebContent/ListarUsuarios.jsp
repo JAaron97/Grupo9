@@ -86,7 +86,7 @@ list =  (ArrayList<Usuario>) request.getAttribute("ListaIdUsuarios");
 				<option value="0">--Seleccionar--</option>
 						    <%
 						    for( Usuario u : list){
-						    	if(u.getTipoUsuario()==0){
+						    	if(u.getEstado()==0){
 						    %>
 						    <option value="<%=u.getDNI()%>"><%=u.getDNI()%></option>
 						    <%
