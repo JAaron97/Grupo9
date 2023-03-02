@@ -59,7 +59,7 @@
 				boolean filas = (Boolean)request.getAttribute("Filas");
 				boolean saldoActualizadoOrigen = (boolean)request.getAttribute("saldoActualizadoOrigen");
 				boolean saldoActualizadoDestino = (boolean)request.getAttribute("saldoActualizadoDestino");
-				if(!filas&&saldoActualizadoOrigen&&saldoActualizadoDestino){
+				if(filas&&saldoActualizadoOrigen&&saldoActualizadoDestino){
 					%>
 					<p class="text-center">Movimiento con exito</p>
 					<%
